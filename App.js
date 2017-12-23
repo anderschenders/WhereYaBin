@@ -77,8 +77,10 @@ export default class App extends Component {
     return (
       <View>
         <BinMap
-          bins={this.state.bins}
-          mapRegion={this.state.mapRegion} onRegionChange={this.onRegionChange.bind(this)}
+          bins={ this.state.bins }
+          mapRegion={ this.state.mapRegion } onRegionChange={ this.onRegionChange.bind(this) }
+          zoomEnabled={ true }
+          loadingEnabled={ true }
             />
       </View>
     );

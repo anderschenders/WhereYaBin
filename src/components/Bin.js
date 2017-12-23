@@ -7,7 +7,11 @@ class Bin extends Component {
   render() {
 
     return (
-      <MapView.Marker coordinate={{latitude: this.props.bin.latitude, longitude: this.props.bin.longitude}}>
+      <MapView.Marker
+        coordinate={{
+          latitude: this.props.bin.latitude, longitude: this.props.bin.longitude}}
+        pinColor='#000000'
+      >
 
         <MapView.Callout>
         </MapView.Callout>
