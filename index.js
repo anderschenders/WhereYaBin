@@ -1,13 +1,9 @@
-import React from 'react';
-import { View, AppRegistry } from 'react-native';
-import BinMap from './App';
+import React, { Component } from 'react';
+import { AppRegistry } from 'react-native';
+import App from './App';
 
-const App = () => {
-  return (
-    <View>
-      <BinMap />
-    </View>
-  );
+const WhereYaBin = () => {
+  return (<App />);
 };
 
-AppRegistry.registerComponent('WhereYaBin', () => App);
+AppRegistry.registerComponent('WhereYaBin', () => WhereYaBin);
