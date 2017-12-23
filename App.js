@@ -7,9 +7,7 @@ import BinMap from './src/components/BinMap';
 let { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-// const LATITUDE = 0;
-// const LONGITUDE = 0;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = .01;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const RAILSAPI = 'http://localhost:3000/bins';
 
