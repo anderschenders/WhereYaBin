@@ -7,10 +7,11 @@ import BinMap from './src/components/BinMap';
 let { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-const LATITUDE = 0;
-const LONGITUDE = 0;
+// const LATITUDE = 0;
+// const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const RAILSAPI = 'http://localhost:3000/bins';
 
 export default class App extends Component {
 
@@ -20,6 +21,7 @@ export default class App extends Component {
     this.state = {
       mapRegion: null,
       error: null,
+      bins: [],
     }
 
     this.watchID = null;
@@ -44,11 +46,23 @@ export default class App extends Component {
   }
 
   onRegionChange(region) {
-    // this.fetchBins(region);
+    this.fetchBins(region);
 
     this.setState({
       mapRegion: region,
       error: null,
+    });
+  }
+
+  fetchBins(region) {
+    fetch(RAILSAPI)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
     });
   }
 
