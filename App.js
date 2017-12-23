@@ -58,7 +58,12 @@ export default class App extends Component {
     fetch(RAILSAPI)
     .then((response) => response.json())
     .then((responseJson) => {
+      console.log('@@@@@@@@@@ responseJson @@@@@@@@@@');
       console.log(responseJson);
+      this.setState({ bins: responseJson})
+      console.log('@@@@@@@@@@ setState @@@@@@@@@@');
+      console.log(this.state);
+
       return responseJson;
     })
     .catch((error) => {
@@ -74,6 +79,7 @@ export default class App extends Component {
     return (
       <View>
         <BinMap
+          bins={this.state.bins}
           mapRegion={this.state.mapRegion} onRegionChange={this.onRegionChange.bind(this)}
             />
       </View>
