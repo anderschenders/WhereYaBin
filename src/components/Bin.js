@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, Text, Image, Button } from 'react-native';
+import { AppRegistry, StyleSheet, View, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 import Card from './Card';
 import CardSection from './CardSection';
+import Button from './Button';
 
 class Bin extends Component {
 
@@ -43,11 +44,10 @@ class Bin extends Component {
 
             <CardSection>
               <Button
-                style={styles.buttonStyle}
-                title='Remove'
-                color='#000'
+                onPress={() => console.log('Call to API to remove')}
                 accessibilityLabel='Press to remove bin'
               >
+                Remove bin
               </Button>
             </CardSection>
           </Card>
