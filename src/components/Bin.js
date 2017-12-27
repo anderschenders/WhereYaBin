@@ -19,6 +19,10 @@ class Bin extends Component {
     }
   }
 
+  checkBinTypeTest() {
+    return 'blue'
+  }
+
   render() {
 
     return (

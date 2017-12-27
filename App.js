@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, Dimensions } from 'react-native';
+import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
 
@@ -46,10 +46,10 @@ export default class App extends Component {
   onRegionChange(region) {
     this.fetchBins(region);
 
-    this.setState({
-      mapRegion: region,
-      error: null,
-    });
+    // this.setState({
+    //   mapRegion: region,
+    //   error: null,
+    // });
   }
 
   fetchBins(region) {
@@ -58,8 +58,13 @@ export default class App extends Component {
     .then((responseJson) => {
       console.log('@@@@@@@@@@ responseJson @@@@@@@@@@');
       console.log(responseJson);
-      this.setState({ bins: responseJson})
       console.log('@@@@@@@@@@ setState @@@@@@@@@@');
+      this.setState({
+        mapRegion: region,
+        error: null,
+        bins: responseJson,
+      });
+      // this.setState({ bins: responseJson})
       console.log(this.state);
 
       return responseJson;
@@ -74,16 +79,29 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <View>
-        <BinMap
-          bins={ this.state.bins }
-          mapRegion={ this.state.mapRegion } onRegionChange={ this.onRegionChange.bind(this) }
-          zoomEnabled={ true }
-          loadingEnabled={ true }
-            />
-      </View>
-    );
+
+    const {mapRegion} = this.state;
+
+    if (mapRegion) {
+      return (
+        <View>
+          <BinMap
+            bins={ this.state.bins }
+            mapRegion={ this.state.mapRegion } onRegionChange={ this.onRegionChange.bind(this) }
+            zoomEnabled={ true }
+            loadingEnabled={ true }
+            maxZoomLevel={2}
+              />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.activityIndicatorStyle}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
+
   }
 }
 
@@ -91,7 +109,11 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width: '100%',
-  }
+  },
+  activityIndicatorStyle: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });
 
 AppRegistry.registerComponent('App', () => WhereYaBin);
