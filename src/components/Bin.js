@@ -48,10 +48,19 @@ class Bin extends Component {
 
             <CardSection>
               <Button
-                onPress={() => console.log('Call to API to remove')}
-                accessibilityLabel='Press to remove bin'
+                onPress={() => console.log('Use this bin')}
+                accessibilityLabel='Use this bin'
               >
-                Remove bin
+                Use this bin
+              </Button>
+            </CardSection>
+
+            <CardSection>
+              <Button
+                onPress={() => console.log('Vote to remove bin')}
+                accessibilityLabel='Vote to remove bin'
+              >
+                Vote to remove this bin
               </Button>
             </CardSection>
           </Card>

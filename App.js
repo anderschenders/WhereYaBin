@@ -44,7 +44,7 @@ export default class App extends Component {
   }
 
   onRegionChange(region) {
-    this.fetchBins(region);
+    this.fetchBins(region); //can use region in fecth call?
 
     // this.setState({
     //   mapRegion: region,
