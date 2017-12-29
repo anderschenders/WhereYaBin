@@ -3,12 +3,12 @@ import { AppRegistry, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import Bin from './Bin';
 
-const BinMap = ({ mapRegion, onRegionChange, bins }) => (
+const BinMap = ({ mapRegion, onRegionChangeComplete, bins }) => (
   <MapView.Animated
     style={ styles.container }
     showsUserLocation={ true }
     region= { mapRegion }
-    onRegionChangeComplete={ onRegionChange }
+    onRegionChangeComplete={ onRegionChangeComplete }
   >
     { bins.map(bin => <Bin bin={bin} key={bin.bin_type} />) }
 

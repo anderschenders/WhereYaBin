@@ -12,7 +12,7 @@ class Bin extends Component {
       // Default Value for ButtonStateHolder State. Now the button is Enabled.
       useButtonStateHolder: false,
       removeButtonStateHolder: false,
-    }
+    };
   }
 
   //TODO: below doesn't work
@@ -35,7 +35,7 @@ class Bin extends Component {
     console.log('@@@@@@@@ in disableButton @@@@@@@@@');
     this.setState({
       // On State True it will Disable the button.
-      buttonStateHolder: true,
+      useButtonStateHolder: true,
     })
    }
 

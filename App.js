@@ -37,14 +37,14 @@ export default class App extends Component {
           error: null,
         }
 
-        this.onRegionChange(region);
+        this.onRegionChangeComplete(region);
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 1 }
     );
   }
 
-  onRegionChange(region) {
+  onRegionChangeComplete(region) {
     this.fetchBins(region); //do I want to be re-fetching bins every time the user zooms/pans?
 
     // this.setState({
@@ -91,7 +91,7 @@ export default class App extends Component {
           <BinMap
             bins={ bins }
             mapRegion={ mapRegion }
-            onRegionChange={ this.onRegionChange.bind(this) }
+            onRegionChangeComplete={ this.onRegionChangeComplete.bind(this) }
           />
         </View>
       );
