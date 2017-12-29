@@ -20,6 +20,7 @@ export default class App extends Component {
       mapRegion: null,
       error: null,
       bins: [],
+      regionSet: false,
     }
 
     this.watchID = null;
@@ -44,7 +45,7 @@ export default class App extends Component {
   }
 
   onRegionChange(region) {
-    this.fetchBins(region); //can use region in fecth call?
+    this.fetchBins(region); //do I want to be re-fetching bins every time the user zooms/pans?
 
     // this.setState({
     //   mapRegion: region,
@@ -59,11 +60,13 @@ export default class App extends Component {
       console.log('@@@@@@@@@@ responseJson @@@@@@@@@@');
       console.log(responseJson);
       console.log('@@@@@@@@@@ setState @@@@@@@@@@');
+
       this.setState({
         mapRegion: region,
         error: null,
         bins: responseJson,
       });
+
       // this.setState({ bins: responseJson})
       console.log(this.state);
 
@@ -80,18 +83,16 @@ export default class App extends Component {
 
   render() {
 
-    const {mapRegion} = this.state;
+    const { mapRegion, bins } = this.state;
 
     if (mapRegion) {
       return (
         <View>
           <BinMap
-            bins={ this.state.bins }
-            mapRegion={ this.state.mapRegion } onRegionChange={ this.onRegionChange.bind(this) }
-            zoomEnabled={ true }
-            loadingEnabled={ true }
-            maxZoomLevel={2}
-              />
+            bins={ bins }
+            mapRegion={ mapRegion }
+            onRegionChange={ this.onRegionChange.bind(this) }
+          />
         </View>
       );
     } else {

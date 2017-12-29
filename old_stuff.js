@@ -104,3 +104,8 @@ AppRegistry.registerComponent('WhereYaBin', () => WhereYaBin);
   }}
 />
 );
+
+////// in App.js, render
+maxZoomLevel={10}
+ onMapReady={() => {
+this.setState({ regionSet: true });

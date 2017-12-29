@@ -23,6 +23,24 @@ class Bin extends Component {
     return 'blue'
   }
 
+  useBin() {
+    console.log('In useBin:');
+    console.log('Making POST request to API');
+    fetch(
+      'http://localhost:3000/bins', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: 'some user_id'
+        })
+      }
+    );
+  }
+
+
   render() {
 
     return (
@@ -48,7 +66,7 @@ class Bin extends Component {
 
             <CardSection>
               <Button
-                onPress={() => console.log('Use this bin')}
+                onPress={ this.useBin }
                 accessibilityLabel='Use this bin'
               >
                 Use this bin
