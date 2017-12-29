@@ -6,6 +6,14 @@ import CardSection from './CardSection';
 import Button from './Button';
 
 class Bin extends Component {
+  constructor(){
+    super();
+    this.state = {
+      // Default Value for ButtonStateHolder State. Now the button is Enabled.
+      useButtonStateHolder: false,
+      removeButtonStateHolder: false,
+    }
+  }
 
   //TODO: below doesn't work
   //pinColor= { this.checkBinType }
@@ -23,6 +31,14 @@ class Bin extends Component {
     return 'blue'
   }
 
+  disableButton() {
+    console.log('@@@@@@@@ in disableButton @@@@@@@@@');
+    this.setState({
+      // On State True it will Disable the button.
+      buttonStateHolder: true,
+    })
+   }
+
   useBin() {
     console.log('In useBin:');
     console.log('Making POST request to API');
@@ -38,6 +54,7 @@ class Bin extends Component {
         })
       }
     );
+    this.disableButton();
   }
 
 
@@ -66,7 +83,8 @@ class Bin extends Component {
 
             <CardSection>
               <Button
-                onPress={ this.useBin }
+                onPress={ this.useBin.bind(this) }
+                disabled={this.state.useButtonStateHolder}
                 accessibilityLabel='Use this bin'
               >
                 Use this bin
@@ -76,6 +94,7 @@ class Bin extends Component {
             <CardSection>
               <Button
                 onPress={() => console.log('Vote to remove bin')}
+                disabled={this.state.removeButtonStateHolder}
                 accessibilityLabel='Vote to remove bin'
               >
                 Vote to remove this bin
@@ -120,17 +139,6 @@ const styles = {
   textStyle: {
     fontSize: 10,
   },
-  buttonStyle: {
-    flex: 1, //button to expand as much content as it can
-    alignSelf: 'stretch', //element position itself to fill the limits of the container
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#007aff',
-    marginLeft: 5,
-    marginRight: 5,
-    fontSize: 8,
-  }
 
 };
 

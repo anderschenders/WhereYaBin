@@ -8,7 +8,7 @@ const BinMap = ({ mapRegion, onRegionChange, bins }) => (
     style={ styles.container }
     showsUserLocation={ true }
     region= { mapRegion }
-    onRegionChange={ onRegionChange }
+    onRegionChangeComplete={ onRegionChange }
   >
     { bins.map(bin => <Bin bin={bin} key={bin.bin_type} />) }
 

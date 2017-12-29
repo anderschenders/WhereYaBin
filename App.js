@@ -87,7 +87,7 @@ export default class App extends Component {
 
     if (mapRegion) {
       return (
-        <View>
+        <View style={styles.container}>
           <BinMap
             bins={ bins }
             mapRegion={ mapRegion }
