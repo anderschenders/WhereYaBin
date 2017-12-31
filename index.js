@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import App from './App';
+import { MainNavigator } from './router';
+// import App from './App';
 
 const WhereYaBin = () => {
-  return (<App />);
+  return (<MainNavigator />);
 };
 
 AppRegistry.registerComponent('WhereYaBin', () => WhereYaBin);
+
+// return (<App />);
