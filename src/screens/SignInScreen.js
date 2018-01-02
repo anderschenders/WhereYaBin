@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableHighlight } from 'react-native';
 // import SignUpScreen from './SignUpScreen';
+import { onSignIn } from "../../auth";
 
 import t from 'tcomb-form-native';
 
@@ -88,7 +89,16 @@ class SignInScreen extends Component {
 
           console.log('THIS PROPS NAVIGATION:');
           console.log(this.props.navigation);
-          this.props.navigation.navigate("App");
+
+          console.log(onSignIn);
+            onSignIn().then((res) => {
+            if (res === true) {
+              this.props.screenProps.setSignInState(true);
+              this.props.navigation.navigate("App");
+            } else {
+              console.log('sign in didnt work');
+            }
+          })
 
         } else {
           console.log('@@@@@ API status 400 response body text: @@@@@');

@@ -64,7 +64,7 @@ class Bin extends Component {
       <MapView.Marker
         coordinate={{
           latitude: this.props.bin.latitude, longitude: this.props.bin.longitude}}
-        pinColor= 'blue'
+        pinColor={this.checkBinType()}
       >
 
         <MapView.Callout>

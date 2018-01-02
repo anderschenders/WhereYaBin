@@ -23,25 +23,25 @@ export const MainNavigator = StackNavigator({
     }
   },
 
-  App: {
-    screen: App,
-    navigationOptions: ({ navigation }) => {
-      return {
-        title: "Where Ya, Bin?",
-        headerLeft: <Button title="Profile" onPress={() => navigation.navigate('ProfileScreen')}/>,
-      }
-    }
-  },
-
-  ProfileScreen: {
-    screen: ProfileScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-        title: 'My Profile',
-        headerLeft: <Button title="Map" onPress={() => navigation.navigate('App')}/>,
-      }
-    }
-  },
+  // App: {
+  //   screen: App,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //       title: "Where Ya, Bin?",
+  //       headerLeft: <Button title="Profile" onPress={() => navigation.navigate('ProfileScreen')}/>,
+  //     }
+  //   }
+  // },
+  //
+  // ProfileScreen: {
+  //   screen: ProfileScreen,
+  //   navigationOptions: ({ navigation }) => {
+  //     return {
+  //       title: 'My Profile',
+  //       headerLeft: <Button title="Map" onPress={() => navigation.navigate('App')}/>,
+  //     }
+  //   }
+  // },
 });
 
 //TODO: below doesn't work... how to navigate to this TabNavigator from SignInScreen?
@@ -62,7 +62,6 @@ export const SignedIn = TabNavigator({
       tabBarLabel: "My Profile",
       // tabBarIcon: ({ tintColor }) =>
       //   <FontAwesome name="user" size={30} color={tintColor} />
-      // tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
     }
   },
 });
