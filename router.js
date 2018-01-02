@@ -1,7 +1,8 @@
-import { StackNavigator } from "react-navigation";
+import { StackNavigator,  TabNavigator } from "react-navigation";
 
 import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";
+import ProfileScreen from './src/screens/ProfileScreen';
 import App from './App';
 
 export const MainNavigator = StackNavigator({
@@ -20,11 +21,38 @@ export const MainNavigator = StackNavigator({
     }
   },
 
+  // App: {
+  //   screen: App,
+  //   navigationOptions: {
+  //     title: "Where Ya, Bin?"
+  //   }
+  // },
+  //
+  // ProfileScreen: {
+  //   screen: ProfileScreen,
+  //   navigationOptions: {
+  //     title: 'My Profile'
+  //     }
+  //   },
+});
+
+export const SignedIn = TabNavigator({
+
   App: {
     screen: App,
     navigationOptions: {
-      title: "Where Ya, Bin?"
+      tabBarLabel: "Map",
+        tabBarIcon: ({ tintColor }) =>
+          <FontAwesome name="home" size={30} color={tintColor} />
     }
   },
 
+  ProfileScreen: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      tabBarLabel: "My Profile",
+        tabBarIcon: ({ tintColor }) =>
+          <FontAwesome name="user" size={30} color={tintColor} />
+    }
+  },
 });

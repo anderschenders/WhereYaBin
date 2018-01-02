@@ -46,7 +46,7 @@ const options = {
       error: 'Please create a username',
     },
     password: {
-      placeholder: 'yourvalidpassword',
+      placeholder: 'abc123',
       error: 'Please create a password',
     },
   },
@@ -73,7 +73,7 @@ class SignUpScreen extends Component {
           options={options}
         />
         <TouchableHighlight style={styles.signInButtonStyle} onPress={this.handleSubmit} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Sign in</Text>
+          <Text style={styles.buttonText}>Sign up</Text>
         </TouchableHighlight>
       </View>
     );

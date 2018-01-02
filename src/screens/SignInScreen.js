@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableHighlight } from 'react-native';
-import SignUpScreen from './SignUpScreen';
+// import SignUpScreen from './SignUpScreen';
 
 import t from 'tcomb-form-native';
 
@@ -14,7 +14,7 @@ const User = t.struct({
 });
 
 const formStyles = {
-  ...Form.stylesheet,
+  ...Form.stylesheet, //don't really know how this is working
   formGroup: {
     normal: {
       marginBottom: 10
@@ -27,7 +27,7 @@ const formStyles = {
       marginBottom: 7,
       fontWeight: '600'
     },
-    // the style applied when a validation error occours
+    //styles applied when a validation error occours
     error: {
       color: 'red',
       fontSize: 18,
@@ -47,7 +47,7 @@ let options = {
       placeholder: 'TomatoRose',
     },
     password: {
-      placeholder: 'yourvalidpassword',
+      placeholder: 'abc123',
       error: 'Please enter your password'
     },
   },
@@ -60,9 +60,10 @@ class SignInScreen extends Component {
     super();
 
     this.state = {
-      email: null,
-      username: null,
-      password: null,
+      //TODO: how to store these values in form until valid entry?
+      // email: null,
+      // username: null,
+      // password: null,
       error: null,
     }
   }
@@ -71,7 +72,7 @@ class SignInScreen extends Component {
     const getFormData = this._form.getValue();
     console.log('Form data: ', getFormData);
     if (getFormData) {
-      // POST to Rails API create use route
+      // POST to Rails API users#index route
       fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
         method: 'GET',
       })
@@ -80,8 +81,15 @@ class SignInScreen extends Component {
         console.log(response);
 
         if (response.status === 200) {
-          console.log('@@@@@ API status 200 response body text: @@@@@');
-          console.log(response._bodyText);
+          console.log('@@@@@ API status 200: @@@@@');
+          // console.log(response._bodyText);
+          const parsedResponse = JSON.parse(response._bodyText);
+          console.log(parsedResponse);
+
+          console.log('THIS PROPS NAVIGATION:');
+          console.log(this.props.navigation);
+          this.props.navigation.navigate("SignedIn");
+
         } else {
           console.log('@@@@@ API status 400 response body text: @@@@@');
           console.log(response._bodyText);
