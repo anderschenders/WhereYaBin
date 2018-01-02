@@ -62,6 +62,7 @@ export const SignedIn = TabNavigator({
       tabBarLabel: "My Profile",
       // tabBarIcon: ({ tintColor }) =>
       //   <FontAwesome name="user" size={30} color={tintColor} />
+      // tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
     }
   },
 });

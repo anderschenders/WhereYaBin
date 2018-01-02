@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import { MainNavigator } from './router';
+import { MainNavigator, SignedIn } from './router';
 // import App from './App';
 
 const WhereYaBin = () => {
-  return (<MainNavigator />);
+  return (<SignedIn />);
 };
 
 AppRegistry.registerComponent('WhereYaBin', () => WhereYaBin);

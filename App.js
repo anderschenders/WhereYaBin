@@ -1,3 +1,5 @@
+'use strict'; //Strict Mode - improved error handling, disables some less-than-ideal JS features
+
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
