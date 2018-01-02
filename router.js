@@ -1,3 +1,5 @@
+import React from 'react';
+import { Button } from 'react-native';
 import { StackNavigator,  TabNavigator } from "react-navigation";
 
 import SignUpScreen from "./src/screens/SignUpScreen";
@@ -21,29 +23,36 @@ export const MainNavigator = StackNavigator({
     }
   },
 
-  // App: {
-  //   screen: App,
-  //   navigationOptions: {
-  //     title: "Where Ya, Bin?"
-  //   }
-  // },
-  //
-  // ProfileScreen: {
-  //   screen: ProfileScreen,
-  //   navigationOptions: {
-  //     title: 'My Profile'
-  //     }
-  //   },
+  App: {
+    screen: App,
+    navigationOptions: ({ navigation }) => {
+      return {
+        title: "Where Ya, Bin?",
+        headerLeft: <Button title="Profile" onPress={() => navigation.navigate('ProfileScreen')}/>,
+      }
+    }
+  },
+
+  ProfileScreen: {
+    screen: ProfileScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+        title: 'My Profile',
+        headerLeft: <Button title="Map" onPress={() => navigation.navigate('App')}/>,
+      }
+    }
+  },
 });
 
+//TODO: below doesn't work... how to navigate to this TabNavigator from SignInScreen?
 export const SignedIn = TabNavigator({
 
   App: {
     screen: App,
     navigationOptions: {
       tabBarLabel: "Map",
-        tabBarIcon: ({ tintColor }) =>
-          <FontAwesome name="home" size={30} color={tintColor} />
+      // tabBarIcon: ({ tintColor }) =>
+      //   <FontAwesome name="home" size={30} color={tintColor} />
     }
   },
 
@@ -51,8 +60,8 @@ export const SignedIn = TabNavigator({
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "My Profile",
-        tabBarIcon: ({ tintColor }) =>
-          <FontAwesome name="user" size={30} color={tintColor} />
+      // tabBarIcon: ({ tintColor }) =>
+      //   <FontAwesome name="user" size={30} color={tintColor} />
     }
   },
 });

@@ -88,7 +88,7 @@ class SignInScreen extends Component {
 
           console.log('THIS PROPS NAVIGATION:');
           console.log(this.props.navigation);
-          this.props.navigation.navigate("SignedIn");
+          this.props.navigation.navigate("App");
 
         } else {
           console.log('@@@@@ API status 400 response body text: @@@@@');

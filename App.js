@@ -20,7 +20,7 @@ export default class App extends Component {
       mapRegion: null,
       error: null,
       bins: [],
-      regionSet: false,
+      // regionSet: false,
     }
 
     this.watchID = null;
