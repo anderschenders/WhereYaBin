@@ -38,13 +38,16 @@ const formStyles = {
 const options = {
   fields: {
     email: {
-      error: 'Please enter your email address'
+      placeholder: 'your@email.com',
+      error: 'Please enter your email address',
     },
     username: {
-      error: 'Please create a username'
+      placeholder: 'TomatoRose',
+      error: 'Please create a username',
     },
     password: {
-      error: 'Please create a password'
+      placeholder: 'yourvalidpassword',
+      error: 'Please create a password',
     },
   },
   stylesheet: formStyles,

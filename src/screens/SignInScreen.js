@@ -10,6 +10,7 @@ const User = t.struct({
   email: t.String,
   username: t.maybe(t.String),
   password: t.String,
+  rememberMe: t.Boolean,
 });
 
 const formStyles = {
@@ -36,12 +37,17 @@ const formStyles = {
   }
 }
 
-const options = {
+let options = {
   fields: {
     email: {
+      placeholder: 'your@email.com',
       error: 'Please enter your email address'
     },
+    username: {
+      placeholder: 'TomatoRose',
+    },
     password: {
+      placeholder: 'yourvalidpassword',
       error: 'Please enter your password'
     },
   },
@@ -49,6 +55,17 @@ const options = {
 };
 
 class SignInScreen extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      email: null,
+      username: null,
+      password: null,
+      error: null,
+    }
+  }
 
   handleSubmit = () => {
     const getFormData = this._form.getValue();
@@ -58,21 +75,79 @@ class SignInScreen extends Component {
       fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
         method: 'GET',
       })
-      .then((response) => console.log(response._bodyText))
-      // .then((responseJson) => {
-      //   console.log('@@@@@@@@@@ Rails API response to POST: @@@@@@@@@@');
-      //   console.log(responseJson);
-      // })
+      .then((response) => {
+        console.log('@@@@@ API response: @@@@@');
+        console.log(response);
 
+        if (response.status === 200) {
+          console.log('@@@@@ API status 200 response body text: @@@@@');
+          console.log(response._bodyText);
+        } else {
+          console.log('@@@@@ API status 400 response body text: @@@@@');
+          console.log(response._bodyText);
+
+          const parsedResponse = JSON.parse(response._bodyText);
+          console.log(parsedResponse.email);
+
+          // TODO: How to keep values in form until valid entry?
+          this.setState({
+            // email: this._form.getComponent('email').refs.input.focus(),
+            // username: this._form.getComponent('username').refs.input.focus(),
+            // password: null,
+            error: parsedResponse,
+          })
+          // if ('email' in parsedResponse) {
+          //   console.log('Email in parsedResponse');
+          //   let options = {
+          //     fields: {
+          //       email: {
+          //         error: parsedResponse.email
+          //       },
+          //     }
+          //   }
+          //   console.log('Resetting options: ');
+          //   console.log(options);
+          //   // this._form.getValue();
+          // } else if ('password' in parsedResponse) {
+          //   let options = {
+          //     fields: {
+          //       password: {
+          //         error: parsedResponse.password
+          //       },
+          //     }
+          //   }
+          // }
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
     }
-     // navigate to maps
-    // navigate("App");
   }
 
   render() {
     const { navigate } = this.props.navigation;
+    let error = null
+    if (this.state.error) {
+      const errorMessage = this.state.error.error;
+      console.log('In render!');
+      console.log(this.state.error.error);
+      console.log(errorMessage);
+      error = <Text
+                style={{
+                  alignSelf: 'center',
+                  color:'rgb(249, 57, 92)',
+                  paddingBottom: 5,
+                }}>
+                  {errorMessage}
+                </Text>
+    }
+
     return (
       <View style={styles.container}>
+
+        {error}
+
         <Form
           ref={ c => this._form = c }
           type={User}
@@ -106,7 +181,7 @@ class SignInScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 100,
+    marginTop: 50,
     marginLeft: 20,
     marginRight: 20,
     padding: 20,
