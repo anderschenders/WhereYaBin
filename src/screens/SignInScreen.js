@@ -55,7 +55,18 @@ class SignInScreen extends Component {
     console.log('Form data: ', getFormData);
     if (getFormData) {
       // POST to Rails API create use route
+      fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
+        method: 'GET',
+      })
+      .then((response) => console.log(response._bodyText))
+      // .then((responseJson) => {
+      //   console.log('@@@@@@@@@@ Rails API response to POST: @@@@@@@@@@');
+      //   console.log(responseJson);
+      // })
+
     }
+     // navigate to maps
+    // navigate("App");
   }
 
   render() {
@@ -67,7 +78,11 @@ class SignInScreen extends Component {
           type={User}
           options={options}
         />
-        <TouchableHighlight style={styles.signInButtonStyle} onPress={this.handleSubmit} underlayColor='#99d9f4'>
+        <TouchableHighlight
+          style={styles.signInButtonStyle}
+          onPress={this.handleSubmit}
+
+          underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Sign in</Text>
         </TouchableHighlight>
 
@@ -123,8 +138,3 @@ const styles = StyleSheet.create({
 });
 
 export default SignInScreen;
-
-// <Button style={styles.signInButtonStyle}
-//   title="Sign in"
-//   onPress={this.handleSubmit}
-// />
