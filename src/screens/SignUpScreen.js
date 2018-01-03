@@ -73,8 +73,7 @@ class SignUpScreen extends Component {
     const getFormData = this.refs.form.getValue();
     console.log('Form data: ', getFormData);
     if (getFormData) {
-      // POST to Rails API create use route
-      // POST to Rails API users#index route
+      // POST to Rails API users#create
       fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {

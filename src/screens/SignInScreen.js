@@ -76,7 +76,7 @@ class SignInScreen extends Component {
     console.log('Form data: ', getFormData);
 
     if (getFormData) {
-      // POST to Rails API users#index route
+      // GET to Rails API users#index
       fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
         method: 'GET',
       })
@@ -116,27 +116,6 @@ class SignInScreen extends Component {
             // password: null,
             error: parsedResponse,
           })
-          // if ('email' in parsedResponse) {
-          //   console.log('Email in parsedResponse');
-          //   let options = {
-          //     fields: {
-          //       email: {
-          //         error: parsedResponse.email
-          //       },
-          //     }
-          //   }
-          //   console.log('Resetting options: ');
-          //   console.log(options);
-          //   // this._form.getValue();
-          // } else if ('password' in parsedResponse) {
-          //   let options = {
-          //     fields: {
-          //       password: {
-          //         error: parsedResponse.password
-          //       },
-          //     }
-          //   }
-          // }
         }
       })
       .catch((error) => {
