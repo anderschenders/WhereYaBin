@@ -11,7 +11,7 @@ const User = t.struct({
   email: t.String,
   username: t.maybe(t.String),
   password: t.String,
-  rememberMe: t.Boolean,
+  // rememberMe: t.Boolean,
 });
 
 const formStyles = {
@@ -70,28 +70,30 @@ class SignInScreen extends Component {
   }
 
   handleSubmit = () => {
-    const getFormData = this._form.getValue();
+    console.log('@@@@@@@@In SignInScreen, handleSubmit @@@@@@@@@');
+
+    const getFormData = this.refs.form.getValue();
     console.log('Form data: ', getFormData);
+
     if (getFormData) {
       // POST to Rails API users#index route
       fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
         method: 'GET',
       })
       .then((response) => {
-        console.log('@@@@@ API response: @@@@@');
+        console.log('API response:');
         console.log(response);
 
         if (response.status === 200) {
-          console.log('@@@@@ API status 200: @@@@@');
-          // console.log(response._bodyText);
+          console.log('API status 200');
+
           const parsedResponse = JSON.parse(response._bodyText);
+          console.log('parsedResponse:');
           console.log(parsedResponse);
+          console.log('parsedResponse.id:');
+          console.log(parsedResponse.id);
 
-          console.log('THIS PROPS NAVIGATION:');
-          console.log(this.props.navigation);
-
-          console.log(onSignIn);
-            onSignIn().then((res) => {
+            onSignIn(parsedResponse.id).then((res) => {
             if (res === true) {
               this.props.screenProps.setSignInState(true);
               this.props.navigation.navigate("App");
@@ -167,7 +169,7 @@ class SignInScreen extends Component {
         {error}
 
         <Form
-          ref={ c => this._form = c }
+          ref='form'
           type={User}
           options={options}
         />

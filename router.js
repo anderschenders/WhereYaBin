@@ -22,29 +22,8 @@ export const MainNavigator = StackNavigator({
       title: "Sign Up"
     }
   },
-
-  // App: {
-  //   screen: App,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //       title: "Where Ya, Bin?",
-  //       headerLeft: <Button title="Profile" onPress={() => navigation.navigate('ProfileScreen')}/>,
-  //     }
-  //   }
-  // },
-  //
-  // ProfileScreen: {
-  //   screen: ProfileScreen,
-  //   navigationOptions: ({ navigation }) => {
-  //     return {
-  //       title: 'My Profile',
-  //       headerLeft: <Button title="Map" onPress={() => navigation.navigate('App')}/>,
-  //     }
-  //   }
-  // },
 });
 
-//TODO: below doesn't work... how to navigate to this TabNavigator from SignInScreen?
 export const SignedIn = TabNavigator({
 
   App: {

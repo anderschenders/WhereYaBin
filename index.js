@@ -10,44 +10,29 @@ class WhereYaBin extends Component {
     onSignOut();
     this.state = {
       signedIn: false,
-      checkedSignIn: false
     };
   }
 
   componentWillMount() {
-    isSignedIn()
-      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
+    isSignedIn() //check if user is signed in
+      .then(res => this.setState({ signedIn: res }))
       .catch(err => alert("An error occurred"));
   }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //   isSignedIn()
-  //     .then(res => {
-  //      nextState = {
-  //        signedIn: true,
-  //        checkedSignIn: true,
-  //     };})
-  //     .catch(err => alert("An error occurred"));
-  // }
-
   setSignInState(signedIn) {
-    this.setState({ signedIn: signedIn, checkedSignIn: true});
+    this.setState({ signedIn: signedIn });
   }
 
   render() {
-    const { checkedSignIn, signedIn } = this.state;
-
-    // If we haven't checked AsyncStorage yet, don't render anything (better ways to do this)
-    if (!checkedSignIn) {
-      return null;
-    }
+    console.log('@@@@@@ In index.js, render @@@@@@');
+    const { signedIn } = this.state;
 
     if (signedIn) {
-      console.log('@@@@ signedIn @@@@@');
+      console.log('User is signedIn');
       console.log(signedIn);
       return <SignedIn />;
     } else {
-        console.log('@@@@ NOT signedIn @@@@@');
+        console.log('User is NOT signedIn');
 
         const screenProps = {
           setSignInState: this.setSignInState.bind(this),

@@ -1,3 +1,21 @@
+//
+//   return new Promise((resolve, reject) => {
+//     AsyncStorage.setItem("USER_KEY", JSON.stringify(userID), () => {
+//       AsyncStorage.getItem('USER_KEY', (err, result) => {
+//         console.log('$$$$$$$$$');
+//         console.log(result);
+//       });
+//     })
+//   })
+//   .then(res => {
+//     console.log("In onSignIn promise, res: ");
+//     console.log(res);
+//     resolve(true);
+//   })
+//   .catch(err => reject(err));
+// }
+
+
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';

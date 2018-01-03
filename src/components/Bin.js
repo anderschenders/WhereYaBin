@@ -19,7 +19,7 @@ class Bin extends Component {
   //pinColor= { this.checkBinType }
   checkBinType() {
     console.log('@@@@@@@@ in checkBinType @@@@@@@@@');
-    console.log(this.props.bin.bin_type);
+    // console.log(this.props.bin.bin_type);
     if (this.props.bin.bin_type.includes('N SIDE')) {
       return '#000000';
     } else {
