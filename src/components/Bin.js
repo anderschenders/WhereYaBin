@@ -57,7 +57,7 @@ class Bin extends Component {
           console.log('Making POST request to API');
 
           fetch(
-            'http://localhost:3000/bins', {
+            'http://localhost:3000/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -79,10 +79,10 @@ class Bin extends Component {
       })
       .catch(err => reject(err));
 
-      this.setState ={
-        useCount += 1,
-        users << userID,
-      }
+      // this.setState ={
+      //   useCount += 1,
+      //   users << userID,
+      // }
   }
 
 
