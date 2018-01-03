@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { StackNavigator,  TabNavigator } from "react-navigation";
+// import { FontAwesome } from "react-native-vector-icons";
+
 
 import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";
@@ -30,9 +32,23 @@ export const SignedIn = TabNavigator({
     screen: App,
     navigationOptions: {
       tabBarLabel: "Map",
-      // tabBarIcon: ({ tintColor }) =>
-      //   <FontAwesome name="home" size={30} color={tintColor} />
-    }
+      // title: 'Foo Bar',
+      //   tabBar: {
+      //       icon: ({ tintColor }) => (
+      //         <Image
+      //           source={require('./chats-icon.png')}
+      //           style={{width: 26, height: 26, tintColor: tintColor}}
+      //         />
+      //       ),
+      //   }
+      },
+    //   tabBarLabel: "Map",
+    //   tabBarIcon: ({ tintColor }) =>
+    //     <Image
+    //       source={require('./notif-icon.png')}
+    //       style={[styles.icon, {tintColor: tintColor}]}
+    //     />
+    // }
   },
 
   ProfileScreen: {
@@ -40,7 +56,10 @@ export const SignedIn = TabNavigator({
     navigationOptions: {
       tabBarLabel: "My Profile",
       // tabBarIcon: ({ tintColor }) =>
-      //   <FontAwesome name="user" size={30} color={tintColor} />
+      // <Image
+      //   source={require('./notif-icon.png')}
+      //   style={[styles.icon, {tintColor: tintColor}]}
+      // />
     }
   },
 });

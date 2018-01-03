@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Text } from 'react-native';
 import { MainNavigator, SignedIn } from './router';
-
 import { isSignedIn, onSignOut } from "./auth";
 
 class WhereYaBin extends Component {

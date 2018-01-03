@@ -12,8 +12,6 @@ class Bin extends Component {
       // Default values for ButtonStateHolders
       useButtonStateHolder: false,
       removeButtonStateHolder: false,
-      useCount: 0,
-      users: [],
     };
   }
 
@@ -79,12 +77,8 @@ class Bin extends Component {
       })
       .catch(err => reject(err));
 
-      // this.setState ={
-      //   useCount += 1,
-      //   users << userID,
-      // }
-  }
-
+      //Thank you modal!
+    }
 
   render() {
 
