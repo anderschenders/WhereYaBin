@@ -70,6 +70,7 @@ export default class App extends Component {
       });
 
       // this.setState({ bins: responseJson})
+      console.log('@@@@@@ In App.js, after setState. New state: ');
       console.log(this.state);
 
       return responseJson;

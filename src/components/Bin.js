@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, Text, Image } from 'react-native';
+import { AppRegistry, StyleSheet, View, Text, Image, AsyncStorage } from 'react-native';
 import MapView from 'react-native-maps';
 import Card from './Card';
 import CardSection from './CardSection';
@@ -9,14 +9,14 @@ class Bin extends Component {
   constructor(){
     super();
     this.state = {
-      // Default Value for ButtonStateHolder State. Now the button is Enabled.
+      // Default values for ButtonStateHolders
       useButtonStateHolder: false,
       removeButtonStateHolder: false,
+      useCount: 0,
+      users: [],
     };
   }
 
-  //TODO: below doesn't work
-  //pinColor= { this.checkBinType }
   checkBinType() {
     console.log('@@@@@@@@ in checkBinType @@@@@@@@@');
     // console.log(this.props.bin.bin_type);
@@ -27,34 +27,62 @@ class Bin extends Component {
     }
   }
 
-  checkBinTypeTest() {
-    return 'blue'
-  }
 
   disableButton() {
     console.log('@@@@@@@@ in disableButton @@@@@@@@@');
     this.setState({
-      // On State True it will Disable the button.
+      // once user clicks button, disable it
       useButtonStateHolder: true,
     })
    }
 
   useBin() {
-    console.log('In useBin:');
-    console.log('Making POST request to API');
-    fetch(
-      'http://localhost:3000/bins', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user: 'some user_id'
-        })
+    console.log('@@@@@@@@ In useBin function @@@@@@@@@');
+    console.log('Getting binID:');
+    console.log(this.props.bin.id);
+
+    console.log('Getting USER_KEY: ');
+
+    let userID = null;
+    let binID = this.props.bin.id;
+
+    AsyncStorage.getItem("USER_KEY")
+      .then(keyValue => {
+        if ( Boolean(keyValue) ) {
+          console.log('There is a valid res/USER_KEY: ');
+          console.log(keyValue);
+          userID = keyValue
+          // resolve(true);
+
+          console.log('Making POST request to API');
+
+          fetch(
+            'http://localhost:3000/bins', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: userID,
+                bin_id: binID,
+              })
+            }
+          );
+          this.disableButton();
+
+        } else {
+          console.log('There is not a valid res/USER_KEY: ');
+          console.log(keyValue);
+          // resolve(false);
+        }
+      })
+      .catch(err => reject(err));
+
+      this.setState ={
+        useCount += 1,
+        users << userID,
       }
-    );
-    this.disableButton();
   }
 
 
