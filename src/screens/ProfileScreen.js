@@ -28,7 +28,7 @@ class ProfileScreen extends Component {
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
           console.log('@@@@@@ In ProfileScreen, AsyncStorage call @@@@@@');
-          console.log('There is a valid es/USER_KEY: ');
+          console.log('There is a valid keyValue/USER_KEY: ');
           console.log(keyValue);
           console.log('keyValue.id');
           console.log(JSON.parse(keyValue).id);

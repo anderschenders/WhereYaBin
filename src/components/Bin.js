@@ -14,7 +14,40 @@ class Bin extends Component {
       // Default values for disabled button property
       useBinButtondisabled: false,
       removeBinButtonDisabled: false,
+      pinColor: null,
+      binText: null,
+      image: null,
     };
+    console.log('@@@@@@@@@ In Bin.js, constructor, this.props @@@@@@@@@ ');
+    console.log(this.props);
+  }
+
+  componentDidMount() {
+    // this.setState({
+    //   pinColor: this.checkBinTypeForPinColor(),
+    //   binText: this.checkBinTypeForText(),
+    // })
+    this.checkBinType();
+  }
+
+  checkBinType() {
+    console.log('@@@@@@@ In Bin.js, checkBinType() @@@@@@@');
+    const recyclingIcon = require('../images/med_blue_dot.png');
+    const garbageIcon = require('../images/med_black_dot.png');
+
+    if (this.props.bin.bin_type === 'GPUBL') {
+      this.setState({
+        pinColor: 'black',
+        binText: 'Garbage',
+        image: garbageIcon,
+      })
+    } else { //'RYPUBL'
+    this.setState({
+      pinColor: 'blue',
+      binText: 'Recycling',
+      image: recyclingIcon,
+    })
+    }
   }
 
   checkBinTypeForPinColor() {
@@ -26,36 +59,34 @@ class Bin extends Component {
     }
   }
 
-  // checkBinTypeForText() {
-  //   console.log('@@@@@@@@ In Bin.js, checkBinTypeForText() @@@@@@@@@');
-  //   if (this.props.bin.bin_type === 'GPUBL') {
-  //     return 'Garbage';
-  //   } else {
-  //     return 'Recycling';
-  //   }
-  // }
+  checkBinTypeForText() {
+    console.log('@@@@@@@@ In Bin.js, checkBinTypeForText() @@@@@@@@@');
+    if (this.props.bin.bin_type === 'GPUBL') {
+      return 'Garbage';
+    } else {
+      return 'Recycling';
+    }
+  }
 
-
-  disableButton() {
-    console.log('@@@@@@@@ in disableButton @@@@@@@@@');
-    this.setState({
-      // once user clicks button, disable it
-      useBinButtondisabled: true,
-    })
-    console.log('New state:');
-    console.log(this.state);
-   }
+  // disableButton() {
+  //   console.log('@@@@@@@@ in disableButton @@@@@@@@@');
+  //   this.setState({
+  //     // once user clicks button, disable it
+  //     useBinButtondisabled: true,
+  //   })
+  //   console.log('New state:');
+  //   console.log(this.state);
+  //  }
 
   useBin() {
     console.log('@@@@@@@@ In useBin function @@@@@@@@@');
     console.log('Getting binID:');
     console.log(this.props.bin.id);
 
-    console.log('Getting USER_KEY: ');
-
     let userID = null;
     let binID = this.props.bin.id;
 
+    console.log('Getting USER_KEY: ');
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
@@ -68,7 +99,6 @@ class Bin extends Component {
           // resolve(true);
 
           console.log('Making POST request to API');
-
           fetch(
             'http://localhost:3000/user_bins', {
               method: 'POST',
@@ -86,7 +116,7 @@ class Bin extends Component {
 
         } else {
           console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue);
+          console.log(keyValue); //QUESTION: What else can I do here?
           // resolve(false);
         }
       })
@@ -101,7 +131,7 @@ class Bin extends Component {
       <MapView.Marker
         coordinate={{
           latitude: this.props.bin.latitude, longitude: this.props.bin.longitude}}
-        pinColor={this.checkBinTypeForPinColor()}
+        pinColor={this.state.pinColor}
       >
 
         <MapView.Callout>
@@ -110,10 +140,10 @@ class Bin extends Component {
               <View style={ styles.thumbnailContainerStyle }>
                 <Image
                   style={ styles.imageStyle }
-                  source={ require('../images/med_black_dot.png') }
+                  source={ this.state.image }
                   />
                 <Text style={ styles.textStyle }>
-                
+                  { this.state.binText }
                 </Text>
               </View>
             </CardSection>
