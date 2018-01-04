@@ -62,6 +62,7 @@ class ProfileScreen extends Component {
         } else {
           console.log('There is not a valid res/USER_KEY: ');
           console.log(keyValue);
+          // do something useful here -> "You don't seem to be signed in?"
         }
       })
       .catch(err => reject(err));
