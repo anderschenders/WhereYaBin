@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, Text, Image, AsyncStorage } from 'react-native';
 import MapView from 'react-native-maps';
+
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
@@ -51,7 +52,10 @@ class Bin extends Component {
         if ( Boolean(keyValue) ) {
           console.log('There is a valid res/USER_KEY: ');
           console.log(keyValue);
-          userID = keyValue
+          console.log('keyValue.id');
+          console.log(JSON.parse(keyValue).id);
+
+          userID = JSON.parse(keyValue).id;
           // resolve(true);
 
           console.log('Making POST request to API');

@@ -52,7 +52,7 @@ export const SignedIn = TabNavigator({
   ProfileScreen: {
     screen: ProfileScreen,
     navigationOptions: {
-      tabBarLabel: "My Profile",
+      tabBarLabel: "Profile",
       // tabBarIcon: ({ tintColor }) =>
       // <Image
       //   source={require('./notif-icon.png')}

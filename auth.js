@@ -1,10 +1,10 @@
 import { AsyncStorage } from "react-native";
 
-export const onSignIn = (userID) => {
+export const onSignIn = (userObject) => {
   console.log('@@@@@@@@ In auth.js, onSignIn function @@@@@@@@@');
 
   return new Promise((resolve, reject) => {
-    AsyncStorage.setItem("USER_KEY", JSON.stringify(userID))
+    AsyncStorage.setItem("USER_KEY", JSON.stringify(userObject))
       .then(res => {
         console.log("In onSignIn promise, res: ");
         console.log(res); //res = null?

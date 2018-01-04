@@ -99,7 +99,7 @@ class SignUpScreen extends Component {
           console.log('parsedResponse.id:');
           console.log(parsedResponse.id);
 
-          onSignIn(parsedResponse.id).then((res) => {
+          onSignIn(parsedResponse).then((res) => {
           if (res === true) {
             this.props.screenProps.setSignInState(true);
             this.props.navigation.navigate("App");
