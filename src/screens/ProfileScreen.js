@@ -14,70 +14,100 @@ class ProfileScreen extends Component {
       username: null,
       memberSince: null,
       binCount: null,
+      userBinnedHistory: [],
     }
   }
 
   componentDidMount() {
-    //TODO: Where to put this request to AsyncStorage?
-
-    let username = null;
-    let createdAt = null;
-    let binCount = null;
+    console.log('@@@@@@@@@ In ProfileScreen.js, componenetDidMount @@@@@@@@@');
 
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
-          console.log('@@@@@@ In ProfileScreen, AsyncStorage call @@@@@@');
-          console.log('There is a valid keyValue/USER_KEY: ');
+          console.log('There is a valid res/USER_KEY: ');
           console.log(keyValue);
           console.log('keyValue.id');
           console.log(JSON.parse(keyValue).id);
 
-          console.log('keyValue.username');
-          console.log(JSON.parse(keyValue).username);
+          userID = JSON.parse(keyValue).id;
+          // resolve(true);
 
-          username = JSON.parse(keyValue).username;
+          // request to API for User data
+          console.log('Making GET request to API to get User data');
 
-          console.log('keyValue.created_at');
-          console.log(JSON.parse(keyValue).created_at);
+          let userDataParsedResponse = null;
+          let userBinDataParsedResponse = null;
 
-          createdAt = JSON.parse(keyValue).created_at;
-
-          console.log('keyValue.bin_count');
-          console.log(JSON.parse(keyValue).bin_count);
-
-          binCount = JSON.parse(keyValue).bin_count;
-
-          console.log('Initial this.state:');
-          console.log(this.state);
-
-          this.setState({
-            username: username,
-            memberSince: createdAt,
-            binCount: binCount,
+          fetch(
+            `http://localhost:3000/users?id=${encodeURIComponent(userID)}`, {
+              method: 'GET',
           })
-          console.log('New state:');
-          console.log(this.state);
+          .then((response) => {
+            console.log('API response:');
+            console.log(response);
 
-        } else {
-          console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue);
-          // do something useful here -> "You don't seem to be signed in?"
-        }
-      })
-      .catch(err => reject(err));
-  }
+            if (response.status === 200) {
+              console.log('API status 200');
+
+              userDataParsedResponse = JSON.parse(response._bodyText);
+
+              console.log('userDataParsedResponse:');
+              console.log(userDataParsedResponse);
+              //setState here?
+              //this.setState = {
+              //   username: userDataParsedResponse.username,
+              //   memberSince: userDataParsedResponse.created_at,
+              //   binCount: userDataParsedResponse.bin_count,
+              //   userBinnedHistory: [],
+              // }
+            }
+          })
+
+          // request to API for UserBin data for this User
+          console.log('Making GET request to API to get UserBin data for this particular User');
+          fetch(
+            `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
+              method: 'GET',
+          })
+          .then((response) => {
+            console.log('API response:');
+            console.log(response);
+
+            if (response.status === 200) {
+              console.log('API status 200');
+
+              userBinDataParsedResponse = JSON.parse(response._bodyText);
+
+              console.log('userBinDataParsedResponse:');
+              console.log(userBinDataParsedResponse);
+              //setState here?
+              this.setState({
+                username: userDataParsedResponse.username,
+                memberSince: userDataParsedResponse.created_at,
+                binCount: userDataParsedResponse.bin_count,
+                userBinnedHistory: userBinDataParsedResponse,
+              })
+
+              console.log('Got all API data, setState');
+              console.log(this.state);
+            }
+          })
+        }})
+      }
 
   render() {
     return (
       <View>
-        <Header headerText={'Profile'} />
+        <Header headerText={this.state.username} />
         <Card>
           <Text>
             {'Member since...'}
           </Text>
           <Text>
             {this.state.memberSince}
+          </Text>
+          <Text>
+            {'You\'ve binned'} {this.state.binCount} {''}
           </Text>
         </Card>
       </View>

@@ -118,6 +118,8 @@ class Bin extends Component {
           );
           this.disableButton();
 
+          //TODO: AsyncStorage.removeItem() and AsyncStorage.setItem()
+
         } else {
           console.log('There is not a valid res/USER_KEY: ');
           console.log(keyValue); //QUESTION: What else can I do here?

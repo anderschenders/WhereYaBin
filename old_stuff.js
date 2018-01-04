@@ -1,3 +1,55 @@
+//ProfileScreen getting user data via AsyncStorage?
+    //QUESTION: Where to put this request to AsyncStorage?
+  //
+  //   let username = null;
+  //   let createdAt = null;
+  //   let binCount = null;
+  //
+  //   AsyncStorage.getItem("USER_KEY")
+  //     .then(keyValue => {
+  //       if ( Boolean(keyValue) ) {
+  //         console.log('@@@@@@ In ProfileScreen, AsyncStorage call @@@@@@');
+  //         console.log('There is a valid keyValue/USER_KEY: ');
+  //         console.log(keyValue);
+  //         console.log('keyValue.id');
+  //         console.log(JSON.parse(keyValue).id);
+  //
+  //         console.log('keyValue.username');
+  //         console.log(JSON.parse(keyValue).username);
+  //
+  //         username = JSON.parse(keyValue).username;
+  //
+  //         console.log('keyValue.created_at');
+  //         console.log(JSON.parse(keyValue).created_at);
+  //
+  //         createdAt = JSON.parse(keyValue).created_at;
+  //
+  //         console.log('keyValue.bin_count');
+  //         console.log(JSON.parse(keyValue).bin_count);
+  //
+  //         binCount = JSON.parse(keyValue).bin_count;
+  //
+  //         console.log('Initial this.state:');
+  //         console.log(this.state);
+  //
+  //         this.setState({
+  //           username: username,
+  //           memberSince: createdAt,
+  //           binCount: binCount,
+  //         })
+  //         console.log('New state:');
+  //         console.log(this.state);
+  //
+  //       } else {
+  //         console.log('There is not a valid res/USER_KEY: ');
+  //         console.log(keyValue);
+  //         // do something useful here -> "You don't seem to be signed in?"
+  //       }
+  //     })
+  //     .catch(err => reject(err));
+  // }
+
+
 //
 //   return new Promise((resolve, reject) => {
 //     AsyncStorage.setItem("USER_KEY", JSON.stringify(userID), () => {
