@@ -70,8 +70,11 @@ class SignUpScreen extends Component {
   }
 
   handleSubmit = () => {
+    console.log('@@@@@@@@In SignUpScreen, handleSubmit @@@@@@@@@');
+
     const getFormData = this.refs.form.getValue();
     console.log('Form data: ', getFormData);
+
     if (getFormData) {
       // POST to Rails API users#create
       fetch('http://localhost:3000/users', {
@@ -83,26 +86,27 @@ class SignUpScreen extends Component {
         body: JSON.stringify(getFormData),
       })
       .then((response) => {
-        console.log('@@@@@ API response: @@@@@');
+        console.log('API response: ');
         console.log(response);
 
         if (response.status === 200) {
-          console.log('@@@@@ API status 200: @@@@@');
+          console.log('API status 200:');
+
           const parsedResponse = JSON.parse(response._bodyText);
+
+          console.log('parsedResponse:');
           console.log(parsedResponse);
+          console.log('parsedResponse.id:');
+          console.log(parsedResponse.id);
 
-          console.log('THIS PROPS NAVIGATION:');
-          console.log(this.props.navigation);
-
-          console.log(onSignIn);
-            onSignIn().then((res) => {
-            if (res === true) {
-              this.props.screenProps.setSignInState(true);
-              this.props.navigation.navigate("App");
-            } else {
-              console.log('sign in didnt work');
-            }
-          })
+          onSignIn(parsedResponse.id).then((res) => {
+          if (res === true) {
+            this.props.screenProps.setSignInState(true);
+            this.props.navigation.navigate("App");
+          } else {
+            console.log('sign in didnt work');
+          }
+        })
 
         } else {
           console.log('@@@@@ API status 400 response body text: @@@@@');

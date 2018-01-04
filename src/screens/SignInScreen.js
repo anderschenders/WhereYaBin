@@ -38,7 +38,7 @@ const formStyles = {
   }
 }
 
-let options = {
+const options = {
   fields: {
     email: {
       placeholder: 'your@email.com',
@@ -49,7 +49,8 @@ let options = {
     },
     password: {
       placeholder: 'abc123',
-      error: 'Please enter your password'
+      error: 'Please enter your password',
+      secureTextEntry: true,
     },
   },
   stylesheet: formStyles,
@@ -88,19 +89,20 @@ class SignInScreen extends Component {
           console.log('API status 200');
 
           const parsedResponse = JSON.parse(response._bodyText);
+
           console.log('parsedResponse:');
           console.log(parsedResponse);
           console.log('parsedResponse.id:');
           console.log(parsedResponse.id);
 
-            onSignIn(parsedResponse.id).then((res) => {
-            if (res === true) {
-              this.props.screenProps.setSignInState(true);
-              this.props.navigation.navigate("App");
-            } else {
-              console.log('sign in didnt work');
-            }
-          })
+          onSignIn(parsedResponse.id).then((res) => {
+          if (res === true) {
+            this.props.screenProps.setSignInState(true);
+            this.props.navigation.navigate("App");
+          } else {
+            console.log('sign in didnt work');
+          }
+        })
 
         } else {
           console.log('@@@@@ API status 400 response body text: @@@@@');

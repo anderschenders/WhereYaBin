@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { StackNavigator,  TabNavigator } from "react-navigation";
-// import { FontAwesome } from "react-native-vector-icons";
-
 
 import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";

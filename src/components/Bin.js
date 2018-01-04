@@ -32,6 +32,8 @@ class Bin extends Component {
       // once user clicks button, disable it
       useButtonStateHolder: true,
     })
+    console.log('New state:');
+    console.log(this.state);
    }
 
   useBin() {
