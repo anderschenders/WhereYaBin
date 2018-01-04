@@ -36,7 +36,7 @@ export default class App extends Component {
           longitudeDelta: LONGITUDE_DELTA,
           error: null,
         }
-
+        this.fetchBins(region);
         this.onRegionChangeComplete(region);
       },
       (error) => this.setState({ error: error.message }),
@@ -45,7 +45,7 @@ export default class App extends Component {
   }
 
   onRegionChangeComplete(region) {
-    this.fetchBins(region); //QUESTION: do I want to be re-fetching bins every time the user zooms/pans?
+    // this.fetchBins(region); //QUESTION: do I want to be re-fetching bins every time the user zooms/pans?
 
     // this.setState({
     //   mapRegion: region,

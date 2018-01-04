@@ -18,8 +18,8 @@ class Bin extends Component {
       binText: null,
       image: null,
     };
-    console.log('@@@@@@@@@ In Bin.js, constructor, this.props @@@@@@@@@ ');
-    console.log(this.props);
+    // console.log('@@@@@@@@@ In Bin.js, constructor, this.props @@@@@@@@@ ');
+    // console.log(this.props);
   }
 
   componentDidMount() {
@@ -28,6 +28,10 @@ class Bin extends Component {
     //   binText: this.checkBinTypeForText(),
     // })
     this.checkBinType();
+  }
+
+  componentWillUnmount() {
+
   }
 
   checkBinType() {
@@ -50,23 +54,23 @@ class Bin extends Component {
     }
   }
 
-  checkBinTypeForPinColor() {
-    console.log('@@@@@@@@ In Bin.js, checkBinTypeForPinColor() @@@@@@@@@');
-    if (this.props.bin.bin_type === 'GPUBL') {
-      return '#000000';
-    } else { //'RYPUBL'
-      return 'blue';
-    }
-  }
-
-  checkBinTypeForText() {
-    console.log('@@@@@@@@ In Bin.js, checkBinTypeForText() @@@@@@@@@');
-    if (this.props.bin.bin_type === 'GPUBL') {
-      return 'Garbage';
-    } else {
-      return 'Recycling';
-    }
-  }
+  // checkBinTypeForPinColor() {
+  //   console.log('@@@@@@@@ In Bin.js, checkBinTypeForPinColor() @@@@@@@@@');
+  //   if (this.props.bin.bin_type === 'GPUBL') {
+  //     return '#000000';
+  //   } else { //'RYPUBL'
+  //     return 'blue';
+  //   }
+  // }
+  //
+  // checkBinTypeForText() {
+  //   console.log('@@@@@@@@ In Bin.js, checkBinTypeForText() @@@@@@@@@');
+  //   if (this.props.bin.bin_type === 'GPUBL') {
+  //     return 'Garbage';
+  //   } else {
+  //     return 'Recycling';
+  //   }
+  // }
 
   // disableButton() {
   //   console.log('@@@@@@@@ in disableButton @@@@@@@@@');
