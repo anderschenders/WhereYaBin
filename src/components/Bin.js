@@ -10,28 +10,37 @@ class Bin extends Component {
   constructor(){
     super();
     this.state = {
-      // Default values for ButtonStateHolders
-      useButtonStateHolder: false,
-      removeButtonStateHolder: false,
+      //TODO: Below not working
+      // Default values for disabled button property
+      useBinButtondisabled: false,
+      removeBinButtonDisabled: false,
     };
   }
 
-  checkBinType() {
-    console.log('@@@@@@@@ in checkBinType @@@@@@@@@');
-    // console.log(this.props.bin.bin_type);
-    if (this.props.bin.bin_type.includes('N SIDE')) {
+  checkBinTypeForPinColor() {
+    console.log('@@@@@@@@ In Bin.js, checkBinTypeForPinColor() @@@@@@@@@');
+    if (this.props.bin.bin_type === 'GPUBL') {
       return '#000000';
-    } else {
+    } else { //'RYPUBL'
       return 'blue';
     }
   }
+
+  // checkBinTypeForText() {
+  //   console.log('@@@@@@@@ In Bin.js, checkBinTypeForText() @@@@@@@@@');
+  //   if (this.props.bin.bin_type === 'GPUBL') {
+  //     return 'Garbage';
+  //   } else {
+  //     return 'Recycling';
+  //   }
+  // }
 
 
   disableButton() {
     console.log('@@@@@@@@ in disableButton @@@@@@@@@');
     this.setState({
       // once user clicks button, disable it
-      useButtonStateHolder: true,
+      useBinButtondisabled: true,
     })
     console.log('New state:');
     console.log(this.state);
@@ -92,19 +101,19 @@ class Bin extends Component {
       <MapView.Marker
         coordinate={{
           latitude: this.props.bin.latitude, longitude: this.props.bin.longitude}}
-        pinColor={this.checkBinType()}
+        pinColor={this.checkBinTypeForPinColor()}
       >
 
         <MapView.Callout>
           <Card>
             <CardSection>
-              <View style={styles.thumbnailContainerStyle}>
+              <View style={ styles.thumbnailContainerStyle }>
                 <Image
-                  style={styles.imageStyle}
-                  source={require('../images/med_black_dot.png')}
+                  style={ styles.imageStyle }
+                  source={ require('../images/med_black_dot.png') }
                   />
-                <Text style={styles.textStyle}>
-                  {'Garbage'}
+                <Text style={ styles.textStyle }>
+                
                 </Text>
               </View>
             </CardSection>
@@ -112,7 +121,7 @@ class Bin extends Component {
             <CardSection>
               <Button
                 onPress={ this.useBin.bind(this) }
-                disabled={this.state.useButtonStateHolder}
+                disabled={ this.state.useBinButtondisabled }
                 accessibilityLabel='Use this bin'
               >
                 Use this bin
@@ -121,8 +130,8 @@ class Bin extends Component {
 
             <CardSection>
               <Button
-                onPress={() => console.log('Vote to remove bin')}
-                disabled={this.state.removeButtonStateHolder}
+                onPress={ () => console.log('Vote to remove bin') }
+                disabled={ this.state.removeBinButtonDisabled }
                 accessibilityLabel='Vote to remove bin'
               >
                 Vote to remove this bin

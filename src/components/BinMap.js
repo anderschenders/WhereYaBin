@@ -10,7 +10,7 @@ const BinMap = ({ mapRegion, onRegionChangeComplete, bins }) => (
     region={ mapRegion }
     onRegionChangeComplete={ onRegionChangeComplete }
   >
-    { bins.map(bin => <Bin bin={bin} key={bin.bin_type} />) }
+    { bins.map(bin => <Bin bin={ bin } key={ bin.id } />) }
 
   </MapView.Animated>
 );

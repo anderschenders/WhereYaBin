@@ -1,10 +1,9 @@
-'use strict'; //Strict Mode - improved error handling, disables some less-than-ideal JS features
+'use strict'; //improved error handling, disables some less-than-ideal JS features
 
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
-
 
 let { width, height } = Dimensions.get('window');
 
@@ -14,7 +13,6 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const RAILSAPI = 'http://localhost:3000/bins';
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
 
@@ -47,7 +45,7 @@ export default class App extends Component {
   }
 
   onRegionChangeComplete(region) {
-    this.fetchBins(region); //do I want to be re-fetching bins every time the user zooms/pans?
+    this.fetchBins(region); //QUESTION: do I want to be re-fetching bins every time the user zooms/pans?
 
     // this.setState({
     //   mapRegion: region,
@@ -59,24 +57,23 @@ export default class App extends Component {
     fetch(RAILSAPI)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log('@@@@@@@@@@ responseJson @@@@@@@@@@');
+      console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
       console.log(responseJson);
-      console.log('@@@@@@@@@@ setState @@@@@@@@@@');
 
+      //QUESTION: is this the right place for setState?
       this.setState({
         mapRegion: region,
         error: null,
         bins: responseJson,
       });
 
-      // this.setState({ bins: responseJson})
-      console.log('@@@@@@ In App.js, after setState. New state: ');
+      console.log('After setState. New state: ');
       console.log(this.state);
 
       return responseJson;
     })
     .catch((error) => {
-      console.error(error);
+      console.error(error); //QUESTION: what else can I do here?
     });
   }
 
