@@ -166,11 +166,11 @@ class Bin extends Component {
 
             <CardSection>
               <Button
-                onPress={ () => console.log('Vote to remove bin') }
+                onPress={ () => console.log('Report full bin') }
                 disabled={ this.state.removeBinButtonDisabled }
-                accessibilityLabel='Vote to remove bin'
+                accessibilityLabel='Report full bin'
               >
-                Vote to remove this bin
+                Report full bin
               </Button>
             </CardSection>
           </Card>

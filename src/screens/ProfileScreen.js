@@ -86,7 +86,7 @@ class ProfileScreen extends Component {
               //setState here?
               this.setState({
                 username: userDataParsedResponse.username,
-                memberSince: userDataParsedResponse.created_at,
+                memberSince: userDataParsedResponse.created_at.substring(0,10),
                 binCount: userDataParsedResponse.bin_count,
                 userBinnedHistory: userBinDataParsedResponse,
               })
@@ -143,7 +143,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   textStyle: {
-    marginTop: 10,
+    marginTop: 5,
+    marginBottom: 5,
     textAlign: 'center',
   },
 });

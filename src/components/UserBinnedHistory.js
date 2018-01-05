@@ -9,32 +9,38 @@ const UserBinnedHistory = ({ userBinnedHistory }) => {
   return (
     <View style={ styles.containerViewStyle }>
       <Text style={ styles.headerTextStyle }>
-        Where Ya Bin
-      </Text>
-      <ScrollView>
+        Where YOU Bin </Text>
 
-        { userBinnedHistory.map(userBin =>
+        <ScrollView style={styles.scrollViewContainer}>
 
-          <View
-            key={ userBin.id }
-            style={ styles.viewSectionStyle }
-          >
-            <Image
-              style={ styles.imageStyle }
-              source={ require('../images/earth_icon.png') }
-            />
-            <Text style={ styles.viewSectionTextStyle }>
-              {'BINNED on'} { userBin.created_at }
-            </Text>
-          </View>
-          )
-        }
-      </ScrollView>
+          { userBinnedHistory.map(userBin =>
+
+            <View
+              key={ userBin.id }
+              style={ styles.viewSectionStyle }
+            >
+              <Image
+                style={ styles.imageStyle }
+                source={ require('../images/earth_icon.png') }
+              />
+              <Text style={ styles.viewSectionTextStyle }>
+                {'BINNED on'} { userBin.created_at.substring(0,10) }
+              </Text>
+            </View>
+            )
+          }
+        </ScrollView>
+
     </View>
     );
   }
 
 const styles = StyleSheet.create({
+  // scrollViewContainer: {
+  //   backgroundColor: 'transparent',
+    // paddingLeft:20,
+    // paddingRight:20
+  // },
   containerViewStyle: {
     borderWidth: 1,
     borderRadius: 2,
@@ -53,21 +59,30 @@ const styles = StyleSheet.create({
   headerTextStyle: {
     fontSize: 20,
     textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 10,
   },
   viewSectionTextStyle: {
-    fontSize: 14,
+    fontSize: 20,
+    marginTop: 20,
   },
   imageStyle: {
+    marginTop: 10,
+    marginBottom: 10,
     marginLeft: 10,
-    height: 30,
-    width: 30,
+    marginRight: 10,
+    height: 50,
+    width: 50,
   },
   viewSectionStyle: {
+    borderTopWidth: 1,
     borderBottomWidth: 1,
     padding: 1,
     backgroundColor: '#fff',
     justifyContent: 'flex-start', //push items to the left
     flexDirection: 'row', //defaults to column(block)
+    // flexWrap: 'wrap',
+    // flex: 1,
     borderColor: '#ddd',
     position: 'relative'
   },
