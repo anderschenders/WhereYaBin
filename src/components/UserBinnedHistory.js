@@ -21,7 +21,7 @@ const UserBinnedHistory = ({ userBinnedHistory }) => {
             >
               <Image
                 style={ styles.imageStyle }
-                source={ require('../images/earth_icon.png') }
+                source={ require('../images/earth_icon2.png') }
               />
               <Text style={ styles.viewSectionTextStyle }>
                 {'BINNED on'} { userBin.created_at.substring(0,10) }
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     // paddingRight:20
   // },
   containerViewStyle: {
+    // flex: 1,
     borderWidth: 1,
     borderRadius: 2,
     borderColor: "#ddd",

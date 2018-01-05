@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     marginRight:20,
     marginTop: 20,
     marginBottom: 20,
+    // flex: 1,
   },
   textStyle: {
     marginTop: 5,
