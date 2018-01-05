@@ -9,6 +9,7 @@ class WhereYaBin extends Component {
     onSignOut();
     this.state = {
       signedIn: false,
+      userData: null,
     };
   }
 
@@ -18,24 +19,41 @@ class WhereYaBin extends Component {
       .catch(err => alert("An error occurred"));
   }
 
+  forceIndexComponentRender() {
+    this.forceUpdate();
+  }
+
+  setUserData(userData) {
+    console.log("In Index.js, resetting user data:");
+    this.setState({ userData: userData});
+  }
+
   setSignInState(signedIn) {
     this.setState({ signedIn: signedIn });
   }
 
   render() {
     console.log('@@@@@@ In index.js, render @@@@@@');
+    console.log(this.state.userData);
+
     const { signedIn } = this.state;
+
+    const screenProps = {
+      setSignInState: this.setSignInState.bind(this),
+      setUserData: this.setUserData.bind(this),
+      forceIndexComponentRender: this.forceIndexComponentRender.bind(this),
+    };
+
 
     if (signedIn) {
       console.log('User is signedIn');
       console.log(signedIn);
-      return <SignedIn />;
+
+      return <SignedIn screenProps={ screenProps } userData={ this.state.userData }/>;
+
     } else {
         console.log('User is NOT signedIn');
 
-        const screenProps = {
-          setSignInState: this.setSignInState.bind(this),
-        };
 
       return <MainNavigator screenProps={ screenProps } />;
     }

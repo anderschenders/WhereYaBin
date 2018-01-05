@@ -9,14 +9,22 @@ import ProfileHistoryCard from '../components/ProfileHistoryCard'
 
 class ProfileScreen extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
+      // userData: this.props.userData,
       username: null,
       memberSince: null,
       binCount: null,
       userBinnedHistory: [],
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userData !== this.props.userData) {
+      console.log('PROPS CHANGED');
+      // this.setState({ this.state.userData: nextProps.userData });
     }
   }
 
@@ -57,13 +65,13 @@ class ProfileScreen extends Component {
               console.log(userDataParsedResponse);
             }
           })
-          .catch(err => console.log(err))
-
-          // request to API for UserBin data for this User
-          console.log('Making GET request to API to get UserBin data for this particular User');
-          fetch(
-            `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
-              method: 'GET',
+          .then(() => {
+            // request to API for UserBin data for this User
+            console.log('Making GET request to API to get UserBin data for this particular User');
+            return fetch(
+              `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
+                method: 'GET',
+            })
           })
           .then((response) => {
             console.log('API response:');
@@ -90,6 +98,7 @@ class ProfileScreen extends Component {
             }
           })
           .catch(err => console.log(err))
+
         }})
       }
 
@@ -99,16 +108,16 @@ class ProfileScreen extends Component {
 
     return (
       <View>
-        <Header headerText={ this.state.username } />
+        <Header headerText={ this.props.userData.username } />
 
         <View style={ styles.containerViewStyle }>
           <Card>
             <Text style={ styles.textStyle }>
-              {'Member since:'} { this.state.memberSince  }
+              {'Member since:'} { this.props.userData.memberSince  }
             </Text>
 
             <Text style={ styles.textStyle }>
-              {'Total times binned:'} { this.state.binCount } {''}
+              {'Total times binned:'} { this.props.userData.binCount } {''}
             </Text>
           </Card>
 

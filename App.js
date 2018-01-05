@@ -89,6 +89,7 @@ export default class App extends Component {
       return (
         <View style={styles.container}>
           <BinMap
+            screenProps={ this.props.screenProps } 
             bins={ bins }
             mapRegion={ mapRegion }
             onRegionChangeComplete={ this.onRegionChangeComplete.bind(this) }

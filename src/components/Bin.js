@@ -17,6 +17,7 @@ class Bin extends Component {
       pinColor: null,
       binText: null,
       image: null,
+      // userData: this.props.userData,
     };
   }
 
@@ -109,11 +110,13 @@ class Bin extends Component {
                   console.log("Successfully set new user data, res: ");
                   console.log(res); //returns null
                   // resolve(true);
+                  this.props.screenProps.setUserData(newUserData);
+                  // this.props.screenProps.forceIndexComponentRender();
                 })
-                .catch(err => reject(err))
+                .catch(err => console.log(err))
 
               })
-              .catch(err => reject(err))
+              .catch(err => console.log(err))
 
             } else {
               console.log('@@@@@ API status 400 response body text: @@@@@');
