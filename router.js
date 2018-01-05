@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { StackNavigator,  TabNavigator } from "react-navigation";
+import { Icon } from 'react-native-elements';
 
 import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";
@@ -30,34 +31,15 @@ export const SignedIn = TabNavigator({
     screen: App,
     navigationOptions: {
       tabBarLabel: "Map",
-      // title: 'Foo Bar',
-      //   tabBar: {
-      //       icon: ({ tintColor }) => (
-      //         <Image
-      //           source={require('./chats-icon.png')}
-      //           style={{width: 26, height: 26, tintColor: tintColor}}
-      //         />
-      //       ),
-      //   }
-      },
-    //   tabBarLabel: "Map",
-    //   tabBarIcon: ({ tintColor }) =>
-    //     <Image
-    //       source={require('./notif-icon.png')}
-    //       style={[styles.icon, {tintColor: tintColor}]}
-    //     />
-    // }
+      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />
+    }
   },
 
   ProfileScreen: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Profile",
-      // tabBarIcon: ({ tintColor }) =>
-      // <Image
-      //   source={require('./notif-icon.png')}
-      //   style={[styles.icon, {tintColor: tintColor}]}
-      // />
+      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />
     }
   },
 });
