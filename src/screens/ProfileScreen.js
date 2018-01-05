@@ -21,7 +21,7 @@ class ProfileScreen extends Component {
   }
 
   componentDidMount() {
-    console.log('@@@@@@@@@ In ProfileScreen.js, componenetDidMount @@@@@@@@@');
+    console.log('@@@@@@@@@ In ProfileScreen.js, componentDidMount @@@@@@@@@');
 
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
@@ -55,15 +55,9 @@ class ProfileScreen extends Component {
 
               console.log('userDataParsedResponse:');
               console.log(userDataParsedResponse);
-              //setState here?
-              //this.setState = {
-              //   username: userDataParsedResponse.username,
-              //   memberSince: userDataParsedResponse.created_at,
-              //   binCount: userDataParsedResponse.bin_count,
-              //   userBinnedHistory: [],
-              // }
             }
           })
+          .catch(err => console.log(err))
 
           // request to API for UserBin data for this User
           console.log('Making GET request to API to get UserBin data for this particular User');
@@ -95,15 +89,19 @@ class ProfileScreen extends Component {
               console.log(this.state);
             }
           })
+          .catch(err => console.log(err))
         }})
       }
 
   render() {
+
+    // this.getData();
+
     return (
       <View>
         <Header headerText={ this.state.username } />
 
-        <View style={styles.containerViewStyle}>
+        <View style={ styles.containerViewStyle }>
           <Card>
             <Text style={ styles.textStyle }>
               {'Member since:'} { this.state.memberSince  }

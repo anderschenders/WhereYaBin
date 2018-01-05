@@ -31,7 +31,7 @@ export const SignedIn = TabNavigator({
     screen: App,
     navigationOptions: {
       tabBarLabel: "Map",
-      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Icon name="map" size={35} color={tintColor} />
     }
   },
 
@@ -39,7 +39,7 @@ export const SignedIn = TabNavigator({
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Profile",
-      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Icon name="face" size={35} color={tintColor} />
     }
   },
 });

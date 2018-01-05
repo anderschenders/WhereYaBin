@@ -121,7 +121,7 @@ class SignInScreen extends Component {
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.log('error:', error);
       })
     }
   }

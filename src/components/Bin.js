@@ -13,26 +13,26 @@ class Bin extends Component {
       //TODO: Below not working
       // Default values for disabled button property
       useBinButtondisabled: false,
-      removeBinButtonDisabled: false,
+      reportFullBinButtonDisabled: false,
       pinColor: null,
       binText: null,
       image: null,
     };
-    // console.log('@@@@@@@@@ In Bin.js, constructor, this.props @@@@@@@@@ ');
-    // console.log(this.props);
   }
 
   componentDidMount() {
-    // this.setState({
-    //   pinColor: this.checkBinTypeForPinColor(),
-    //   binText: this.checkBinTypeForText(),
-    // })
     this.checkBinType();
   }
 
-  componentWillUnmount() {
-
-  }
+  // disableButton() {
+  //   console.log('@@@@@@@@ in disableButton @@@@@@@@@');
+  //   this.setState({
+  //     // once user clicks button, disable it
+  //     useBinButtondisabled: true,
+  //   })
+  //   console.log('New state:');
+  //   console.log(this.state);
+  //  }
 
   checkBinType() {
     console.log('@@@@@@@ In Bin.js, checkBinType() @@@@@@@');
@@ -54,34 +54,6 @@ class Bin extends Component {
     }
   }
 
-  // checkBinTypeForPinColor() {
-  //   console.log('@@@@@@@@ In Bin.js, checkBinTypeForPinColor() @@@@@@@@@');
-  //   if (this.props.bin.bin_type === 'GPUBL') {
-  //     return '#000000';
-  //   } else { //'RYPUBL'
-  //     return 'blue';
-  //   }
-  // }
-  //
-  // checkBinTypeForText() {
-  //   console.log('@@@@@@@@ In Bin.js, checkBinTypeForText() @@@@@@@@@');
-  //   if (this.props.bin.bin_type === 'GPUBL') {
-  //     return 'Garbage';
-  //   } else {
-  //     return 'Recycling';
-  //   }
-  // }
-
-  // disableButton() {
-  //   console.log('@@@@@@@@ in disableButton @@@@@@@@@');
-  //   this.setState({
-  //     // once user clicks button, disable it
-  //     useBinButtondisabled: true,
-  //   })
-  //   console.log('New state:');
-  //   console.log(this.state);
-  //  }
-
   useBin() {
     console.log('@@@@@@@@ In useBin function @@@@@@@@@');
     console.log('Getting binID:');
@@ -89,20 +61,18 @@ class Bin extends Component {
 
     let userID = null;
     let binID = this.props.bin.id;
+    let newUserData = null;
 
     console.log('Getting USER_KEY: ');
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
-          console.log('There is a valid res/USER_KEY: ');
-          console.log(keyValue);
-          console.log('keyValue.id');
+          console.log('There is a valid keyValue/USER_KEY: ');
           console.log(JSON.parse(keyValue).id);
 
           userID = JSON.parse(keyValue).id;
-          // resolve(true);
 
-          console.log('Making POST request to API');
+          console.log('Making POST request to API to create user_bin');
           fetch(
             'http://localhost:3000/user_bins', {
               method: 'POST',
@@ -115,20 +85,58 @@ class Bin extends Component {
                 bin_id: binID,
               })
             }
-          );
-          this.disableButton();
+          )
+          .then((response) => {
+            if (response.status === 200) {
+              console.log('API status 200');
 
-          //TODO: AsyncStorage.removeItem() and AsyncStorage.setItem()
+              const parsedResponse = JSON.parse(response._bodyText);
+
+              console.log('parsedResponse:');
+              console.log(parsedResponse);
+
+              newUserData = parsedResponse.updated_user;
+
+              // remove USER_KEY from AsyncStorage
+              AsyncStorage.removeItem('USER_KEY')
+              .then(res => {
+                console.log('AsyncStorage removeItem resolved')
+                console.log('AsyncStorage setItem: ');
+
+                // set USER_KEY with updated user data
+                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
+                .then(res => {
+                  console.log("Successfully set new user data, res: ");
+                  console.log(res); //returns null
+                  // resolve(true);
+                })
+                .catch(err => reject(err))
+
+              })
+              .catch(err => reject(err))
+
+            } else {
+              console.log('@@@@@ API status 400 response body text: @@@@@');
+              console.log(response._bodyText);
+
+              const parsedResponse = JSON.parse(response._bodyText);
+              console.log('parsedResponse:');
+              console.log(parsedResponse);
+            }
+          })
+          .catch((error) => {
+            console.log('error:', error);
+          })
+
+          //BUG: disableButton not working
+          // this.disableButton();
 
         } else {
           console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //QUESTION: What else can I do here?
-          // resolve(false);
+          console.log(keyValue); //TODO: display message to user
         }
       })
       .catch(err => reject(err));
-
-      //Thank you modal!
     }
 
   render() {
@@ -167,7 +175,7 @@ class Bin extends Component {
             <CardSection>
               <Button
                 onPress={ () => console.log('Report full bin') }
-                disabled={ this.state.removeBinButtonDisabled }
+                disabled={ this.state.reportFullBinButtonDisabled }
                 accessibilityLabel='Report full bin'
               >
                 Report full bin
