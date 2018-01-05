@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage, ScrollView, StyleSheet } from 'react-native';
 
 import Header from '../components/Header';
 import Card from '../components/Card';
 import CardSection from '../components/CardSection';
+import UserBinnedHistory from '../components/UserBinnedHistory'
 
 class ProfileScreen extends Component {
 
@@ -80,6 +81,7 @@ class ProfileScreen extends Component {
 
               console.log('userBinDataParsedResponse:');
               console.log(userBinDataParsedResponse);
+
               //setState here?
               this.setState({
                 username: userDataParsedResponse.username,
@@ -100,19 +102,29 @@ class ProfileScreen extends Component {
       <View>
         <Header headerText={this.state.username} />
         <Card>
-          <Text>
-            {'Member since...'}
+          <Text style={styles.textStyle}>
+            {'Member since:'} {this.state.memberSince}
           </Text>
-          <Text>
-            {this.state.memberSince}
-          </Text>
+
           <Text>
             {'You\'ve binned'} {this.state.binCount} {''}
           </Text>
         </Card>
+        <UserBinnedHistory
+          userBinnedHistory={ this.state.userBinnedHistory }>
+        </UserBinnedHistory>
       </View>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  textStyle: {
+    marginTop: 3,
+    textAlign: 'center',
+  }
+});
+
 
 export default ProfileScreen;
