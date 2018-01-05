@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import CardSection from '../components/CardSection';
 import UserBinnedHistory from '../components/UserBinnedHistory'
+import ProfileHistoryCard from '../components/ProfileHistoryCard'
 
 class ProfileScreen extends Component {
 
@@ -100,19 +101,25 @@ class ProfileScreen extends Component {
   render() {
     return (
       <View>
-        <Header headerText={this.state.username} />
-        <Card>
-          <Text style={styles.textStyle}>
-            {'Member since:'} {this.state.memberSince}
-          </Text>
+        <Header headerText={ this.state.username } />
 
-          <Text>
-            {'You\'ve binned'} {this.state.binCount} {''}
-          </Text>
-        </Card>
-        <UserBinnedHistory
-          userBinnedHistory={ this.state.userBinnedHistory }>
-        </UserBinnedHistory>
+        <View style={styles.containerViewStyle}>
+          <Card>
+            <Text style={ styles.textStyle }>
+              {'Member since:'} { this.state.memberSince  }
+            </Text>
+
+            <Text style={ styles.textStyle }>
+              {'Total times binned:'} { this.state.binCount } {''}
+            </Text>
+          </Card>
+
+          <UserBinnedHistory
+            userBinnedHistory={ this.state.userBinnedHistory }>
+          </UserBinnedHistory>
+
+        </View>
+
       </View>
     );
   }
@@ -120,10 +127,25 @@ class ProfileScreen extends Component {
 
 
 const styles = StyleSheet.create({
+  containerViewStyle: {
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: "#ddd",
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
+    marginLeft: 20,
+    marginRight:20,
+    marginTop: 20,
+    marginBottom: 20,
+  },
   textStyle: {
-    marginTop: 3,
+    marginTop: 10,
     textAlign: 'center',
-  }
+  },
 });
 
 

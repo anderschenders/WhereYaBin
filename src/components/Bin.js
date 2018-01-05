@@ -45,12 +45,12 @@ class Bin extends Component {
         binText: 'Garbage',
         image: garbageIcon,
       })
-    } else { //'RYPUBL'
-    this.setState({
-      pinColor: 'blue',
-      binText: 'Recycling',
-      image: recyclingIcon,
-    })
+    } else if (this.props.bin.bin_type === 'RYPUBL') {
+      this.setState({
+        pinColor: 'blue',
+        binText: 'Recycling',
+        image: recyclingIcon,
+      })
     }
   }
 
