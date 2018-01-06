@@ -4,7 +4,7 @@ import MapView from 'react-native-maps';
 // import { Card, Button } from 'react-native-elements';
 // import { Button } from 'react-native-elements'
 
-import Card from './Card';
+import CallOutCard from './CallOutCard';
 import CardSection from './CardSection';
 import Button from './Button';
 
@@ -155,8 +155,7 @@ class Bin extends Component {
 
         <MapView.Callout>
 
-        <Card>
-
+        <CallOutCard>
           <CardSection>
             <View style={ styles.binTypeContainerStyle }>
               <Image
@@ -169,28 +168,26 @@ class Bin extends Component {
             </View>
           </CardSection>
 
+          <CardSection>
             <Button
-              raised
-              title='USE THIS BIN'
-              backgroundColor='#397af8'
               onPress={ this.useBin.bind(this) }
               disabled={ this.state.useBinButtondisabled }
               accessibilityLabel='Use this bin'
             >
+              USE THIS BIN
             </Button>
+          </CardSection>
 
-            <View style={styles.addMargin}></View>
-
+          <CardSection>
             <Button
-              raised
-              title='REPORT AS FULL'
-              backgroundColor='#397af8'
               onPress={ () => console.log('Report full bin') }
               disabled={ this.state.reportFullBinButtonDisabled }
               accessibilityLabel='Report full bin'
             >
+              REPORT FULL BIN
             </Button>
-        </Card>
+          </CardSection>
+        </CallOutCard>
         </MapView.Callout>
 
       </MapView.Marker>

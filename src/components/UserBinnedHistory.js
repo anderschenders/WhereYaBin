@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 
-import Card from './Card';
-import ProfileHistoryCardSection from './ProfileHistoryCardSection'
+// import ProfileCard from './ProfileCard';
+// import ProfileHistoryCardSection from './ProfileHistoryCardSection'
 
 const UserBinnedHistory = ({ userBinnedHistory }) => {
 

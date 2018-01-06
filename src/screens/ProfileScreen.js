@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, AsyncStorage, ScrollView, StyleSheet } from 'react-native';
 
 import Header from '../components/Header';
-import Card from '../components/Card';
-import CardSection from '../components/CardSection';
+import ProfileCard from '../components/ProfileCard';
+// import CardSection from '../components/CardSection';
 import UserBinnedHistory from '../components/UserBinnedHistory'
-import ProfileHistoryCard from '../components/ProfileHistoryCard'
+// import ProfileHistoryCard from '../components/ProfileHistoryCard'
 
 class ProfileScreen extends Component {
 
@@ -148,7 +148,7 @@ class ProfileScreen extends Component {
         <Header headerText={ this.state.username } />
 
         <View style={ styles.containerViewStyle }>
-          <Card>
+          <ProfileCard>
             <Text style={ styles.textStyle }>
               {'Member since:'} { this.state.memberSince  }
             </Text>
@@ -156,7 +156,7 @@ class ProfileScreen extends Component {
             <Text style={ styles.textStyle }>
               {'Total times binned:'} { this.state.binCount } {''}
             </Text>
-          </Card>
+          </ProfileCard>
 
           <UserBinnedHistory
             userBinnedHistory={ this.state.userBinnedHistory }>
