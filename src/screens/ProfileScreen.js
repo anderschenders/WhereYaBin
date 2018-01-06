@@ -13,18 +13,56 @@ class ProfileScreen extends Component {
     super(props);
 
     this.state = {
-      // userData: this.props.userData,
+      userData: this.props.screenProps.userData,
       username: null,
       memberSince: null,
       binCount: null,
       userBinnedHistory: [],
     }
+    console.log('@@@@@@@ In ProfileScreen, this.state @@@@@@@');
+    console.log(this.state);
+    console.log('this.props');
+    console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.userData !== this.props.userData) {
-      console.log('PROPS CHANGED');
-      // this.setState({ this.state.userData: nextProps.userData });
+    if (nextProps.screenProps.userData !== this.props.screenProps.userData) {
+      console.log('In componentWillReceiveProps, props changed!');
+      console.log('this.props.screenProps.userData:');
+      console.log(this.props.screenProps.userData);
+      console.log('nextProps.userData:');
+      console.log(nextProps.userData);
+      console.log('nextProps.screenProps.userData:');
+      console.log(nextProps.screenProps.userData);
+      console.log('Making GET request to API to get UserBin data for this particular User');
+
+      fetch(
+        `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
+          method: 'GET',
+      })
+      .then((response) => {
+        console.log('Getting UserBins API response:');
+        console.log(response);
+
+        if (response.status === 200) {
+          console.log('API status 200');
+
+          userBinDataParsedResponse = JSON.parse(response._bodyText);
+
+          console.log('userBinDataParsedResponse:');
+          console.log(userBinDataParsedResponse);
+
+          //setState here?
+          this.setState({
+            userData: nextProps.screenProps.userData,
+            username: nextProps.screenProps.userData.username,
+            memberSince: nextProps.screenProps.userData.created_at.substring(0,10),
+            binCount: nextProps.screenProps.userData.bin_count,
+            userBinnedHistory: userBinDataParsedResponse,
+          })
+        }
+      })
+      .catch(err => console.log(err))
     }
   }
 
@@ -108,16 +146,16 @@ class ProfileScreen extends Component {
 
     return (
       <View>
-        <Header headerText={ this.props.userData.username } />
+        <Header headerText={ this.state.username } />
 
         <View style={ styles.containerViewStyle }>
           <Card>
             <Text style={ styles.textStyle }>
-              {'Member since:'} { this.props.userData.memberSince  }
+              {'Member since:'} { this.state.memberSince  }
             </Text>
 
             <Text style={ styles.textStyle }>
-              {'Total times binned:'} { this.props.userData.binCount } {''}
+              {'Total times binned:'} { this.state.binCount } {''}
             </Text>
           </Card>
 
@@ -148,6 +186,7 @@ const styles = StyleSheet.create({
     marginRight:20,
     marginTop: 20,
     marginBottom: 20,
+    height: 500,
     // flex: 1,
   },
   textStyle: {

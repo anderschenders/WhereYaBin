@@ -42,6 +42,7 @@ class WhereYaBin extends Component {
       setSignInState: this.setSignInState.bind(this),
       setUserData: this.setUserData.bind(this),
       forceIndexComponentRender: this.forceIndexComponentRender.bind(this),
+      userData: this.state.userData,
     };
 
 
@@ -49,7 +50,7 @@ class WhereYaBin extends Component {
       console.log('User is signedIn');
       console.log(signedIn);
 
-      return <SignedIn screenProps={ screenProps } userData={ this.state.userData }/>;
+      return <SignedIn screenProps={ screenProps } />;
 
     } else {
         console.log('User is NOT signedIn');

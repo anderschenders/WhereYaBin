@@ -38,7 +38,7 @@ export const SignedIn = TabNavigator({
   ProfileScreen: {
     screen: ProfileScreen,
     navigationOptions: {
-      tabBarLabel: "Profile",
+      tabBarLabel: "Profile", //account-circle
       tabBarIcon: ({ tintColor }) => <Icon name="face" size={35} color={tintColor} />
     }
   },
