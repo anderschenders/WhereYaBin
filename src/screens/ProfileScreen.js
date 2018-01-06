@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage, ScrollView, StyleSheet } from 'react-native';
+import { Button } from 'react-native-elements';
 
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -23,15 +24,15 @@ class ProfileScreen extends Component {
     console.log(this.state);
     console.log('this.props');
     console.log(this.props);
+
+    let userID = null;
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.screenProps.userData !== this.props.screenProps.userData) {
-      console.log('In componentWillReceiveProps, props changed!');
+      console.log('In Profile.js, componentWillReceiveProps, props changed!');
       console.log('this.props.screenProps.userData:');
       console.log(this.props.screenProps.userData);
-      console.log('nextProps.userData:');
-      console.log(nextProps.userData);
       console.log('nextProps.screenProps.userData:');
       console.log(nextProps.screenProps.userData);
       console.log('Making GET request to API to get UserBin data for this particular User');
@@ -78,7 +79,6 @@ class ProfileScreen extends Component {
           console.log(JSON.parse(keyValue).id);
 
           userID = JSON.parse(keyValue).id;
-          // resolve(true);
 
           // request to API for User data
           console.log('Making GET request to API to get User data');
@@ -146,6 +146,15 @@ class ProfileScreen extends Component {
 
     return (
       <View>
+
+        <Button
+          raised
+          small
+          title='USE THIS BIN'
+          backgroundColor='#397af8'
+          onPress={console.log('HELLO')}>
+        </Button>
+
         <Header headerText={ this.state.username } />
 
         <View style={ styles.containerViewStyle }>
