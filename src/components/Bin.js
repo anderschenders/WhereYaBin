@@ -9,8 +9,8 @@ import CardSection from './CardSection';
 import Button from './Button';
 
 class Bin extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       //TODO: Below not working
       // Default values for disabled button property
@@ -19,6 +19,9 @@ class Bin extends Component {
       pinColor: null,
       binText: null,
       image: null,
+
+      binArray: this.props.binArray,
+
       // userData: this.props.userData,
     };
   }
@@ -42,28 +45,37 @@ class Bin extends Component {
     const recyclingIcon = require('../images/med_blue_dot.png');
     const garbageIcon = require('../images/med_black_dot.png');
 
-    if (this.props.bin.bin_type === 'GPUBL') {
+    if (this.props.binArray.length == 1) { //unique location
+      if (this.props.binArray[0].bin_type === 'GPUBL') {
+        this.setState({
+          pinColor: 'black',
+          binText: 'Garbage',
+          image: garbageIcon,
+        })
+      } else if (this.props.binArray[0].bin_type === 'RYPUBL') {
+        this.setState({
+          pinColor: 'blue',
+          binText: 'Recycling',
+          image: recyclingIcon,
+        })
+      }
+    } else { //not unique location
       this.setState({
-        pinColor: 'black',
-        binText: 'Garbage',
-        image: garbageIcon,
-      })
-    } else if (this.props.bin.bin_type === 'RYPUBL') {
-      this.setState({
-        pinColor: 'blue',
-        binText: 'Recycling',
-        image: recyclingIcon,
+        pinColor: 'purple',
+        binText: 'Both',
+        // image: garbageIcon,
       })
     }
+
   }
 
   useBin() {
     console.log('@@@@@@@@ In useBin function @@@@@@@@@');
     console.log('Getting binID:');
-    console.log(this.props.bin.id);
+    console.log(this.props.binArray[0].id);
 
     let userID = null;
-    let binID = this.props.bin.id;
+    let binID = this.props.binArray[0].id;
     let newUserData = null;
 
     console.log('Getting USER_KEY: ');
@@ -149,7 +161,7 @@ class Bin extends Component {
     return (
       <MapView.Marker
         coordinate={{
-          latitude: this.props.bin.latitude, longitude: this.props.bin.longitude}}
+          latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
         pinColor={this.state.pinColor}
       >
 
