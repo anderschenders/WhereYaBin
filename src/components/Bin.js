@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, Text, Image, AsyncStorage } from 'react-native';
 import MapView from 'react-native-maps';
+// import { Card, Button } from 'react-native-elements';
+// import { Button } from 'react-native-elements'
 
 import Card from './Card';
 import CardSection from './CardSection';
@@ -152,39 +154,43 @@ class Bin extends Component {
       >
 
         <MapView.Callout>
-          <Card>
-            <CardSection>
-              <View style={ styles.thumbnailContainerStyle }>
-                <Image
-                  style={ styles.imageStyle }
-                  source={ this.state.image }
-                  />
-                <Text style={ styles.textStyle }>
-                  { this.state.binText }
-                </Text>
-              </View>
-            </CardSection>
 
-            <CardSection>
-              <Button
-                onPress={ this.useBin.bind(this) }
-                disabled={ this.state.useBinButtondisabled }
-                accessibilityLabel='Use this bin'
-              >
-                Use this bin
-              </Button>
-            </CardSection>
+        <Card>
 
-            <CardSection>
-              <Button
-                onPress={ () => console.log('Report full bin') }
-                disabled={ this.state.reportFullBinButtonDisabled }
-                accessibilityLabel='Report full bin'
-              >
-                Report full bin
-              </Button>
-            </CardSection>
-          </Card>
+          <CardSection>
+            <View style={ styles.binTypeContainerStyle }>
+              <Image
+                style={ styles.imageStyle }
+                source={ this.state.image }
+                />
+              <Text style={ styles.textStyle }>
+                { this.state.binText }
+              </Text>
+            </View>
+          </CardSection>
+
+            <Button
+              raised
+              title='USE THIS BIN'
+              backgroundColor='#397af8'
+              onPress={ this.useBin.bind(this) }
+              disabled={ this.state.useBinButtondisabled }
+              accessibilityLabel='Use this bin'
+            >
+            </Button>
+
+            <View style={styles.addMargin}></View>
+
+            <Button
+              raised
+              title='REPORT AS FULL'
+              backgroundColor='#397af8'
+              onPress={ () => console.log('Report full bin') }
+              disabled={ this.state.reportFullBinButtonDisabled }
+              accessibilityLabel='Report full bin'
+            >
+            </Button>
+        </Card>
         </MapView.Callout>
 
       </MapView.Marker>
@@ -193,36 +199,26 @@ class Bin extends Component {
 }
 
 const styles = {
-  // headerContentStyle: {
-  //   flexDirection: 'column',
-  //   justifyContent: 'space-around'
-  // },
-  // headerTextStyle: {
-  //   fontSize: 18
-  // },
-  // thumbnailStyle: {
-  //   height: 50,
-  //   width: 50
-  // },
-  thumbnailContainerStyle: {
+  binTypeContainerStyle: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    marginLeft: 2,
+    marginLeft: 5,
     marginRight: 2,
     marginTop: 2,
   },
   imageStyle: {
     marginTop: 2,
     marginRight: 2,
-    height: 8,
-    width: 8,
-    // flex: 1, //get image to stretch entire screen
-    // width: null //get image to stretch entire screen
+    height: 12,
+    width: 12,
   },
   textStyle: {
-    fontSize: 10,
+    fontSize: 14,
   },
+  addMargin: {
+    marginTop: 10,
+  }
 
 };
 

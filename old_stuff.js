@@ -1,3 +1,76 @@
+//CallOut
+//THEIR CARD THEIR BUTTON
+
+        <Card
+          title={ this.state.binText }
+        >
+        <Button
+          raised
+          title='USE THIS BIN'
+          backgroundColor='#397af8'
+          onPress={ this.useBin.bind(this) }
+          buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+          disabled={ this.state.useBinButtondisabled }
+          accessibilityLabel='Use this bin'
+        >
+        </Button>
+
+        <View style={styles.addMargin}></View>
+
+        <Button
+          raised
+          title='REPORT AS FULL'
+          backgroundColor='#397af8'
+          onPress={ () => console.log('Report full bin') }
+          disabled={ this.state.reportFullBinButtonDisabled }
+          accessibilityLabel='Report full bin'
+        >
+        </Button>
+        </Card>
+
+
+//MY CARD THEIR BUTTON
+
+
+<Card>
+
+  <CardSection>
+    <View style={ styles.binTypeContainerStyle }>
+      <Image
+        style={ styles.imageStyle }
+        source={ this.state.image }
+        />
+      <Text style={ styles.textStyle }>
+        { this.state.binText }
+      </Text>
+    </View>
+  </CardSection>
+
+    <Button
+      raised
+      Component=TouchableOpacity
+      title='USE THIS BIN'
+      backgroundColor='#397af8'
+      onPress={ this.useBin.bind(this) }
+      disabled={ this.state.useBinButtondisabled }
+      accessibilityLabel='Use this bin'
+    >
+    </Button>
+
+    <View style=(styles.addMargin)></View>
+
+    <Button
+      raised
+      title='REPORT AS FULL'
+      backgroundColor='#397af8'
+      onPress={ () => console.log('Report full bin') }
+      disabled={ this.state.reportFullBinButtonDisabled }
+      accessibilityLabel='Report full bin'
+    >
+    </Button>
+</Card>
+
+
 //ProfileScreen getting user data via AsyncStorage?
     //QUESTION: Where to put this request to AsyncStorage?
   //

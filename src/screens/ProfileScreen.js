@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage, ScrollView, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
 
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -146,15 +145,6 @@ class ProfileScreen extends Component {
 
     return (
       <View>
-
-        <Button
-          raised
-          small
-          title='USE THIS BIN'
-          backgroundColor='#397af8'
-          onPress={console.log('HELLO')}>
-        </Button>
-
         <Header headerText={ this.state.username } />
 
         <View style={ styles.containerViewStyle }>
@@ -171,7 +161,6 @@ class ProfileScreen extends Component {
           <UserBinnedHistory
             userBinnedHistory={ this.state.userBinnedHistory }>
           </UserBinnedHistory>
-
         </View>
 
       </View>
