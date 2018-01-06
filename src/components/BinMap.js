@@ -10,7 +10,7 @@ const BinMap = ({ mapRegion, onRegionChangeComplete, bins, screenProps }) => (
     region={ mapRegion }
     onRegionChangeComplete={ onRegionChangeComplete }
   >
-    { bins.map(binArray => <Bin screenProps={ screenProps } binArray={ binArray } key={ binArray[0].location } />) }
+    { bins.map(binArray => <Bin screenProps={ screenProps } binArray={ binArray } key={ binArray[0].id } />) }
 
   </MapView.Animated>
 );
