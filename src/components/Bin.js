@@ -119,10 +119,8 @@ class Bin extends Component {
 
               newUserData = parsedResponse.updated_user;
 
-              this.setState({
-                useBinSuccessMessage: 'BINNED!',
-                modalVisible: true,
-              })
+              const message = 'BINNED!'
+              this.props.setModalVisible(message);
 
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
@@ -211,30 +209,8 @@ class Bin extends Component {
 
               newUserData = parsedResponse.updated_user;
 
-            //   this.setState({ useBinSuccessMessage: 'BINNED!',
-            //   modalVisible: true, }, () => {
-            //     setTimeout(() => {
-            //       console.log('in setTimeout modal');
-            //       this.setState({ modalVisible: false, });
-            //       console.log('Bye modal');
-            //     }
-            //     , 3000);
-            //   }
-            // )
               const message = 'BINNED!'
               this.props.setModalVisible(message);
-              // setTimeout(() => {
-              //   console.log('MODAL');
-              //   this.setState({
-              //     useBinSuccessMessage: 'BINNED!',
-              //     modalVisible: true,
-              //   });
-              // }, 5000);
-
-              // this.setState({
-              //   useBinSuccessMessage: 'BINNED!',
-              //   modalVisible: true,
-              // })
 
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
@@ -284,18 +260,16 @@ class Bin extends Component {
     console.log('In reportBillFull:');
     //TODO: API call
 
-    this.setState({
-      useBinSuccessMessage: 'REPORTED!',
-    })
+    const message = 'REPORTED!'
+    this.props.setModalVisible(message);
   }
 
   reportRecyclingBinFull() {
     console.log('In reportRecyclingBinFull:');
     //TODO: API call
 
-    this.setState({
-      useBinSuccessMessage: 'REPORTED!',
-    })
+    const message = 'REPORTED!'
+    this.props.setModalVisible(message);
   }
 
   render() {

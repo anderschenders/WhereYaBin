@@ -84,7 +84,7 @@ export default class App extends Component {
   }
 
   setModalVisible(message) {
-    this.setState({ modalVisible: true, modalMessage: message  }, () => {
+    this.setState({ modalVisible: true, modalMessage: message }, () => {
       setTimeout(() => {
         console.log('in setTimeout modal');
         this.setState({ modalVisible: false });
@@ -103,17 +103,17 @@ export default class App extends Component {
         <View style={styles.container}>
 
           <Modal
-            animationInTiming={100}
+            style={{ justifyContent: 'flex-end', margin: 0 }}
             isVisible={ this.state.modalVisible }
-            backdropColor='blue'
+            onModalHide={() => console.log('Give directions!')}
           >
-          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', height: 100, width: 100 }}>
-            <Text
-              style={{fontSize: 20, textAlign: 'center', fontWeight: 'bold', color: 'white'}}>
-              {this.state.modalMessage}
-            </Text>
+            <View style={{ backgroundColor: 'white',padding: 22, justifyContent: 'center', alignItems: 'center',}}>
+              <Text
+                style={{fontSize: 30, textAlign: 'center', fontWeight: 'bold', color: 'blue' }}>
+                {this.state.modalMessage}
+              </Text>
 
-          </View>
+            </View>
 
           </Modal>
 
