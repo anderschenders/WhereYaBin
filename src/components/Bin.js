@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, Text, Image, AsyncStorage } from 'react-native';
+import { AppRegistry, StyleSheet, View, Text, Image, AsyncStorage, Modal } from 'react-native';
 import MapView from 'react-native-maps';
 // import { Card, Button } from 'react-native-elements';
 // import { Button } from 'react-native-elements'
@@ -23,6 +23,7 @@ class Bin extends Component {
       // image2: null,
       bothTypes: null,
       useBinSuccessMessage: null,
+      modalVisible: false,
       // userData: this.props.userData,
     };
   }
@@ -120,6 +121,7 @@ class Bin extends Component {
 
               this.setState({
                 useBinSuccessMessage: 'BINNED!',
+                modalVisible: true,
               })
 
               // remove USER_KEY from AsyncStorage
@@ -209,9 +211,30 @@ class Bin extends Component {
 
               newUserData = parsedResponse.updated_user;
 
-              this.setState({
-                useBinSuccessMessage: 'BINNED!',
-              })
+            //   this.setState({ useBinSuccessMessage: 'BINNED!',
+            //   modalVisible: true, }, () => {
+            //     setTimeout(() => {
+            //       console.log('in setTimeout modal');
+            //       this.setState({ modalVisible: false, });
+            //       console.log('Bye modal');
+            //     }
+            //     , 3000);
+            //   }
+            // )
+              const message = 'BINNED!'
+              this.props.setModalVisible(message);
+              // setTimeout(() => {
+              //   console.log('MODAL');
+              //   this.setState({
+              //     useBinSuccessMessage: 'BINNED!',
+              //     modalVisible: true,
+              //   });
+              // }, 5000);
+
+              // this.setState({
+              //   useBinSuccessMessage: 'BINNED!',
+              //   modalVisible: true,
+              // })
 
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
@@ -278,11 +301,10 @@ class Bin extends Component {
   render() {
 
     let successMessage = null;
-
-    onclick="setTimeout('alert(\'Surprise!\')', 5000)"
+    let modal = null;
 
     if (this.state.useBinSuccessMessage) {
-      successMessage =
+      let successMessage =
         <View
           style={{marginLeft: 1, marginRight: 1, marginTop: 1}}
         >
@@ -290,17 +312,44 @@ class Bin extends Component {
             { this.state.useBinSuccessMessage }
           </Text>
         </View>
+
+      let modal =
+        <View style={{height: 500, width: 300}}>
+          <Modal
+            animationType={ 'slide' }
+            transparent={ false }
+            visible={ this.state.modalVisible }
+          >
+            <Text>
+              {'HI'}
+            </Text>
+          </Modal>
+        </View>
     }
+
+
+    <View style={{height: 500, width: 300}}>
+      <Modal
+        animationType={ 'slide' }
+        transparent={ false }
+        visible={ this.state.modalVisible }
+      >
+        <Text>
+          { successMessage }
+        </Text>
+      </Modal>
+    </View>
 
       { if (this.state.bothTypes == false ) {
 
         return (
-
           <MapView.Marker
             coordinate={{
               latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
             pinColor={this.state.pinColor}
           >
+            { modal }
+
             <MapView.Callout>
 
             { successMessage }
@@ -338,20 +387,23 @@ class Bin extends Component {
                 </Button>
               </CardSection>
             </CallOutCard>
+
             </MapView.Callout>
 
           </MapView.Marker>
+
         );
 
       } else {
 
         return (
-
           <MapView.Marker
             coordinate={{
               latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
             pinColor={this.state.pinColor}
           >
+
+          { modal }
 
           <MapView.Callout>
 
@@ -418,6 +470,7 @@ class Bin extends Component {
                 </Button>
               </CardSection>
             </CallOutCard>
+
             </MapView.Callout>
 
           </MapView.Marker>

@@ -1,7 +1,7 @@
 'use strict'; //improved error handling, disables some less-than-ideal JS features
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
+import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Modal, Text } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
 
@@ -20,7 +20,8 @@ export default class App extends Component {
       mapRegion: null,
       error: null,
       bins: [],
-      // regionSet: false,
+      modalVisible: false,
+      modalMessage: null,
     }
 
     this.watchID = null;
@@ -81,6 +82,17 @@ export default class App extends Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
+  setModalVisible(message) {
+    this.setState({ modalVisible: true }, () => {
+      setTimeout(() => {
+        console.log('in setTimeout modal');
+        this.setState({ modalVisible: false, modalMessage: message });
+        console.log('Bye modal');
+      }
+      , 500);
+    })
+  }
+
   render() {
 
     const { mapRegion, bins } = this.state;
@@ -88,7 +100,24 @@ export default class App extends Component {
     if (mapRegion) {
       return (
         <View style={styles.container}>
+
+          <Modal
+            style={{
+                  width: 200,
+                  height: 200}}
+            transparent={ false }
+            visible={ this.state.modalVisible }
+          >
+            <View style={{flex:1}}>
+
+                <Text>
+                  {this.state.modalMessage}
+                </Text>
+            </View>
+          </Modal>
+
           <BinMap
+            setModalVisible={ this.setModalVisible.bind(this) }
             screenProps={ this.props.screenProps }
             bins={ bins }
             mapRegion={ mapRegion }
