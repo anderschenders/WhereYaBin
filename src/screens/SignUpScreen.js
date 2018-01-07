@@ -131,7 +131,7 @@ class SignUpScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    let error = null
+    let error = null;
 
     if (this.state.error) {
       let errorMessage = this.state.error;

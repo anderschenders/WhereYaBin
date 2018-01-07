@@ -22,7 +22,7 @@ class Bin extends Component {
       // image: null,
       // image2: null,
       bothTypes: null,
-
+      useBinSuccessMessage: null,
       // userData: this.props.userData,
     };
   }
@@ -118,6 +118,10 @@ class Bin extends Component {
 
               newUserData = parsedResponse.updated_user;
 
+              this.setState({
+                useBinSuccessMessage: 'BINNED!',
+              })
+
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
               .then(res => {
@@ -205,6 +209,10 @@ class Bin extends Component {
 
               newUserData = parsedResponse.updated_user;
 
+              this.setState({
+                useBinSuccessMessage: 'BINNED!',
+              })
+
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
               .then(res => {
@@ -249,7 +257,40 @@ class Bin extends Component {
       .catch(err => reject(err));
   }
 
+  reportBinFull() {
+    console.log('In reportBillFull:');
+    //TODO: API call
+
+    this.setState({
+      useBinSuccessMessage: 'REPORTED!',
+    })
+  }
+
+  reportRecyclingBinFull() {
+    console.log('In reportRecyclingBinFull:');
+    //TODO: API call
+
+    this.setState({
+      useBinSuccessMessage: 'REPORTED!',
+    })
+  }
+
   render() {
+
+    let successMessage = null;
+
+    onclick="setTimeout('alert(\'Surprise!\')', 5000)"
+
+    if (this.state.useBinSuccessMessage) {
+      successMessage =
+        <View
+          style={{marginLeft: 1, marginRight: 1, marginTop: 1}}
+        >
+          <Text style={styles.textStyle}>
+            { this.state.useBinSuccessMessage }
+          </Text>
+        </View>
+    }
 
       { if (this.state.bothTypes == false ) {
 
@@ -260,8 +301,9 @@ class Bin extends Component {
               latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
             pinColor={this.state.pinColor}
           >
-
             <MapView.Callout>
+
+            { successMessage }
 
             <CallOutCard>
               <CardSection>
@@ -288,7 +330,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ () => console.log('Report full bin') }
+                  onPress={ this.reportBinFull.bind(this) }
                   disabled={ this.state.reportFullBinButtonDisabled }
                   accessibilityLabel='Report full bin'
                 >
@@ -299,7 +341,6 @@ class Bin extends Component {
             </MapView.Callout>
 
           </MapView.Marker>
-
         );
 
       } else {
@@ -313,6 +354,8 @@ class Bin extends Component {
           >
 
           <MapView.Callout>
+
+            { successMessage }
 
             <CallOutCard>
               <CardSection>
@@ -335,7 +378,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ () => console.log('Report full bin') }
+                  onPress={ this.reportBinFull.bind(this) }
                   disabled={ this.state.reportFullBinButtonDisabled }
                   accessibilityLabel='Report full bin'
                 >
@@ -367,7 +410,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ () => console.log('Report full bin') }
+                  onPress={ this.reportRecyclingBinFull.bind(this) }
                   disabled={ this.state.reportFullBinButtonDisabled }
                   accessibilityLabel='Report full bin'
                 >
@@ -390,9 +433,6 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // flexDirection: 'row',
-    // marginLeft: 30, //TODO: how to auto center?
-    // marginRight: 2,
     marginTop: 2,
     marginBottom: 2,
   },
