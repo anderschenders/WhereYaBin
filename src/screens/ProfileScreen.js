@@ -141,8 +141,6 @@ class ProfileScreen extends Component {
 
   render() {
 
-    // this.getData();
-
     return (
       <View>
         <Header headerText={ this.state.username } />

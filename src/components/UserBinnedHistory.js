@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 
+import UserHistorySection from './UserHistorySection';
 // import ProfileCard from './ProfileCard';
 // import ProfileHistoryCardSection from './ProfileHistoryCardSection'
 
@@ -13,22 +14,8 @@ const UserBinnedHistory = ({ userBinnedHistory }) => {
 
         <ScrollView style={styles.scrollViewContainer}>
 
-          { userBinnedHistory.map(userBin =>
+          { userBinnedHistory.map(userBin => <UserHistorySection userBin={ userBin } key={ userBin.id } />) }
 
-            <View
-              key={ userBin.id }
-              style={ styles.viewSectionStyle }
-            >
-              <Image
-                style={ styles.imageStyle }
-                source={ require('../images/earth_icon2.png') }
-              />
-              <Text style={ styles.viewSectionTextStyle }>
-                {'BINNED on'} { userBin.created_at.substring(0,10) }
-              </Text>
-            </View>
-            )
-          }
         </ScrollView>
 
     </View>
@@ -57,7 +44,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     height: 400,
-
   },
   headerTextStyle: {
     fontSize: 20,

@@ -105,6 +105,7 @@ class Bin extends Component {
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
+                action: 'use',
               })
             }
           )
@@ -195,6 +196,7 @@ class Bin extends Component {
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
+                userAction: 'use',
               })
             }
           )
@@ -258,18 +260,187 @@ class Bin extends Component {
 
   reportBinFull() {
     console.log('In reportBillFull:');
-    //TODO: API call
 
-    const message = 'REPORTED!'
-    this.props.setModalVisible(message);
+    console.log('Getting binID:');
+    console.log(this.props.binArray[0].id);
+
+    let userID = null;
+    let binID = this.props.binArray[0].id;
+    let newUserData = null;
+
+    console.log('Getting USER_KEY: ');
+    AsyncStorage.getItem("USER_KEY")
+      .then(keyValue => {
+        if ( Boolean(keyValue) ) {
+          console.log('There is a valid keyValue/USER_KEY: ');
+          console.log(JSON.parse(keyValue).id);
+
+          userID = JSON.parse(keyValue).id;
+
+          console.log('Making POST request to API to create user_bin');
+          fetch(
+            'http://localhost:3000/user_bins', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: userID,
+                bin_id: binID,
+                userAction: 'full',
+              })
+            }
+          )
+          .then((response) => {
+            if (response.status === 200) {
+              console.log('API status 200');
+
+              const parsedResponse = JSON.parse(response._bodyText);
+
+              console.log('parsedResponse:');
+              console.log(parsedResponse);
+
+              newUserData = parsedResponse.updated_user;
+
+              const message = 'REPORTED!'
+              this.props.setModalVisible(message);
+
+              // remove USER_KEY from AsyncStorage
+              AsyncStorage.removeItem('USER_KEY')
+              .then(res => {
+                console.log('AsyncStorage removeItem resolved')
+                console.log('AsyncStorage setItem: ');
+
+                // set USER_KEY with updated user data
+                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
+                .then(res => {
+                  console.log("Successfully set new user data, res: ");
+                  console.log(res); //returns null
+                  // resolve(true);
+                  this.props.screenProps.setUserData(newUserData);
+                  // this.props.screenProps.forceIndexComponentRender();
+                })
+                .catch(err => console.log(err))
+
+              })
+              .catch(err => console.log(err))
+
+            } else {
+              console.log('@@@@@ API status 400 response body text: @@@@@');
+              console.log(response._bodyText);
+
+              const parsedResponse = JSON.parse(response._bodyText);
+              console.log('parsedResponse:');
+              console.log(parsedResponse);
+            }
+          })
+          .catch((error) => {
+            console.log('error:', error);
+          })
+
+          //BUG: disableButton not working
+          // this.disableButton();
+
+        } else {
+          console.log('There is not a valid res/USER_KEY: ');
+          console.log(keyValue); //TODO: display message to user
+        }
+      })
+      .catch(err => reject(err));
   }
+
 
   reportRecyclingBinFull() {
     console.log('In reportRecyclingBinFull:');
-    //TODO: API call
 
-    const message = 'REPORTED!'
-    this.props.setModalVisible(message);
+    console.log('Getting binID:');
+    console.log(this.props.binArray[0].id);
+
+    let userID = null;
+    let binID = this.props.binArray[0].id;
+    let newUserData = null;
+
+    console.log('Getting USER_KEY: ');
+    AsyncStorage.getItem("USER_KEY")
+      .then(keyValue => {
+        if ( Boolean(keyValue) ) {
+          console.log('There is a valid keyValue/USER_KEY: ');
+          console.log(JSON.parse(keyValue).id);
+
+          userID = JSON.parse(keyValue).id;
+
+          console.log('Making POST request to API to create user_bin');
+          fetch(
+            'http://localhost:3000/user_bins', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: userID,
+                bin_id: binID,
+                userAction: 'full',
+              })
+            }
+          )
+          .then((response) => {
+            if (response.status === 200) {
+              console.log('API status 200');
+
+              const parsedResponse = JSON.parse(response._bodyText);
+
+              console.log('parsedResponse:');
+              console.log(parsedResponse);
+
+              newUserData = parsedResponse.updated_user;
+
+              const message = 'REPORTED!'
+              this.props.setModalVisible(message);
+
+              // remove USER_KEY from AsyncStorage
+              AsyncStorage.removeItem('USER_KEY')
+              .then(res => {
+                console.log('AsyncStorage removeItem resolved')
+                console.log('AsyncStorage setItem: ');
+
+                // set USER_KEY with updated user data
+                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
+                .then(res => {
+                  console.log("Successfully set new user data, res: ");
+                  console.log(res); //returns null
+                  // resolve(true);
+                  this.props.screenProps.setUserData(newUserData);
+                  // this.props.screenProps.forceIndexComponentRender();
+                })
+                .catch(err => console.log(err))
+
+              })
+              .catch(err => console.log(err))
+
+            } else {
+              console.log('@@@@@ API status 400 response body text: @@@@@');
+              console.log(response._bodyText);
+
+              const parsedResponse = JSON.parse(response._bodyText);
+              console.log('parsedResponse:');
+              console.log(parsedResponse);
+            }
+          })
+          .catch((error) => {
+            console.log('error:', error);
+          })
+
+          //BUG: disableButton not working
+          // this.disableButton();
+
+        } else {
+          console.log('There is not a valid res/USER_KEY: ');
+          console.log(keyValue); //TODO: display message to user
+        }
+      })
+      .catch(err => reject(err));
   }
 
   render() {

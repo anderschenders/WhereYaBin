@@ -1,3 +1,20 @@
+//UserBinnedHistory
+
+<View
+  key={ userBin.id }
+  style={ styles.viewSectionStyle }
+>
+  <Image
+    style={ styles.imageStyle }
+    source={ require('../images/earth_icon2.png') }
+  />
+  <Text style={ styles.viewSectionTextStyle }>
+    {'BINNED on'} { userBin.created_at.substring(0,10) }
+  </Text>
+</View>
+)
+}
+
 //CallOut
 //THEIR CARD THEIR BUTTON
 
