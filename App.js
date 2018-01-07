@@ -1,9 +1,10 @@
 'use strict'; //improved error handling, disables some less-than-ideal JS features
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Modal, Text } from 'react-native';
+import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
+import Modal from 'react-native-modal'
 
 let { width, height } = Dimensions.get('window');
 
@@ -83,10 +84,10 @@ export default class App extends Component {
   }
 
   setModalVisible(message) {
-    this.setState({ modalVisible: true }, () => {
+    this.setState({ modalVisible: true, modalMessage: message  }, () => {
       setTimeout(() => {
         console.log('in setTimeout modal');
-        this.setState({ modalVisible: false, modalMessage: message });
+        this.setState({ modalVisible: false });
         console.log('Bye modal');
       }
       , 500);
@@ -102,18 +103,18 @@ export default class App extends Component {
         <View style={styles.container}>
 
           <Modal
-            style={{
-                  width: 200,
-                  height: 200}}
-            transparent={ false }
-            visible={ this.state.modalVisible }
+            animationInTiming={100}
+            isVisible={ this.state.modalVisible }
+            backdropColor='blue'
           >
-            <View style={{flex:1}}>
+          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', height: 100, width: 100 }}>
+            <Text
+              style={{fontSize: 20, textAlign: 'center', fontWeight: 'bold', color: 'white'}}>
+              {this.state.modalMessage}
+            </Text>
 
-                <Text>
-                  {this.state.modalMessage}
-                </Text>
-            </View>
+          </View>
+
           </Modal>
 
           <BinMap
@@ -138,6 +139,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: '100%',
     width: '100%',
   },
