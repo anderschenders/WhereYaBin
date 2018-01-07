@@ -105,7 +105,7 @@ class Bin extends Component {
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
-                action: 'use',
+                userAction: 'use',
               })
             }
           )

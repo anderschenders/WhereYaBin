@@ -10,6 +10,8 @@ class UserHistorySection extends Component {
       text: null,
       binID: null,
       createdAt: null,
+      binType: null,
+      binTypeText: null,
     };
   }
 
@@ -18,27 +20,55 @@ class UserHistorySection extends Component {
     console.log('this.props');
     console.log(this.props);
 
+    const garbageIcon = require('../images/garbage_icon.png');
+    const recyclingIcon = require('../images/recycling_icon.jpg');
     const useBinImage = require('../images/earth_icon2.png');
     const reportFullBinImage = require('../images/bin_full.png');
 
-    if (this.props.userBin.action === 'use') {
-      this.setState({
-        image: useBinImage,
-        text: 'BINNED',
-        binID: this.props.userBin.bin_id,
-        createdAt: this.props.userBin.created_at.substring(0,10),
-      });
-      console.log('New state');
-      console.log(this.state);
-    } else if (this.props.userBin.action === 'full') {
-      this.setState({
-        image: reportFullBinImage,
-        text: 'REPORTED FULL',
-        binID: this.props.userBin.bin_id,
-        createdAt: this.props.userBin.created_at.substring(0,10),
-      });
-      console.log('New state');
-      console.log(this.state);
+    if (this.props.userBin[0].action === 'use') {
+      if (this.props.userBin[1].bin_type === "GARBAGE") {
+        this.setState({
+          image: garbageIcon,
+          text: `BINNED`,
+          createdAt: this.props.userBin[0].created_at.substring(0,10),
+          binID: this.props.userBin[0].bin_id,
+          binTypeText: this.props.userBin[1].bin_type,
+        });
+        console.log('New state');
+        console.log(this.state);
+      } else if (this.props.userBin[1].bin_type === "RECYCLING") {
+        this.setState({
+          image: recyclingIcon,
+          text: `BINNED`,
+          createdAt: this.props.userBin[0].created_at.substring(0,10),
+          binID: this.props.userBin[0].bin_id,
+          binTypeText: this.props.userBin[1].bin_type,
+        });
+        console.log('New state');
+        console.log(this.state);
+      }
+    } else if (this.props.userBin[0].action === 'full') {
+      if (this.props.userBin[1].bin_type === "GARBAGE") {
+        this.setState({
+          image: reportFullBinImage,
+          text: `REPORTED FULL`,
+          createdAt: this.props.userBin[0].created_at.substring(0,10),
+          binID: this.props.userBin[0].bin_id,
+          binTypeText: this.props.userBin[1].bin_type,
+        });
+        console.log('New state');
+        console.log(this.state);
+      } else if (this.props.userBin[1].bin_type === "RECYCLING") {
+        this.setState({
+          image: reportFullBinImage,
+          text: 'REPORTED FULL',
+          createdAt: this.props.userBin[0].created_at.substring(0,10),
+          binID: this.props.userBin[0].bin_id,
+          binTypeText: this.props.userBin[1].bin_type,
+        });
+        console.log('New state');
+        console.log(this.state);
+      }
     }
   }
 
@@ -52,17 +82,20 @@ class UserHistorySection extends Component {
           style={ styles.imageStyle }
           source={ this.state.image }
         />
+
         <View>
-        <Text style={ styles.binIDTextStyle }>
-          {'Bin #'}{ this.state.binID }
-        </Text>
-        <Text style={ styles.actionTextStyle }>
-          { this.state.text }
-        </Text>
-        <Text style={ styles.createdAtTextStyle }>
-          { this.state.createdAt }
-        </Text>
+          <Text style={ styles.binIDTextStyle }>
+            {'Bin #'}{ this.state.binID } { this.state.binTypeText }
+          </Text>
+          <Text style={ styles.actionTextStyle }>
+            { this.state.text }
+          </Text>
+          <Text style={ styles.createdAtTextStyle }>
+            { this.state.createdAt }
+          </Text>
+
         </View>
+
       </View>
     )
   }
@@ -100,7 +133,7 @@ const styles = StyleSheet.create({
   // },
   binIDTextStyle: {
     fontSize: 14,
-    marginTop: 10,
+    marginTop: 8,
   },
   actionTextStyle: {
     fontSize: 20,

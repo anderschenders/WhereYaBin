@@ -14,7 +14,7 @@ const UserBinnedHistory = ({ userBinnedHistory }) => {
 
         <ScrollView style={styles.scrollViewContainer}>
 
-          { userBinnedHistory.map(userBin => <UserHistorySection userBin={ userBin } key={ userBin.id } />) }
+          { userBinnedHistory.map(userBin => <UserHistorySection userBin={ userBin } key={ userBin[0].id } />) }
 
         </ScrollView>
 
