@@ -152,7 +152,7 @@ class ProfileScreen extends Component {
             </Text>
 
             <Text style={ styles.textStyle }>
-              {'Total times binned:'} { this.state.binCount } {''}
+              {'Total activity count:'} { this.state.binCount }
             </Text>
           </ProfileCard>
 

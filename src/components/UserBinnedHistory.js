@@ -10,7 +10,7 @@ const UserBinnedHistory = ({ userBinnedHistory }) => {
   return (
     <View style={ styles.containerViewStyle }>
       <Text style={ styles.headerTextStyle }>
-        Where YOU Bin </Text>
+        Where YOU bin </Text>
 
         <ScrollView style={styles.scrollViewContainer}>
 
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     marginBottom: 10,
+    fontWeight: 'bold',
   },
   viewSectionTextStyle: {
     fontSize: 20,

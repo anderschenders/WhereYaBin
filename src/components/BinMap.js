@@ -7,7 +7,7 @@ const BinMap = ({ mapRegion, onRegionChangeComplete, bins, screenProps, setModal
   <MapView.Animated
     style={ styles.container }
     showsUserLocation={ true }
-    region={ mapRegion }
+    initialRegion={ mapRegion }
     onRegionChangeComplete={ onRegionChangeComplete }
   >
     { bins.map(binArray => <Bin setModalVisible={ setModalVisible } screenProps={ screenProps } binArray={ binArray } key={ binArray[0].id } />) }

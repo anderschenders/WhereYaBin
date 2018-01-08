@@ -85,7 +85,7 @@ class UserHistorySection extends Component {
 
         <View>
           <Text style={ styles.binIDTextStyle }>
-            {'Bin #'}{ this.state.binID } { this.state.binTypeText }
+            { this.state.binTypeText } {'bin #'}{ this.state.binID }
           </Text>
           <Text style={ styles.actionTextStyle }>
             { this.state.text }
