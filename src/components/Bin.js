@@ -444,7 +444,7 @@ class Bin extends Component {
   }
 
   reportMissingBin() {
-    console.log('In reportBillFull:');
+    console.log('In reportMissingBin:');
 
     console.log('Getting binID:');
     console.log(this.props.binArray[0].id);
@@ -536,7 +536,7 @@ class Bin extends Component {
   }
 
   reportMissingRecyclingBin() {
-    console.log('In reportBillFull:');
+    console.log('In reportMissingRecyclingBin:');
 
     console.log('Getting binID:');
     console.log(this.props.binArray[1].id);
@@ -733,7 +733,7 @@ class Bin extends Component {
               <CardSection>
                 <Button
                   onPress={ this.reportMissingBin.bind(this) }
-                  disabled={ this.state.reportFullBinButtonDisabled }
+                  disabled={ this.state.reportMissingBinButtonDisabled }
                   accessibilityLabel='Report missing bin'
                 >
                   REPORT MISSING BIN
@@ -801,12 +801,6 @@ const styles = {
     marginTop: 2,
     marginBottom: 2,
   },
-  // imageStyle: {
-  //   marginTop: 2,
-  //   marginRight: 2,
-  //   height: 12,
-  //   width: 12,
-  // },
   textStyle: {
     fontSize: 14,
     textAlign: 'center',
@@ -814,7 +808,6 @@ const styles = {
   addMargin: {
     marginTop: 10,
   }
-
 };
 
 export default Bin;

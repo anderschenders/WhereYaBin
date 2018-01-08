@@ -19,9 +19,9 @@ class WhereYaBin extends Component {
       .catch(err => alert("An error occurred"));
   }
 
-  forceIndexComponentRender() {
-    this.forceUpdate();
-  }
+  // forceIndexComponentRender() {
+  //   this.forceUpdate();
+  // }
 
   setUserData(userData) {
     console.log("In Index.js, resetting user data:");
@@ -41,7 +41,7 @@ class WhereYaBin extends Component {
     const screenProps = {
       setSignInState: this.setSignInState.bind(this),
       setUserData: this.setUserData.bind(this),
-      forceIndexComponentRender: this.forceIndexComponentRender.bind(this),
+      // forceIndexComponentRender: this.forceIndexComponentRender.bind(this),
       userData: this.state.userData,
     };
 

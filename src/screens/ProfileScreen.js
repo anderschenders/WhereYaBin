@@ -13,13 +13,13 @@ class ProfileScreen extends Component {
     super(props);
 
     this.state = {
-      userData: this.props.screenProps.userData,
+      // userData: this.props.screenProps.userData,
       username: null,
       memberSince: null,
-      binCount: null,
+      activityCount: null,
       userBinnedHistory: [],
     }
-    console.log('@@@@@@@ In ProfileScreen, this.state @@@@@@@');
+    console.log('@@@@@@@ In ProfileScreen constructor, this.state @@@@@@@');
     console.log(this.state);
     console.log('this.props');
     console.log(this.props);
@@ -35,6 +35,8 @@ class ProfileScreen extends Component {
       console.log('nextProps.screenProps.userData:');
       console.log(nextProps.screenProps.userData);
       console.log('Making GET request to API to get UserBin data for this particular User');
+
+      // userID = this.props.screenProps.user_id;
 
       fetch(
         `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
@@ -54,10 +56,10 @@ class ProfileScreen extends Component {
 
           //setState here?
           this.setState({
-            userData: nextProps.screenProps.userData,
+            // userData: nextProps.screenProps.userData,
             username: nextProps.screenProps.userData.username,
             memberSince: nextProps.screenProps.userData.created_at.substring(0,10),
-            binCount: nextProps.screenProps.userData.bin_count,
+            activityCount: nextProps.screenProps.userData.bin_count,
             userBinnedHistory: userBinDataParsedResponse,
           })
         }
@@ -68,6 +70,17 @@ class ProfileScreen extends Component {
 
   componentDidMount() {
     console.log('@@@@@@@@@ In ProfileScreen.js, componentDidMount @@@@@@@@@');
+
+  //   this.setState({
+  //     username: this.props.screenProps.userData.username,
+  //     memberSince: this.props.screenProps.userData.created_at.substring(0,10),
+  //     activityCount: this.props.screenProps.userData.bin_count,
+  //     userBinnedHistory: userBinDataParsedResponse,
+  //   });
+  //
+  //   console.log('Got all API data, setState');
+  //   console.log(this.state);
+  // }
 
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
@@ -126,7 +139,7 @@ class ProfileScreen extends Component {
               this.setState({
                 username: userDataParsedResponse.username,
                 memberSince: userDataParsedResponse.created_at.substring(0,10),
-                binCount: userDataParsedResponse.bin_count,
+                activityCount: userDataParsedResponse.bin_count,
                 userBinnedHistory: userBinDataParsedResponse,
               })
 
@@ -152,7 +165,7 @@ class ProfileScreen extends Component {
             </Text>
 
             <Text style={ styles.textStyle }>
-              {'Total activity count:'} { this.state.binCount }
+              {'Total activity count:'} { this.state.activityCount }
             </Text>
           </ProfileCard>
 
