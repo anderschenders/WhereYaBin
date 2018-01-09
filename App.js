@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
-import Modal from 'react-native-modal'
+import Modal from 'react-native-modal';
+import Polyline from '@mapbox/polyline';
 
 let { width, height } = Dimensions.get('window');
 
@@ -23,9 +24,10 @@ export default class App extends Component {
       bins: [],
       modalVisible: false,
       modalMessage: null,
+      coordinates: [],
     }
 
-    this.watchID = null;
+    // this.watchID = null;
   }
 
   componentDidMount() {
@@ -40,10 +42,39 @@ export default class App extends Component {
         }
         this.fetchBins(region);
         this.onRegionChangeComplete(region);
+
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 1 }
     );
+  }
+
+  getDirections(startLoc, desinationLoc) {
+    console.log('@@@@@@@@ In App.js, getDirections() @@@@@@@@');
+    const mode = 'walking';
+    const APIKEY = 'AIzaSyCDMdyVaob5663a2l6ZSr7Kcuc6wKgsS74';
+    let origin = startLoc;
+    let destination = desinationLoc;
+    let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+
+    fetch(url)
+      .then((response) => {
+        console.log('In fetch all to google API, response:');
+        console.log('response.json()');
+        console.log(response.json());
+        console.log(JSON.parse(response._bodyText));
+        return JSON.parse(response._bodyText)})
+      .then((responseJson) => Polyline.decode(responseJson.routes[0].overview_polyline.points))
+      .then((points) => points.map((point, index) => {
+        console.log('In fetch all to google API, points:');
+        console.log(points);
+        return {
+          latitude: point[0],
+          longitude: point[1]
+        }
+      }))
+      .then((coordinates) => this.setState({coordinates: coordinates}))
+      .catch(error => console.log(error))
   }
 
   onRegionChangeComplete(region) {
@@ -68,6 +99,12 @@ export default class App extends Component {
         error: null,
         bins: responseJson,
       });
+
+      let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
+      console.log('current latitude:')
+      console.log(this.state.mapRegion.latitude);
+
+      this.getDirections(currentLocation,'47.6240076601029,-122.31271869761');
 
       console.log('After setState. New state: ');
       console.log(this.state);
@@ -118,6 +155,7 @@ export default class App extends Component {
           </Modal>
 
           <BinMap
+            coordinates={ this.state.coordinates }
             setModalVisible={ this.setModalVisible.bind(this) }
             screenProps={ this.props.screenProps }
             bins={ bins }
