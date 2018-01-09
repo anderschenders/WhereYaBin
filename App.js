@@ -26,6 +26,7 @@ export default class App extends Component {
       modalMessage: null,
       coordinates: [],
       binLocation: null,
+      userLocation: null,
     }
 
     // this.watchID = null;
@@ -111,12 +112,21 @@ export default class App extends Component {
       console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
       console.log(responseJson);
 
+      const userLocation = {
+        user_lat: region.latitude,
+        user_lng: region.longitude,
+      };
+
       //QUESTION: is this the right place for setState?
       this.setState({
         mapRegion: region,
         error: null,
         bins: responseJson,
+        userLocation: userLocation,
       });
+
+      console.log('In App.js, fetchBins, userlocation:');
+      console.log(this.state.userLocation);
 
       let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
       console.log('current latitude:')
@@ -133,6 +143,12 @@ export default class App extends Component {
       console.error(error); //QUESTION: what else can I do here?
     });
   }
+
+  // sendUserLocation() {
+  //
+  // }
+
+  // sendUserLocation={ this.sendUserLocation.bind(this) }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
@@ -173,6 +189,8 @@ export default class App extends Component {
           </Modal>
 
           <BinMap
+
+            userLocation={ this.state.userLocation }
             setBinLocation={ this.setBinLocation.bind(this) }
             coordinates={ this.state.coordinates }
             setModalVisible={ this.setModalVisible.bind(this) }

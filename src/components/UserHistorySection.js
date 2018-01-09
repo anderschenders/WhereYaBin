@@ -72,7 +72,7 @@ class UserHistorySection extends Component {
       }
     } else if (this.props.userBin[0].action === 'missing') {
       if (this.props.userBin[1].bin_type === "GARBAGE") {
-        console.log('In this.props.userBin[0].action is missing');
+        // console.log('In this.props.userBin[0].action is missing');
         this.setState({
           image: reportMissingBinImage,
           text: `REPORTED MISSING`,
@@ -83,7 +83,7 @@ class UserHistorySection extends Component {
         // console.log('New state');
         // console.log(this.state);
       } else if (this.props.userBin[1].bin_type === "RECYCLING") {
-        console.log('In this.props.userBin[0].action is missing');
+        // console.log('In this.props.userBin[0].action is missing');
         this.setState({
           image: reportMissingBinImage,
           text: 'REPORTED MISSING',

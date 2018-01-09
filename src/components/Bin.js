@@ -26,6 +26,9 @@ class Bin extends Component {
       modalVisible: false,
       // userData: this.props.userData,
     };
+
+    console.log('@@@@@@@ In Bin.js, constructor, this.props: ');
+    console.log(this.props);
   }
 
   componentDidMount() {
@@ -44,22 +47,18 @@ class Bin extends Component {
 
   checkBinType() {
     console.log('@@@@@@@ In Bin.js, checkBinType() @@@@@@@');
-    // const recyclingIcon = require('../images/med_blue_dot.png');
-    // const garbageIcon = require('../images/med_black_dot.png');
 
     if (this.props.binArray.length == 1) { //unique location
       if (this.props.binArray[0].bin_type === 'GPUBL') {
         this.setState({
           pinColor: 'black',
           binText: 'GARBAGE',
-          // image: garbageIcon,
           bothTypes: false,
         })
       } else if (this.props.binArray[0].bin_type === 'RYPUBL') {
         this.setState({
           pinColor: 'blue',
           binText: 'RECYCLING',
-          // image: recyclingIcon,
           bothTypes: false,
         })
       }
@@ -68,8 +67,6 @@ class Bin extends Component {
         pinColor: 'purple',
         binText: 'GARBAGE',
         binText2: 'RECYCLING',
-        // image: garbageIcon,
-        // image2: recyclingIcon,
         bothTypes: true,
       })
     }
@@ -93,6 +90,13 @@ class Bin extends Component {
 
           userID = JSON.parse(keyValue).id;
 
+          // this.props.sendUserLocation();
+          console.log('Checking user location:');
+          console.log(this.props.userLocation);
+          // console.log(this.props.userLocation['latitude']);
+          console.log(this.props.userLocation.user_lat);
+          console.log(this.props.userLocation.user_lng);
+
           console.log('Making POST request to API to create user_bin');
           fetch(
             'http://localhost:3000/user_bins', {
@@ -105,6 +109,8 @@ class Bin extends Component {
                 user_id: userID,
                 bin_id: binID,
                 userAction: 'use',
+                user_lat: this.props.userLocation.user_lat,
+                user_lng: this.props.userLocation.user_lng,
               })
             }
           )
@@ -202,6 +208,8 @@ class Bin extends Component {
                 user_id: userID,
                 bin_id: binID,
                 userAction: 'use',
+                user_lat: this.props.userLocation.user_lat,
+                user_lng: this.props.userLocation.user_lng,
               })
             }
           )
@@ -296,6 +304,8 @@ class Bin extends Component {
                 user_id: userID,
                 bin_id: binID,
                 userAction: 'full',
+                user_lat: this.props.userLocation.user_lat,
+                user_lng: this.props.userLocation.user_lng,
               })
             }
           )
@@ -389,6 +399,8 @@ class Bin extends Component {
                 user_id: userID,
                 bin_id: binID,
                 userAction: 'full',
+                user_lat: this.props.userLocation.user_lat,
+                user_lng: this.props.userLocation.user_lng,
               })
             }
           )
@@ -481,6 +493,8 @@ class Bin extends Component {
                 user_id: userID,
                 bin_id: binID,
                 userAction: 'missing',
+                user_lat: this.props.userLocation.user_lat,
+                user_lng: this.props.userLocation.user_lng,
               })
             }
           )
@@ -573,6 +587,8 @@ class Bin extends Component {
                 user_id: userID,
                 bin_id: binID,
                 userAction: 'missing',
+                user_lat: this.props.userLocation.user_lat,
+                user_lng: this.props.userLocation.user_lng,
               })
             }
           )
