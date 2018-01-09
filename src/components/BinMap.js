@@ -5,18 +5,18 @@ import Bin from './Bin';
 import Polyline from '@mapbox/polyline';
 
 
-const BinMap = ({ coordinates, mapRegion, onRegionChangeComplete, bins, screenProps, setModalVisible }) => (
+const BinMap = ({ setBinLocation, coordinates, mapRegion, onRegionChangeComplete, bins, screenProps, setModalVisible }) => (
   <MapView.Animated
     style={ styles.container }
     showsUserLocation={ true }
     initialRegion={ mapRegion }
     onRegionChangeComplete={ onRegionChangeComplete }
   >
-    { bins.map(binArray => <Bin setModalVisible={ setModalVisible } screenProps={ screenProps } binArray={ binArray } key={ binArray[0].id } />) }
+    { bins.map(binArray => <Bin setBinLocation={ setBinLocation } setModalVisible={ setModalVisible } screenProps={ screenProps } binArray={ binArray } key={ binArray[0].id } />) }
 
   <MapView.Polyline
     coordinates={ coordinates }
-    strokeWidth={ 2 }
+    strokeWidth={ 3 }
     strokeColor='blue' />
 
   </MapView.Animated>

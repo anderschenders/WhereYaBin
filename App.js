@@ -25,6 +25,7 @@ export default class App extends Component {
       modalVisible: false,
       modalMessage: null,
       coordinates: [],
+      binLocation: null,
     }
 
     // this.watchID = null;
@@ -47,6 +48,23 @@ export default class App extends Component {
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 1 }
     );
+  }
+
+  setBinLocation(binLocation) {
+    console.log('@@@@@@@ In App.js, setBinLocation, binLocation @@@@@@@');
+    console.log(binLocation);
+    console.log('this.state');
+    console.log(this.state);
+
+    // this.setState({
+    //   binLocation: binLocation,
+    // });
+
+    let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
+    console.log('current latitude:')
+    console.log(this.state.mapRegion.latitude);
+
+    this.getDirections(currentLocation, binLocation);
   }
 
   getDirections(startLoc, desinationLoc) {
@@ -104,7 +122,7 @@ export default class App extends Component {
       console.log('current latitude:')
       console.log(this.state.mapRegion.latitude);
 
-      this.getDirections(currentLocation,'47.6240076601029,-122.31271869761');
+      // this.getDirections(currentLocation,'47.6240076601029,-122.31271869761');
 
       console.log('After setState. New state: ');
       console.log(this.state);
@@ -155,6 +173,7 @@ export default class App extends Component {
           </Modal>
 
           <BinMap
+            setBinLocation={ this.setBinLocation.bind(this) }
             coordinates={ this.state.coordinates }
             setModalVisible={ this.setModalVisible.bind(this) }
             screenProps={ this.props.screenProps }

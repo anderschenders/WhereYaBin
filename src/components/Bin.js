@@ -73,7 +73,6 @@ class Bin extends Component {
         bothTypes: true,
       })
     }
-
   }
 
   useBin() {
@@ -123,6 +122,8 @@ class Bin extends Component {
               const message = 'BINNED!'
               this.props.setModalVisible(message);
 
+              this.props.setBinLocation('47.6240076601029,-122.31271869761');
+
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
               .then(res => {
@@ -136,6 +137,7 @@ class Bin extends Component {
                   console.log(res); //returns null
                   // resolve(true);
                   this.props.screenProps.setUserData(newUserData);
+
                   // this.props.screenProps.forceIndexComponentRender();
                 })
                 .catch(err => console.log(err))
