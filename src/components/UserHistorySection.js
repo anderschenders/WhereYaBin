@@ -16,9 +16,9 @@ class UserHistorySection extends Component {
   }
 
   componentDidMount() {
-    console.log('@@@@@@ In UserHistorySection.js, componentDidMount @@@@@@ ');
-    console.log('this.props');
-    console.log(this.props);
+    // console.log('@@@@@@ In UserHistorySection.js, componentDidMount @@@@@@ ');
+    // console.log('this.props');
+    // console.log(this.props);
 
     const garbageIcon = require('../images/garbage_icon.png');
     const recyclingIcon = require('../images/recycling_icon.jpg');
@@ -35,8 +35,8 @@ class UserHistorySection extends Component {
           binID: this.props.userBin[0].bin_id,
           binTypeText: this.props.userBin[1].bin_type,
         });
-        console.log('New state');
-        console.log(this.state);
+        // console.log('New state');
+        // console.log(this.state);
       } else if (this.props.userBin[1].bin_type === "RECYCLING") {
         this.setState({
           image: recyclingIcon,
@@ -45,8 +45,8 @@ class UserHistorySection extends Component {
           binID: this.props.userBin[0].bin_id,
           binTypeText: this.props.userBin[1].bin_type,
         });
-        console.log('New state');
-        console.log(this.state);
+        // console.log('New state');
+        // console.log(this.state);
       }
     } else if (this.props.userBin[0].action === 'full') {
       if (this.props.userBin[1].bin_type === "GARBAGE") {
@@ -57,8 +57,8 @@ class UserHistorySection extends Component {
           binID: this.props.userBin[0].bin_id,
           binTypeText: this.props.userBin[1].bin_type,
         });
-        console.log('New state');
-        console.log(this.state);
+        // console.log('New state');
+        // console.log(this.state);
       } else if (this.props.userBin[1].bin_type === "RECYCLING") {
         this.setState({
           image: reportFullBinImage,
@@ -67,8 +67,8 @@ class UserHistorySection extends Component {
           binID: this.props.userBin[0].bin_id,
           binTypeText: this.props.userBin[1].bin_type,
         });
-        console.log('New state');
-        console.log(this.state);
+        // console.log('New state');
+        // console.log(this.state);
       }
     } else if (this.props.userBin[0].action === 'missing') {
       if (this.props.userBin[1].bin_type === "GARBAGE") {
@@ -80,8 +80,8 @@ class UserHistorySection extends Component {
           binID: this.props.userBin[0].bin_id,
           binTypeText: this.props.userBin[1].bin_type,
         });
-        console.log('New state');
-        console.log(this.state);
+        // console.log('New state');
+        // console.log(this.state);
       } else if (this.props.userBin[1].bin_type === "RECYCLING") {
         console.log('In this.props.userBin[0].action is missing');
         this.setState({
@@ -91,8 +91,8 @@ class UserHistorySection extends Component {
           binID: this.props.userBin[0].bin_id,
           binTypeText: this.props.userBin[1].bin_type,
         });
-        console.log('New state');
-        console.log(this.state);
+        // console.log('New state');
+        // console.log(this.state);
       }
     }
   }
