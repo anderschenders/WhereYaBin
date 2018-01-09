@@ -122,7 +122,10 @@ class Bin extends Component {
               const message = 'BINNED!'
               this.props.setModalVisible(message);
 
-              this.props.setBinLocation('47.6240076601029,-122.31271869761');
+              console.log('binLocation: ');
+              console.log(parsedResponse.bin_location);
+
+              this.props.setBinLocation(parsedResponse.bin_location);
 
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
@@ -215,6 +218,8 @@ class Bin extends Component {
 
               const message = 'BINNED!'
               this.props.setModalVisible(message);
+
+              this.props.setBinLocation(parsedResponse.bin_location);
 
               // remove USER_KEY from AsyncStorage
               AsyncStorage.removeItem('USER_KEY')
