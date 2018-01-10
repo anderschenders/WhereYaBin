@@ -17,6 +17,7 @@ class ProfileScreen extends Component {
       username: null,
       memberSince: null,
       activityCount: null,
+      distanceTravelled: null,
       userBinnedHistory: [],
     }
     console.log('@@@@@@@ In ProfileScreen constructor, this.state @@@@@@@');
@@ -34,6 +35,9 @@ class ProfileScreen extends Component {
       console.log(this.props.screenProps.userData);
       console.log('nextProps.screenProps.userData:');
       console.log(nextProps.screenProps.userData);
+      console.log('nextProps.screenProps.userData.user:');
+      console.log(nextProps.screenProps.userData.user);
+
       console.log('Making GET request to API to get UserBin data for this particular User');
 
       // userID = this.props.screenProps.user_id;
@@ -57,9 +61,10 @@ class ProfileScreen extends Component {
           //setState here?
           this.setState({
             // userData: nextProps.screenProps.userData,
-            username: nextProps.screenProps.userData.username,
-            memberSince: nextProps.screenProps.userData.created_at.substring(0,10),
-            activityCount: nextProps.screenProps.userData.bin_count,
+            username: nextProps.screenProps.userData.user.username,
+            memberSince: nextProps.screenProps.userData.user.created_at.substring(0,10),
+            activityCount: nextProps.screenProps.userData.user.bin_count,
+            distanceTravelled: nextProps.screenProps.userData.total_dist,
             userBinnedHistory: userBinDataParsedResponse,
           })
         }
@@ -88,9 +93,9 @@ class ProfileScreen extends Component {
           console.log('There is a valid res/USER_KEY: ');
           console.log(keyValue);
           console.log('keyValue.id');
-          console.log(JSON.parse(keyValue).id);
+          console.log(JSON.parse(keyValue).user.id);
 
-          userID = JSON.parse(keyValue).id;
+          userID = JSON.parse(keyValue).user.id;
 
           // request to API for User data
           console.log('Making GET request to API to get User data');
@@ -137,9 +142,10 @@ class ProfileScreen extends Component {
 
               //setState here?
               this.setState({
-                username: userDataParsedResponse.username,
-                memberSince: userDataParsedResponse.created_at.substring(0,10),
-                activityCount: userDataParsedResponse.bin_count,
+                username: userDataParsedResponse.user.username,
+                memberSince: userDataParsedResponse.user.created_at.substring(0,10),
+                activityCount: userDataParsedResponse.user.bin_count,
+                totalDistance: userDataParsedResponse.total_dist,
                 userBinnedHistory: userBinDataParsedResponse,
               })
 
@@ -166,6 +172,10 @@ class ProfileScreen extends Component {
 
             <Text style={ styles.textStyle }>
               {'Total activity count:'} { this.state.activityCount }
+            </Text>
+
+            <Text style={ styles.textStyle }>
+              {'Travelled: '} { this.state.totalDistance } {'miles'}
             </Text>
           </ProfileCard>
 
@@ -195,7 +205,7 @@ const styles = StyleSheet.create({
     marginRight:20,
     marginTop: 20,
     marginBottom: 20,
-    height: 500,
+    height: 550,
     // flex: 1,
   },
   textStyle: {

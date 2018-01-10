@@ -27,8 +27,8 @@ class Bin extends Component {
       // userData: this.props.userData,
     };
 
-    console.log('@@@@@@@ In Bin.js, constructor, this.props: ');
-    console.log(this.props);
+    // console.log('@@@@@@@ In Bin.js, constructor, this.props: ');
+    // console.log(this.props);
   }
 
   componentDidMount() {
@@ -86,9 +86,9 @@ class Bin extends Component {
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
           console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).id);
+          console.log(JSON.parse(keyValue).user.id);
 
-          userID = JSON.parse(keyValue).id;
+          userID = JSON.parse(keyValue).user.id;
 
           // this.props.sendUserLocation();
           console.log('Checking user location:');
@@ -122,8 +122,13 @@ class Bin extends Component {
 
               console.log('parsedResponse:');
               console.log(parsedResponse);
+              console.log('parsedResponse.total_dist');
+              console.log(parsedResponse.total_dist);
 
-              newUserData = parsedResponse.updated_user;
+              newUserData = {
+                user: parsedResponse.updated_user,
+                total_dist: parsedResponse.total_dist,
+              }
 
               const message = 'BINNED!'
               this.props.setModalVisible(message);
@@ -192,9 +197,9 @@ class Bin extends Component {
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
           console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).id);
+          console.log(JSON.parse(keyValue).user.id);
 
-          userID = JSON.parse(keyValue).id;
+          userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin recycling');
           fetch(
@@ -222,7 +227,10 @@ class Bin extends Component {
               console.log('parsedResponse:');
               console.log(parsedResponse);
 
-              newUserData = parsedResponse.updated_user;
+              newUserData = {
+                user: parsedResponse.updated_user,
+                total_dist: parsedResponse.total_dist,
+              }
 
               const message = 'BINNED!'
               this.props.setModalVisible(message);
@@ -288,9 +296,9 @@ class Bin extends Component {
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
           console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).id);
+          console.log(JSON.parse(keyValue).user.id);
 
-          userID = JSON.parse(keyValue).id;
+          userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
           fetch(
@@ -318,7 +326,10 @@ class Bin extends Component {
               console.log('parsedResponse:');
               console.log(parsedResponse);
 
-              newUserData = parsedResponse.updated_user;
+              newUserData = {
+                user: parsedResponse.updated_user,
+                total_dist: parsedResponse.total_dist,
+              }
 
               const message = 'REPORTED!'
               this.props.setModalVisible(message);
@@ -383,9 +394,9 @@ class Bin extends Component {
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
           console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).id);
+          console.log(JSON.parse(keyValue).user.id);
 
-          userID = JSON.parse(keyValue).id;
+          userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
           fetch(
@@ -413,7 +424,10 @@ class Bin extends Component {
               console.log('parsedResponse:');
               console.log(parsedResponse);
 
-              newUserData = parsedResponse.updated_user;
+              newUserData = {
+                user: parsedResponse.updated_user,
+                total_dist: parsedResponse.total_dist,
+              }
 
               const message = 'REPORTED!'
               this.props.setModalVisible(message);
@@ -477,9 +491,9 @@ class Bin extends Component {
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
           console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).id);
+          console.log(JSON.parse(keyValue).user.id);
 
-          userID = JSON.parse(keyValue).id;
+          userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
           fetch(
@@ -507,7 +521,10 @@ class Bin extends Component {
               console.log('parsedResponse:');
               console.log(parsedResponse);
 
-              newUserData = parsedResponse.updated_user;
+              newUserData = {
+                user: parsedResponse.updated_user,
+                total_dist: parsedResponse.total_dist,
+              }
 
               const message = 'REPORTED!'
               this.props.setModalVisible(message);
@@ -571,9 +588,9 @@ class Bin extends Component {
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
           console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).id);
+          console.log(JSON.parse(keyValue).user.id);
 
-          userID = JSON.parse(keyValue).id;
+          userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
           fetch(
@@ -601,7 +618,10 @@ class Bin extends Component {
               console.log('parsedResponse:');
               console.log(parsedResponse);
 
-              newUserData = parsedResponse.updated_user;
+              newUserData = {
+                user: parsedResponse.updated_user,
+                total_dist: parsedResponse.total_dist,
+              }
 
               const message = 'REPORTED!'
               this.props.setModalVisible(message);

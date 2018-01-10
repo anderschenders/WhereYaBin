@@ -92,8 +92,8 @@ class SignInScreen extends Component {
 
           console.log('parsedResponse:');
           console.log(parsedResponse);
-          console.log('parsedResponse.id:');
-          console.log(parsedResponse.id);
+          // console.log('parsedResponse.id:');
+          // console.log(parsedResponse.id);
 
           onSignIn(parsedResponse).then((res) => {
           if (res === true) {

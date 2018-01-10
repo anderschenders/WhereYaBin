@@ -17,7 +17,7 @@ const UserBinnedHistory = ({ userBinnedHistory }) => {
               Where YOU bin
             </Text>
           </ProfileCard>
-          <Text style={{ fontSize: 16, textAlign: 'center', color: 'blue', }}>
+          <Text style={{ fontSize: 16, textAlign: 'center', color: 'blue', marginTop: 10 }}>
             { 'No user activity yet' }
           </Text>
         </View>
