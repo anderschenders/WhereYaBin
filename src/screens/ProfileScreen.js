@@ -145,7 +145,7 @@ class ProfileScreen extends Component {
                 username: userDataParsedResponse.user.username,
                 memberSince: userDataParsedResponse.user.created_at.substring(0,10),
                 activityCount: userDataParsedResponse.user.bin_count,
-                totalDistance: userDataParsedResponse.total_dist,
+                distanceTravelled: userDataParsedResponse.total_dist,
                 userBinnedHistory: userBinDataParsedResponse,
               })
 
@@ -175,7 +175,7 @@ class ProfileScreen extends Component {
             </Text>
 
             <Text style={ styles.textStyle }>
-              {'Travelled: '} { this.state.totalDistance } {'miles'}
+              {'Travelled: '} { this.state.distanceTravelled } {'miles'}
             </Text>
           </ProfileCard>
 
