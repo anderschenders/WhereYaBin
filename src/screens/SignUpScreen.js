@@ -112,6 +112,7 @@ class SignUpScreen extends Component {
           if (res === true) {
             this.props.screenProps.setSignInState(true);
             this.props.screenProps.setUserData(parsedResponse);
+            this.props.screenProps.setWelcomeModal(true);
             this.props.navigation.navigate("App");
           } else {
             console.log('sign in didnt work');

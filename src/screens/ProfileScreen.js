@@ -42,7 +42,10 @@ class ProfileScreen extends Component {
 
       // userID = this.props.screenProps.user_id;
 
-      fetch(`http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
+      // fetch(`http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
+      //     method: 'GET',
+      // })
+      fetch(`https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`, {
           method: 'GET',
       })
       .then((response) => {

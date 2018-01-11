@@ -10,6 +10,7 @@ class WhereYaBin extends Component {
     this.state = {
       signedIn: false,
       userData: null,
+      welcomeModalVisible: false,
     };
   }
 
@@ -37,6 +38,11 @@ class WhereYaBin extends Component {
     this.setState({ signedIn: signedIn });
   }
 
+  setWelcomeModal(visible) {
+    console.log("In Index.js, settingWelcomeModal to true");
+    this.setState({ welcomeModalVisible: true })
+  }
+
   render() {
     console.log('@@@@@@ In index.js, render @@@@@@');
     console.log(this.state.userData);
@@ -48,6 +54,8 @@ class WhereYaBin extends Component {
       setUserData: this.setUserData.bind(this),
       // forceIndexComponentRender: this.forceIndexComponentRender.bind(this),
       userData: this.state.userData,
+      setWelcomeModal: this.setWelcomeModal.bind(this),
+      welcomeModalVisible: this.state.welcomeModalVisible,
     };
 
 

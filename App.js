@@ -29,6 +29,7 @@ export default class App extends Component {
       coordinates: [],
       binLocation: null,
       userLocation: null,
+      welcomeModalVisible: false,
     }
 
     // this.watchID = null;
@@ -55,17 +56,13 @@ export default class App extends Component {
 
   setBinLocation(binLocation) {
     console.log('@@@@@@@ In App.js, setBinLocation, binLocation @@@@@@@');
-    console.log(binLocation);
-    console.log('this.state');
-    console.log(this.state);
-
-    // this.setState({
-    //   binLocation: binLocation,
-    // });
+    // console.log(binLocation);
+    // console.log('this.state');
+    // console.log(this.state);
 
     let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
-    console.log('current latitude:')
-    console.log(this.state.mapRegion.latitude);
+    // console.log('current latitude:')
+    // console.log(this.state.mapRegion.latitude);
 
     this.getDirections(currentLocation, binLocation);
   }
@@ -131,26 +128,21 @@ export default class App extends Component {
       console.log(this.state.userLocation);
 
       let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
-      console.log('current latitude:')
-      console.log(this.state.mapRegion.latitude);
-
-      // this.getDirections(currentLocation,'47.6240076601029,-122.31271869761');
-
-      console.log('After setState. New state: ');
-      console.log(this.state);
+      // console.log('current latitude:')
+      // console.log(this.state.mapRegion.latitude);
+      // console.log('After setState. New state: ');
+      // console.log(this.state);
 
       return responseJson;
     })
     .catch((error) => {
-      console.error(error); //QUESTION: what else can I do here?
+      console.log(error);
     });
   }
 
-  // sendUserLocation() {
+  // updateUserData() {
   //
   // }
-
-  // sendUserLocation={ this.sendUserLocation.bind(this) }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
@@ -159,11 +151,11 @@ export default class App extends Component {
   setModalVisible(message) {
     this.setState({ modalVisible: true, modalMessage: message }, () => {
       setTimeout(() => {
-        console.log('in setTimeout modal');
+        // console.log('in setTimeout modal');
         this.setState({ modalVisible: false });
-        console.log('Bye modal');
+        // console.log('Bye modal');
       }
-      , 500);
+      , 300);
     })
   }
 
@@ -189,6 +181,23 @@ export default class App extends Component {
 
             </View>
 
+          </Modal>
+
+          <Modal
+            style={{ justifyContent: 'flex-end', margin: 0 }}
+            isVisible={ this.props.screenProps.welcomeModalVisible }
+            onModalHide={() => {
+              console.log('Modal hiding');
+              this.props.screenProps.setWelcomeModal(false)
+            }}
+          >
+            <View style={{ backgroundColor: 'white',padding: 22, justifyContent: 'center', alignItems: 'center',}}>
+              <Text
+                style={{fontSize: 30, textAlign: 'center', fontWeight: 'bold', color: 'blue' }}>
+                WELCOME
+              </Text>
+
+            </View>
           </Modal>
 
           <BinMap
