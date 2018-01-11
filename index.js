@@ -6,7 +6,7 @@ import { isSignedIn, onSignOut } from "./auth";
 class WhereYaBin extends Component {
   constructor(props) {
     super(props);
-    // SignOut();
+    onSignOut();
     this.state = {
       signedIn: false,
       userData: null,
@@ -29,7 +29,7 @@ class WhereYaBin extends Component {
   // }
 
   setUserData(userData) {
-    console.log("In Index.js, resetting user data:");
+    console.log("In Index.js, setting/resetting user data:");
     this.setState({ userData: userData});
   }
 

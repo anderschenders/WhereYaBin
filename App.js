@@ -12,7 +12,9 @@ let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = .01;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const RAILSAPI = 'http://localhost:3000/bins';
+// const RAILSAPI = 'http://localhost:3000/bins';
+const RAILSAPI = 'https://whereyabin.herokuapp.com/bins';
+
 
 export default class App extends Component {
   constructor(props) {

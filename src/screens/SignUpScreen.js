@@ -77,7 +77,16 @@ class SignUpScreen extends Component {
 
     if (getFormData) {
       // POST to Rails API users#create
-      fetch('http://localhost:3000/users', {
+
+      // fetch('http://localhost:3000/users', {
+      //   method: 'POST',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(getFormData),
+      // })
+      fetch('https://whereyabin.herokuapp.com/users', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

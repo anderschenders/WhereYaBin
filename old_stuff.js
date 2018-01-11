@@ -1,3 +1,17 @@
+// IDEAS for organizing user_bins
+{
+garbage: [{full: false}],
+recycling: {full: true}
+}
+
+[
+{full: false},
+{full: true}
+]
+
+// let useGarbageBin = () => { this.useBin('garbage'); }
+// let useRecyclingBin = () => { this.useBin('recycling'); }
+
 //Bin render
 
 render() {

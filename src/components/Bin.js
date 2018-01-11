@@ -98,13 +98,20 @@ class Bin extends Component {
           console.log(this.props.userLocation.user_lng);
 
           console.log('Making POST request to API to create user_bin');
-          fetch(
-            'http://localhost:3000/user_bins', {
+
+          fetch('https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -202,8 +209,14 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin recycling');
-          fetch(
-            'http://localhost:3000/user_bins', {
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
+          fetch('https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -301,8 +314,15 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-          fetch(
-            'http://localhost:3000/user_bins', {
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
+          fetch('https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -399,13 +419,20 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-          fetch(
-            'http://localhost:3000/user_bins', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
+            fetch('https://whereyabin.herokuapp.com/user_bins', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -496,13 +523,18 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-          fetch(
-            'http://localhost:3000/user_bins', {
+          fetch('https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
+            // 'http://localhost:3000/user_bins', {
+            //   method: 'POST',
+            //   headers: {
+            //     'Accept': 'application/json',
+            //     'Content-Type': 'application/json',
+            //   },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -593,13 +625,20 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-          fetch(
-            'http://localhost:3000/user_bins', {
+
+          fetch('https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -673,7 +712,7 @@ class Bin extends Component {
   render() {
 
     if (this.state.bothTypes == false ) {
-      
+
       return (
         <MapView.Marker
           coordinate={{

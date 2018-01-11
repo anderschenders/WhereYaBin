@@ -42,8 +42,7 @@ class ProfileScreen extends Component {
 
       // userID = this.props.screenProps.user_id;
 
-      fetch(
-        `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
+      fetch(`http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
           method: 'GET',
       })
       .then((response) => {
@@ -103,9 +102,12 @@ class ProfileScreen extends Component {
           let userDataParsedResponse = null;
           let userBinDataParsedResponse = null;
 
-          fetch(
-            `http://localhost:3000/users?id=${encodeURIComponent(userID)}`, {
-              method: 'GET',
+          // fetch(
+          //   `http://localhost:3000/users?id=${encodeURIComponent(userID)}`, {
+          //     method: 'GET',
+          // })
+          fetch(`https://whereyabin.herokuapp.com/users?id=${encodeURIComponent(userID)}`, {
+            method: 'GET',
           })
           .then((response) => {
             console.log('API response:');
@@ -123,9 +125,12 @@ class ProfileScreen extends Component {
           .then(() => {
             // request to API for UserBin data for this User
             console.log('Making GET request to API to get UserBin data for this particular User');
-            return fetch(
-              `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
-                method: 'GET',
+
+            //   `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
+            //     method: 'GET',
+            // })
+            return fetch(`https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`, {
+              method: 'GET',
             })
           })
           .then((response) => {
@@ -168,7 +173,6 @@ class ProfileScreen extends Component {
 
     console.log('In profile screen render()');
     console.log(this.props.screenProps.userData);
-    console.log(memberSince);
 
     return (
       <View style={{backgroundColor: '#468CBA', height: '100%'}}>

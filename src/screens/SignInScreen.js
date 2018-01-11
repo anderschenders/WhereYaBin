@@ -78,7 +78,11 @@ class SignInScreen extends Component {
 
     if (getFormData) {
       // GET to Rails API users#index
-      fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
+       // fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
+      //   method: 'GET',
+      // })
+
+      fetch(`https://whereyabin.herokuapp.com/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
         method: 'GET',
       })
       .then((response) => {
