@@ -2,21 +2,35 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 const Header = (props) => {
-  const { viewStyle, textStyle } = styles;
+  const { viewStyle, headerTextStyle, textStyle } = styles;
 
   return (
     <View style={viewStyle}>
-      <Text style={textStyle}>{ props.headerText }</Text>
+      <Text style={ headerTextStyle }>{ props.headerText }</Text>
+
+      <View>
+        <Text style={ textStyle }>
+          {'Member since:'} { props.headerSummaryText.memberSince  }
+        </Text>
+
+        <Text style={ textStyle }>
+          {'Total activity count:'} { props.headerSummaryText.activityCount }
+        </Text>
+
+        <Text style={ textStyle }>
+          {'Travelled: '} { props.headerSummaryText.distanceTravelled } {'miles'}
+        </Text>
+      </View>
     </View>
   );
 };
 
 const styles = {
   viewStyle: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#ebebe5',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 150,
     paddingTop: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -24,9 +38,17 @@ const styles = {
     elevation: 2,
     position: 'relative'
   },
+  headerTextStyle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginTop: 15,
+    marginBottom: 8,
+  },
   textStyle: {
-    fontSize: 20
-  }
+    marginTop: 1,
+    marginBottom: 1,
+    textAlign: 'center',
+  },
 };
 
 export default Header;

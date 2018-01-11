@@ -161,28 +161,16 @@ class ProfileScreen extends Component {
   render() {
 
     return (
-      <View>
-        <Header headerText={ this.state.username } />
+      <View style={{backgroundColor: '#468CBA', height: '100%'}}>
+        <Header headerText={ this.state.username } headerSummaryText={{
+          memberSince: this.state.memberSince,
+          activityCount: this.state.activityCount,
+          distanceTravelled: this.state.distanceTravelled,
+        }}/>
 
-        <View style={ styles.containerViewStyle }>
-          <ProfileCard>
-            <Text style={ styles.textStyle }>
-              {'Member since:'} { this.state.memberSince  }
-            </Text>
-
-            <Text style={ styles.textStyle }>
-              {'Total activity count:'} { this.state.activityCount }
-            </Text>
-
-            <Text style={ styles.textStyle }>
-              {'Travelled: '} { this.state.distanceTravelled } {'miles'}
-            </Text>
-          </ProfileCard>
-
-          <UserBinnedHistory
-            userBinnedHistory={ this.state.userBinnedHistory }>
-          </UserBinnedHistory>
-        </View>
+        <UserBinnedHistory
+          userBinnedHistory={ this.state.userBinnedHistory }>
+        </UserBinnedHistory>
 
       </View>
     );
@@ -191,28 +179,28 @@ class ProfileScreen extends Component {
 
 
 const styles = StyleSheet.create({
-  containerViewStyle: {
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: "#ddd",
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 20,
-    marginRight:20,
-    marginTop: 20,
-    marginBottom: 20,
-    height: 550,
-    // flex: 1,
-  },
-  textStyle: {
-    marginTop: 5,
-    marginBottom: 5,
-    textAlign: 'center',
-  },
+  // containerViewStyle: {
+  //   borderWidth: 1,
+  //   borderRadius: 2,
+  //   borderColor: "#ddd",
+  //   borderBottomWidth: 0,
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 2,
+  //   elevation: 1,
+  //   marginLeft: 20,
+  //   marginRight:20,
+  //   marginTop: 20,
+  //   marginBottom: 20,
+  //   height: 550,
+  //   // flex: 1,
+  // },
+  // textStyle: {
+  //   marginTop: 5,
+  //   marginBottom: 5,
+  //   textAlign: 'center',
+  // },
 });
 
 
