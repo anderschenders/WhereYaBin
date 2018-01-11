@@ -672,166 +672,165 @@ class Bin extends Component {
 
   render() {
 
-      { if (this.state.bothTypes == false ) {
-
-        return (
-          <MapView.Marker
-            coordinate={{
-              latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
-            pinColor={this.state.pinColor}
-          >
-
-            <MapView.Callout>
-
-            <CallOutCard>
-              <CardSection>
-                <View style={ styles.binTypeContainerStyle }>
-                  <Image
-                    style={ styles.imageStyle }
-                    source={ this.state.image }
-                    />
-                  <Text style={ styles.textStyle }>
-                    { this.state.binText }
-                  </Text>
-                </View>
-              </CardSection>
-
-              <CardSection>
-                <Button
-                  onPress={ this.useBin.bind(this) }
-                  disabled={ this.state.useBinButtondisabled }
-                  accessibilityLabel='Use this bin'
-                >
-                  USE THIS BIN
-                </Button>
-              </CardSection>
-
-              <CardSection>
-                <Button
-                  onPress={ this.reportBinFull.bind(this) }
-                  disabled={ this.state.reportMissingBinButtonDisabled }
-                  accessibilityLabel='Report full bin'
-                >
-                  REPORT FULL BIN
-                </Button>
-              </CardSection>
-
-              <CardSection>
-                <Button
-                  onPress={ this.reportMissingBin.bind(this) }
-                  disabled={ this.state.reportFullBinButtonDisabled }
-                  accessibilityLabel='Report missing bin'
-                >
-                  REPORT MISSING BIN
-                </Button>
-              </CardSection>
-            </CallOutCard>
-
-            </MapView.Callout>
-
-          </MapView.Marker>
-
-        );
-
-      } else {
-
-        return (
-          <MapView.Marker
-            coordinate={{
-              latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
-            pinColor={this.state.pinColor}
-          >
+    if (this.state.bothTypes == false ) {
+      
+      return (
+        <MapView.Marker
+          coordinate={{
+            latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
+          pinColor={this.state.pinColor}
+        >
 
           <MapView.Callout>
 
-            <CallOutCard>
-              <CardSection>
-                <View style={ styles.binTypeContainerStyle }>
-                  <Text style={ styles.textStyle }>
-                    { this.state.binText }
-                  </Text>
-                </View>
-              </CardSection>
+          <CallOutCard>
+            <CardSection>
+              <View style={ styles.binTypeContainerStyle }>
+                <Image
+                  style={ styles.imageStyle }
+                  source={ this.state.image }
+                  />
+                <Text style={ styles.textStyle }>
+                  { this.state.binText }
+                </Text>
+              </View>
+            </CardSection>
 
-              <CardSection>
-                <Button
-                  onPress={ this.useBin.bind(this) }
-                  disabled={ this.state.useBinButtondisabled }
-                  accessibilityLabel='Use this bin'
-                >
-                  USE THIS BIN
-                </Button>
-              </CardSection>
+            <CardSection>
+              <Button
+                onPress={ this.useBin.bind(this) }
+                disabled={ this.state.useBinButtondisabled }
+                accessibilityLabel='Use this bin'
+              >
+                USE THIS BIN
+              </Button>
+            </CardSection>
 
-              <CardSection>
-                <Button
-                  onPress={ this.reportBinFull.bind(this) }
-                  disabled={ this.state.reportFullBinButtonDisabled }
-                  accessibilityLabel='Report full bin'
-                >
-                  REPORT FULL BIN
-                </Button>
-              </CardSection>
+            <CardSection>
+              <Button
+                onPress={ this.reportBinFull.bind(this) }
+                disabled={ this.state.reportMissingBinButtonDisabled }
+                accessibilityLabel='Report full bin'
+              >
+                REPORT FULL BIN
+              </Button>
+            </CardSection>
 
-              <CardSection>
-                <Button
-                  onPress={ this.reportMissingBin.bind(this) }
-                  disabled={ this.state.reportMissingBinButtonDisabled }
-                  accessibilityLabel='Report missing bin'
-                >
-                  REPORT MISSING BIN
-                </Button>
-              </CardSection>
-            </CallOutCard>
+            <CardSection>
+              <Button
+                onPress={ this.reportMissingBin.bind(this) }
+                disabled={ this.state.reportFullBinButtonDisabled }
+                accessibilityLabel='Report missing bin'
+              >
+                REPORT MISSING BIN
+              </Button>
+            </CardSection>
+          </CallOutCard>
 
-            <View style={ styles.addMargin } />
+          </MapView.Callout>
 
-            <CallOutCard>
-              <CardSection>
-                <View style={ styles.binTypeContainerStyle }>
-                  <Text style={ styles.textStyle }>
-                    { this.state.binText2 }
-                  </Text>
-                </View>
-              </CardSection>
+        </MapView.Marker>
 
-              <CardSection>
-                <Button
-                  onPress={ this.useRecycleBin.bind(this) }
-                  disabled={ this.state.useBinButtondisabled }
-                  accessibilityLabel='Use this bin'
-                >
-                  USE THIS BIN
-                </Button>
-              </CardSection>
+      );
 
-              <CardSection>
-                <Button
-                  onPress={ this.reportRecyclingBinFull.bind(this) }
-                  disabled={ this.state.reportFullBinButtonDisabled }
-                  accessibilityLabel='Report full bin'
-                >
-                  REPORT FULL BIN
-                </Button>
-              </CardSection>
+    } else {
 
-              <CardSection>
-                <Button
-                  onPress={ this.reportMissingRecyclingBin.bind(this) }
-                  disabled={ this.state.reportFullBinButtonDisabled }
-                  accessibilityLabel='Report missing bin'
-                >
-                  REPORT MISSING BIN
-                </Button>
-              </CardSection>
-            </CallOutCard>
+      return (
+        <MapView.Marker
+          coordinate={{
+            latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
+          pinColor={this.state.pinColor}
+        >
 
-            </MapView.Callout>
+        <MapView.Callout>
 
-          </MapView.Marker>
+          <CallOutCard>
+            <CardSection>
+              <View style={ styles.binTypeContainerStyle }>
+                <Text style={ styles.textStyle }>
+                  { this.state.binText }
+                </Text>
+              </View>
+            </CardSection>
 
-        );
-      }
+            <CardSection>
+              <Button
+                onPress={ this.useBin.bind(this) }
+                disabled={ this.state.useBinButtondisabled }
+                accessibilityLabel='Use this bin'
+              >
+                USE THIS BIN
+              </Button>
+            </CardSection>
+
+            <CardSection>
+              <Button
+                onPress={ this.reportBinFull.bind(this) }
+                disabled={ this.state.reportFullBinButtonDisabled }
+                accessibilityLabel='Report full bin'
+              >
+                REPORT FULL BIN
+              </Button>
+            </CardSection>
+
+            <CardSection>
+              <Button
+                onPress={ this.reportMissingBin.bind(this) }
+                disabled={ this.state.reportMissingBinButtonDisabled }
+                accessibilityLabel='Report missing bin'
+              >
+                REPORT MISSING BIN
+              </Button>
+            </CardSection>
+          </CallOutCard>
+
+          <View style={ styles.addMargin } />
+
+          <CallOutCard>
+            <CardSection>
+              <View style={ styles.binTypeContainerStyle }>
+                <Text style={ styles.textStyle }>
+                  { this.state.binText2 }
+                </Text>
+              </View>
+            </CardSection>
+
+            <CardSection>
+              <Button
+                onPress={ this.useRecycleBin.bind(this) }
+                disabled={ this.state.useBinButtondisabled }
+                accessibilityLabel='Use this bin'
+              >
+                USE THIS BIN
+              </Button>
+            </CardSection>
+
+            <CardSection>
+              <Button
+                onPress={ this.reportRecyclingBinFull.bind(this) }
+                disabled={ this.state.reportFullBinButtonDisabled }
+                accessibilityLabel='Report full bin'
+              >
+                REPORT FULL BIN
+              </Button>
+            </CardSection>
+
+            <CardSection>
+              <Button
+                onPress={ this.reportMissingRecyclingBin.bind(this) }
+                disabled={ this.state.reportFullBinButtonDisabled }
+                accessibilityLabel='Report missing bin'
+              >
+                REPORT MISSING BIN
+              </Button>
+            </CardSection>
+          </CallOutCard>
+
+          </MapView.Callout>
+
+        </MapView.Marker>
+
+      );
     }
   }
 }

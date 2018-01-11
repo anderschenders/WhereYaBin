@@ -13,14 +13,14 @@ const styles = {
   containerStyle: {
     // borderWidth: 1,
     borderRadius: 2,
-    borderColor: "#e4ebeb",
+    borderColor: "#ebf0f0",
     borderBottomWidth: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 1,
-    backgroundColor: '#e4ebeb',
+    backgroundColor: '#ebf0f0',
     // marginLeft: 1,
     // marginRight: 1,
     // marginTop: 1

@@ -4,7 +4,11 @@ import { Text, View } from 'react-native';
 const Header = (props) => {
   const { viewStyle, headerTextStyle, textStyle } = styles;
 
+  console.log('In Header, return()');
+  console.log(props);
+
   return (
+
     <View style={viewStyle}>
       <Text style={ headerTextStyle }>{ props.headerText }</Text>
 
@@ -21,13 +25,14 @@ const Header = (props) => {
           {'Travelled: '} { props.headerSummaryText.distanceTravelled } {'miles'}
         </Text>
       </View>
+
     </View>
   );
 };
 
 const styles = {
   viewStyle: {
-    backgroundColor: '#e4ebeb',
+    backgroundColor: '#ebf0f0',
     justifyContent: 'center',
     alignItems: 'center',
     height: 150,

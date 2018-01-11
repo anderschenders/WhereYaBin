@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text } from 'react-native';
+import { AppRegistry, Text, AsyncStorage } from 'react-native';
 import { MainNavigator, SignedIn } from './router';
 import { isSignedIn, onSignOut } from "./auth";
 
 class WhereYaBin extends Component {
   constructor(props) {
     super(props);
-    onSignOut();
+    // SignOut();
     this.state = {
       signedIn: false,
       userData: null,
@@ -15,9 +15,14 @@ class WhereYaBin extends Component {
 
   componentWillMount() {
     isSignedIn() //check if user is signed in
-      .then(res => this.setState({ signedIn: res }))
-      .catch(err => alert("An error occurred"));
+      .then(res => {
+        return AsyncStorage.getItem("USER_KEY").then(keyValue => this.setState({
+          userData: JSON.parse(keyValue),
+          signedIn: res }))
+      })
+      .catch(err => console.log(err));
   }
+  // TODO: use AsyncStorage to set userData
 
   // forceIndexComponentRender() {
   //   this.forceUpdate();

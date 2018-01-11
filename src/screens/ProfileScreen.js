@@ -14,10 +14,10 @@ class ProfileScreen extends Component {
 
     this.state = {
       // userData: this.props.screenProps.userData,
-      username: null,
-      memberSince: null,
-      activityCount: null,
-      distanceTravelled: null,
+      // username: null,
+      // memberSince: null,
+      // activityCount: null,
+      // distanceTravelled: null,
       userBinnedHistory: [],
     }
     console.log('@@@@@@@ In ProfileScreen constructor, this.state @@@@@@@');
@@ -160,12 +160,22 @@ class ProfileScreen extends Component {
 
   render() {
 
+    if (this.props.screenProps.userData == null) {
+      return <View></View>
+    }
+
+    const { username, memberSince, activityCount, distanceTravelled } = this.props.screenProps.userData.user;
+
+    console.log('In profile screen render()');
+    console.log(this.props.screenProps.userData);
+    console.log(memberSince);
+
     return (
       <View style={{backgroundColor: '#468CBA', height: '100%'}}>
-        <Header headerText={ this.state.username } headerSummaryText={{
-          memberSince: this.state.memberSince,
-          activityCount: this.state.activityCount,
-          distanceTravelled: this.state.distanceTravelled,
+        <Header headerText={ username } headerSummaryText={{
+          memberSince: this.props.screenProps.userData.user.created_at.substring(0,10),
+          activityCount: this.props.screenProps.userData.user.bin_count,
+          distanceTravelled: this.props.screenProps.userData.total_dist,
         }}/>
 
         <UserBinnedHistory

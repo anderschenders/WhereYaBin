@@ -170,6 +170,7 @@ export default class App extends Component {
     const { mapRegion, bins } = this.state;
 
     if (mapRegion) {
+      console.log('%%%%%%%% Got Map Region %%%%%%%%%');
       return (
         <View style={styles.container}>
 
