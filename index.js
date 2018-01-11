@@ -39,8 +39,8 @@ class WhereYaBin extends Component {
   }
 
   setWelcomeModal(visible) {
-    console.log("In Index.js, settingWelcomeModal to true");
-    this.setState({ welcomeModalVisible: true })
+    console.log("In Index.js, settingWelcomeModal");
+    this.setState({ welcomeModalVisible: visible })
   }
 
   render() {

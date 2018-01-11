@@ -98,20 +98,13 @@ class Bin extends Component {
           console.log(this.props.userLocation.user_lng);
 
           console.log('Making POST request to API to create user_bin');
-
-          fetch('https://whereyabin.herokuapp.com/user_bins', {
+          fetch(
+            'http://localhost:3000/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -209,14 +202,8 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin recycling');
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          fetch('https://whereyabin.herokuapp.com/user_bins', {
+          fetch(
+            'http://localhost:3000/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -314,15 +301,8 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          fetch('https://whereyabin.herokuapp.com/user_bins', {
+          fetch(
+            'http://localhost:3000/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -419,20 +399,13 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-            fetch('https://whereyabin.herokuapp.com/user_bins', {
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-                },
+          fetch(
+            'http://localhost:3000/user_bins', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -523,18 +496,13 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-          fetch('https://whereyabin.herokuapp.com/user_bins', {
+          fetch(
+            'http://localhost:3000/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-            // 'http://localhost:3000/user_bins', {
-            //   method: 'POST',
-            //   headers: {
-            //     'Accept': 'application/json',
-            //     'Content-Type': 'application/json',
-            //   },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -625,20 +593,13 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-
-          fetch('https://whereyabin.herokuapp.com/user_bins', {
+          fetch(
+            'http://localhost:3000/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
               body: JSON.stringify({
                 user_id: userID,
                 bin_id: binID,
@@ -711,165 +672,166 @@ class Bin extends Component {
 
   render() {
 
-    if (this.state.bothTypes == false ) {
+      { if (this.state.bothTypes == false ) {
 
-      return (
-        <MapView.Marker
-          coordinate={{
-            latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
-          pinColor={this.state.pinColor}
-        >
+        return (
+          <MapView.Marker
+            coordinate={{
+              latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
+            pinColor={this.state.pinColor}
+          >
+
+            <MapView.Callout>
+
+            <CallOutCard>
+              <CardSection>
+                <View style={ styles.binTypeContainerStyle }>
+                  <Image
+                    style={ styles.imageStyle }
+                    source={ this.state.image }
+                    />
+                  <Text style={ styles.textStyle }>
+                    { this.state.binText }
+                  </Text>
+                </View>
+              </CardSection>
+
+              <CardSection>
+                <Button
+                  onPress={ this.useBin.bind(this) }
+                  disabled={ this.state.useBinButtondisabled }
+                  accessibilityLabel='Use this bin'
+                >
+                  USE THIS BIN
+                </Button>
+              </CardSection>
+
+              <CardSection>
+                <Button
+                  onPress={ this.reportBinFull.bind(this) }
+                  disabled={ this.state.reportMissingBinButtonDisabled }
+                  accessibilityLabel='Report full bin'
+                >
+                  REPORT FULL BIN
+                </Button>
+              </CardSection>
+
+              <CardSection>
+                <Button
+                  onPress={ this.reportMissingBin.bind(this) }
+                  disabled={ this.state.reportFullBinButtonDisabled }
+                  accessibilityLabel='Report missing bin'
+                >
+                  REPORT MISSING BIN
+                </Button>
+              </CardSection>
+            </CallOutCard>
+
+            </MapView.Callout>
+
+          </MapView.Marker>
+
+        );
+
+      } else {
+
+        return (
+          <MapView.Marker
+            coordinate={{
+              latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
+            pinColor={this.state.pinColor}
+          >
 
           <MapView.Callout>
 
-          <CallOutCard>
-            <CardSection>
-              <View style={ styles.binTypeContainerStyle }>
-                <Image
-                  style={ styles.imageStyle }
-                  source={ this.state.image }
-                  />
-                <Text style={ styles.textStyle }>
-                  { this.state.binText }
-                </Text>
-              </View>
-            </CardSection>
+            <CallOutCard>
+              <CardSection>
+                <View style={ styles.binTypeContainerStyle }>
+                  <Text style={ styles.textStyle }>
+                    { this.state.binText }
+                  </Text>
+                </View>
+              </CardSection>
 
-            <CardSection>
-              <Button
-                onPress={ this.useBin.bind(this) }
-                disabled={ this.state.useBinButtondisabled }
-                accessibilityLabel='Use this bin'
-              >
-                USE THIS BIN
-              </Button>
-            </CardSection>
+              <CardSection>
+                <Button
+                  onPress={ this.useBin.bind(this) }
+                  disabled={ this.state.useBinButtondisabled }
+                  accessibilityLabel='Use this bin'
+                >
+                  USE THIS BIN
+                </Button>
+              </CardSection>
 
-            <CardSection>
-              <Button
-                onPress={ this.reportBinFull.bind(this) }
-                disabled={ this.state.reportMissingBinButtonDisabled }
-                accessibilityLabel='Report full bin'
-              >
-                REPORT FULL BIN
-              </Button>
-            </CardSection>
+              <CardSection>
+                <Button
+                  onPress={ this.reportBinFull.bind(this) }
+                  disabled={ this.state.reportFullBinButtonDisabled }
+                  accessibilityLabel='Report full bin'
+                >
+                  REPORT FULL BIN
+                </Button>
+              </CardSection>
 
-            <CardSection>
-              <Button
-                onPress={ this.reportMissingBin.bind(this) }
-                disabled={ this.state.reportFullBinButtonDisabled }
-                accessibilityLabel='Report missing bin'
-              >
-                REPORT MISSING BIN
-              </Button>
-            </CardSection>
-          </CallOutCard>
+              <CardSection>
+                <Button
+                  onPress={ this.reportMissingBin.bind(this) }
+                  disabled={ this.state.reportMissingBinButtonDisabled }
+                  accessibilityLabel='Report missing bin'
+                >
+                  REPORT MISSING BIN
+                </Button>
+              </CardSection>
+            </CallOutCard>
 
-          </MapView.Callout>
+            <View style={ styles.addMargin } />
 
-        </MapView.Marker>
+            <CallOutCard>
+              <CardSection>
+                <View style={ styles.binTypeContainerStyle }>
+                  <Text style={ styles.textStyle }>
+                    { this.state.binText2 }
+                  </Text>
+                </View>
+              </CardSection>
 
-      );
+              <CardSection>
+                <Button
+                  onPress={ this.useRecycleBin.bind(this) }
+                  disabled={ this.state.useBinButtondisabled }
+                  accessibilityLabel='Use this bin'
+                >
+                  USE THIS BIN
+                </Button>
+              </CardSection>
 
-    } else {
+              <CardSection>
+                <Button
+                  onPress={ this.reportRecyclingBinFull.bind(this) }
+                  disabled={ this.state.reportFullBinButtonDisabled }
+                  accessibilityLabel='Report full bin'
+                >
+                  REPORT FULL BIN
+                </Button>
+              </CardSection>
 
-      return (
-        <MapView.Marker
-          coordinate={{
-            latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
-          pinColor={this.state.pinColor}
-        >
+              <CardSection>
+                <Button
+                  onPress={ this.reportMissingRecyclingBin.bind(this) }
+                  disabled={ this.state.reportFullBinButtonDisabled }
+                  accessibilityLabel='Report missing bin'
+                >
+                  REPORT MISSING BIN
+                </Button>
+              </CardSection>
+            </CallOutCard>
 
-        <MapView.Callout>
+            </MapView.Callout>
 
-          <CallOutCard>
-            <CardSection>
-              <View style={ styles.binTypeContainerStyle }>
-                <Text style={ styles.textStyle }>
-                  { this.state.binText }
-                </Text>
-              </View>
-            </CardSection>
+          </MapView.Marker>
 
-            <CardSection>
-              <Button
-                onPress={ this.useBin.bind(this) }
-                disabled={ this.state.useBinButtondisabled }
-                accessibilityLabel='Use this bin'
-              >
-                USE THIS BIN
-              </Button>
-            </CardSection>
-
-            <CardSection>
-              <Button
-                onPress={ this.reportBinFull.bind(this) }
-                disabled={ this.state.reportFullBinButtonDisabled }
-                accessibilityLabel='Report full bin'
-              >
-                REPORT FULL BIN
-              </Button>
-            </CardSection>
-
-            <CardSection>
-              <Button
-                onPress={ this.reportMissingBin.bind(this) }
-                disabled={ this.state.reportMissingBinButtonDisabled }
-                accessibilityLabel='Report missing bin'
-              >
-                REPORT MISSING BIN
-              </Button>
-            </CardSection>
-          </CallOutCard>
-
-          <View style={ styles.addMargin } />
-
-          <CallOutCard>
-            <CardSection>
-              <View style={ styles.binTypeContainerStyle }>
-                <Text style={ styles.textStyle }>
-                  { this.state.binText2 }
-                </Text>
-              </View>
-            </CardSection>
-
-            <CardSection>
-              <Button
-                onPress={ this.useRecycleBin.bind(this) }
-                disabled={ this.state.useBinButtondisabled }
-                accessibilityLabel='Use this bin'
-              >
-                USE THIS BIN
-              </Button>
-            </CardSection>
-
-            <CardSection>
-              <Button
-                onPress={ this.reportRecyclingBinFull.bind(this) }
-                disabled={ this.state.reportFullBinButtonDisabled }
-                accessibilityLabel='Report full bin'
-              >
-                REPORT FULL BIN
-              </Button>
-            </CardSection>
-
-            <CardSection>
-              <Button
-                onPress={ this.reportMissingRecyclingBin.bind(this) }
-                disabled={ this.state.reportFullBinButtonDisabled }
-                accessibilityLabel='Report missing bin'
-              >
-                REPORT MISSING BIN
-              </Button>
-            </CardSection>
-          </CallOutCard>
-
-          </MapView.Callout>
-
-        </MapView.Marker>
-
-      );
+        );
+      }
     }
   }
 }

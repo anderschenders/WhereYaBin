@@ -48,6 +48,7 @@ const UserBinnedHistory = ({ userBinnedHistory }) => {
 const styles = StyleSheet.create({
   containerViewStyle: {
     // flex: 1,
+    backgroundColor: 'white',
     borderWidth: 1,
     borderRadius: 2,
     borderColor: "#ddd",
@@ -70,6 +71,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: 'bold',
   },
+  scrollViewContainer: {
+    backgroundColor: 'white',
+  }
   // viewSectionTextStyle: {
   //   fontSize: 20,
   //   marginTop: 20,

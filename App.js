@@ -1,7 +1,7 @@
 'use strict'; //improved error handling, disables some less-than-ideal JS features
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text } from 'react-native';
+import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
 import Modal from 'react-native-modal';
@@ -186,16 +186,60 @@ export default class App extends Component {
           <Modal
             style={{ justifyContent: 'flex-end', margin: 0 }}
             isVisible={ this.props.screenProps.welcomeModalVisible }
-            onModalHide={() => {
-              console.log('Modal hiding');
-              this.props.screenProps.setWelcomeModal(false)
-            }}
+            onBackdropPress={() => this.props.screenProps.setWelcomeModal(false)}
           >
-            <View style={{ backgroundColor: 'white',padding: 22, justifyContent: 'center', alignItems: 'center',}}>
+
+            <View style={{ flex: 1, backgroundColor: '#ebf0f0', justifyContent: 'center', }}>
               <Text
-                style={{fontSize: 30, textAlign: 'center', fontWeight: 'bold', color: 'blue' }}>
-                WELCOME
+                style={{fontSize: 30, textAlign: 'center', fontWeight: 'bold', color: '#284f80', marginBottom: 5, }}>
+                Welcome!
               </Text>
+              <Text style={{fontSize: 18, marginRight: 15, marginLeft: 15, textAlign: 'center', }}>
+                Whenever you catch yourself thinking 'Whereya, Bin?' use this app to find the most convenient bin for you to dispose your trash.
+              </Text>
+
+              <View style={{marginTop: 15, marginRight: 20, marginLeft: 20, backgroundColor: 'white', }}>
+
+                <Text style={{marginTop: 10, textAlign: 'center', color: '#468cba', fontSize: 22, fontWeight: 'bold',}}>
+                  How to use the Map
+                </Text>
+                <Text style={{fontWeight: 'bold', marginTop: 10, marginRight: 20, marginLeft: 20, textAlign: 'center', fontSize: 18,}}>
+                  Tap on pins to use a bin, report a full bin, or report a missing bin.
+                </Text>
+
+                <View style={{ marginTop: 10, marginRight: 28, marginLeft: 28, marginBottom: 15, }}>
+                  <Text style={{ marginTop: 3, fontSize: 20, color: 'purple'}}>
+                    PURPLE pins: garbage&recycle
+                  </Text>
+                  <Text style={{ marginTop: 3, fontSize: 20, color: 'blue'}}>
+                    BLUE pins: lone recycle bins
+                  </Text>
+                  <Text style={{ marginTop: 3, fontSize: 20, color: 'black'}}>
+                    BLACK pins: lone garbage bins
+                  </Text>
+                </View>
+
+              </View>
+
+              <View style={{marginTop: 15, marginRight: 20, marginLeft: 20, backgroundColor: 'white', }}>
+                <Text style={{marginTop: 10, textAlign: 'center', color: '#468cba', fontSize: 22, fontWeight: 'bold',}}>
+                  Some interesting information:
+                </Text>
+              </View>
+
+              <TouchableOpacity onPress={() => this.props.screenProps.setWelcomeModal(false)}>
+                <View
+                  style={{
+                    backgroundColor: 'lightblue',
+                    padding: 12,
+                    margin: 16,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 4,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',}}>
+                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>CLOSE</Text>
+                </View>
+              </TouchableOpacity>
 
             </View>
           </Modal>
