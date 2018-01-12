@@ -194,30 +194,30 @@ export default class App extends Component {
 
             <View style={{ flex: 1, backgroundColor: '#ebf0f0', justifyContent: 'center', }}>
               <Text
-                style={{fontSize: 30, textAlign: 'center', fontWeight: 'bold', color: '#284f80', marginBottom: 5, }}>
+                style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold', color: '#284f80', marginBottom: 5, }}>
                 Welcome!
               </Text>
-              <Text style={{fontSize: 18, marginRight: 15, marginLeft: 15, textAlign: 'center', }}>
-                Whenever you catch yourself thinking 'Whereya, Bin?' use this app to find the most convenient bin for you to dispose your trash.
+              <Text style={{fontSize: 16, marginRight: 15, marginLeft: 15, textAlign: 'center', }}>
+                When you catch yourself thinking 'Whereya, Bin?' use this app to find a convenient bin near you.
               </Text>
 
               <View style={{marginTop: 15, marginRight: 20, marginLeft: 20, backgroundColor: 'white', }}>
 
-                <Text style={{marginTop: 10, textAlign: 'center', color: '#468cba', fontSize: 22, fontWeight: 'bold',}}>
+                <Text style={{marginTop: 10, textAlign: 'center', color: '#468cba', fontSize: 20, fontWeight: 'bold',}}>
                   How to use the Map
                 </Text>
-                <Text style={{fontWeight: 'bold', marginTop: 10, marginRight: 20, marginLeft: 20, textAlign: 'center', fontSize: 18,}}>
-                  Tap on pins to use a bin, report a full bin, or report a missing bin.
+                <Text style={{ fontWeight: 'bold', marginTop: 10, marginRight: 20, marginLeft: 20, textAlign: 'center', fontSize: 16, }}>
+                  Tap on pins to: 1) use a bin, 2) report a full bin, or 3) report a missing bin.
                 </Text>
 
-                <View style={{ marginTop: 10, marginRight: 28, marginLeft: 28, marginBottom: 15, }}>
-                  <Text style={{ marginTop: 3, fontSize: 20, color: 'purple'}}>
+                <View style={{ marginTop: 5, marginRight: 22, marginLeft: 22, marginBottom: 15, }}>
+                  <Text style={{ fontWeight: 'bold', marginTop: 3, fontSize: 15, color: 'purple'}}>
                     PURPLE pins: garbage&recycle
                   </Text>
-                  <Text style={{ marginTop: 3, fontSize: 20, color: 'blue'}}>
+                  <Text style={{ fontWeight: 'bold', marginTop: 3, fontSize: 15, color: 'blue'}}>
                     BLUE pins: lone recycle bins
                   </Text>
-                  <Text style={{ marginTop: 3, fontSize: 20, color: 'black'}}>
+                  <Text style={{ fontWeight: 'bold', marginTop: 3, fontSize: 15, color: 'black'}}>
                     BLACK pins: lone garbage bins
                   </Text>
                 </View>
@@ -225,7 +225,7 @@ export default class App extends Component {
               </View>
 
               <View style={{marginTop: 15, marginRight: 20, marginLeft: 20, backgroundColor: 'white', }}>
-                <Text style={{marginTop: 10, textAlign: 'center', color: '#468cba', fontSize: 22, fontWeight: 'bold',}}>
+                <Text style={{marginTop: 10, textAlign: 'center', color: '#468cba', fontSize: 18, fontWeight: 'bold',}}>
                   Some interesting information:
                 </Text>
               </View>
