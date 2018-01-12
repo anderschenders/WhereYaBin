@@ -23,7 +23,8 @@ class WhereYaBin extends Component {
       })
       .catch(err => console.log(err));
   }
-  // TODO: use AsyncStorage to update userData instead of having other component set it and pass it back up to Index
+
+  // TODO: use AsyncStorage to update userData instead of having other components set it and pass it back up to Index
   //updateUserData()
 
   setUserData(userData) {
