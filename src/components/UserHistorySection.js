@@ -16,7 +16,7 @@ class UserHistorySection extends Component {
   }
 
   componentDidMount() {
-    // console.log('@@@@@@ In UserHistorySection.js, componentDidMount @@@@@@ ');
+    console.log('@@@@@@ In UserHistorySection.js, componentDidMount @@@@@@ ');
     // console.log('this.props');
     // console.log(this.props);
 

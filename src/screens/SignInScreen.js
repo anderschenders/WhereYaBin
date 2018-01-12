@@ -96,8 +96,6 @@ class SignInScreen extends Component {
 
           console.log('parsedResponse:');
           console.log(parsedResponse);
-          // console.log('parsedResponse.id:');
-          // console.log(parsedResponse.id);
 
           onSignIn(parsedResponse).then((res) => {
           if (res === true) {
@@ -136,9 +134,9 @@ class SignInScreen extends Component {
     let error = null
     if (this.state.error) {
       const errorMessage = this.state.error.error;
-      console.log('In render!');
-      console.log(this.state.error.error);
-      console.log(errorMessage);
+      // console.log('In render!');
+      // console.log(this.state.error.error);
+      // console.log(errorMessage);
       error = <Text
                 style={{
                   alignSelf: 'center',

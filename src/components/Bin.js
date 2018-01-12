@@ -91,15 +91,23 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           // this.props.sendUserLocation();
-          console.log('Checking user location:');
-          console.log(this.props.userLocation);
+          // console.log('Checking user location:');
+          // console.log(this.props.userLocation);
           // console.log(this.props.userLocation['latitude']);
-          console.log(this.props.userLocation.user_lat);
-          console.log(this.props.userLocation.user_lng);
-
+          // console.log(this.props.userLocation.user_lat);
+          // console.log(this.props.userLocation.user_lng);
+          //
           console.log('Making POST request to API to create user_bin');
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
           fetch(
-            'http://localhost:3000/user_bins', {
+            'https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -116,14 +124,14 @@ class Bin extends Component {
           )
           .then((response) => {
             if (response.status === 200) {
-              console.log('API status 200');
+              // console.log('API status 200');
 
               const parsedResponse = JSON.parse(response._bodyText);
 
               console.log('parsedResponse:');
               console.log(parsedResponse);
-              console.log('parsedResponse.total_dist');
-              console.log(parsedResponse.total_dist);
+              // console.log('parsedResponse.total_dist');
+              // console.log(parsedResponse.total_dist);
 
               newUserData = {
                 user: parsedResponse.updated_user,
@@ -202,8 +210,16 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin recycling');
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
           fetch(
-            'http://localhost:3000/user_bins', {
+            'https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -248,7 +264,7 @@ class Bin extends Component {
                 .then(res => {
                   console.log("Successfully set new user data, res: ");
                   console.log(res); //returns null
-                  // resolve(true);
+                  // // resolve(true);
                   this.props.screenProps.setUserData(newUserData);
                   // this.props.screenProps.forceIndexComponentRender();
                 })
@@ -301,8 +317,16 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
           fetch(
-            'http://localhost:3000/user_bins', {
+            'https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -383,13 +407,13 @@ class Bin extends Component {
     console.log('In reportRecyclingBinFull:');
 
     console.log('Getting binID:');
-    console.log(this.props.binArray[0].id);
+    console.log(this.props.binArray[1].id);
 
     let userID = null;
-    let binID = this.props.binArray[0].id;
+    let binID = this.props.binArray[1].id;
     let newUserData = null;
 
-    console.log('Getting USER_KEY: ');
+    // console.log('Getting USER_KEY: ');
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
@@ -399,8 +423,16 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
           fetch(
-            'http://localhost:3000/user_bins', {
+            'https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -496,8 +528,16 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
           fetch(
-            'http://localhost:3000/user_bins', {
+            'https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -593,8 +633,16 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
+
+          // fetch(
+          //   'http://localhost:3000/user_bins', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //     },
           fetch(
-            'http://localhost:3000/user_bins', {
+            'https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',

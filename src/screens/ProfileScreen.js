@@ -40,8 +40,14 @@ class ProfileScreen extends Component {
 
       console.log('Making GET request to API to get UserBin data for this particular User');
 
-      // userID = this.props.screenProps.user_id;
+      userID = this.props.screenProps.userData.user.id;
 
+      console.log('userData:');
+      console.log(this.props.screenProps.userData);
+      console.log('userID');
+      console.log(this.props.screenProps.userData.user.id);
+      console.log('encodeURI');
+      console.log(encodeURIComponent(userID));
       // fetch(`http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
       //     method: 'GET',
       // })
@@ -60,7 +66,6 @@ class ProfileScreen extends Component {
           console.log('userBinDataParsedResponse:');
           console.log(userBinDataParsedResponse);
 
-          //setState here?
           this.setState({
             // userData: nextProps.screenProps.userData,
             username: nextProps.screenProps.userData.user.username,
@@ -148,7 +153,6 @@ class ProfileScreen extends Component {
               console.log('userBinDataParsedResponse:');
               console.log(userBinDataParsedResponse);
 
-              //setState here?
               this.setState({
                 username: userDataParsedResponse.user.username,
                 memberSince: userDataParsedResponse.user.created_at.substring(0,10),

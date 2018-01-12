@@ -7,9 +7,6 @@ import Polyline from '@mapbox/polyline';
 
 const BinMap = ({ userLocation, setBinLocation, coordinates, mapRegion, onRegionChangeComplete, bins, screenProps, setModalVisible }) => (
 
-  // console.log('in BIN MAP, userLocation:');
-  // console.log(userLocation);
-
   <MapView.Animated
     style={ styles.container }
     showsUserLocation={ true }

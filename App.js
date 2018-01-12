@@ -55,7 +55,7 @@ export default class App extends Component {
   }
 
   setBinLocation(binLocation) {
-    console.log('@@@@@@@ In App.js, setBinLocation, binLocation @@@@@@@');
+    // console.log('@@@@@@@ In App.js, setBinLocation, binLocation @@@@@@@');
     // console.log(binLocation);
     // console.log('this.state');
     // console.log(this.state);
@@ -68,7 +68,7 @@ export default class App extends Component {
   }
 
   getDirections(startLoc, desinationLoc) {
-    console.log('@@@@@@@@ In App.js, getDirections() @@@@@@@@');
+    // console.log('@@@@@@@@ In App.js, getDirections() @@@@@@@@');
     const mode = 'walking';
     const APIKEY = 'AIzaSyCDMdyVaob5663a2l6ZSr7Kcuc6wKgsS74';
     let origin = startLoc;
@@ -77,15 +77,15 @@ export default class App extends Component {
 
     fetch(url)
       .then((response) => {
-        console.log('In fetch all to google API, response:');
-        console.log('response.json()');
-        console.log(response.json());
-        console.log(JSON.parse(response._bodyText));
+        // console.log('In fetch all to google API, response:');
+        // console.log('response.json()');
+        // console.log(response.json());
+        // console.log(JSON.parse(response._bodyText));
         return JSON.parse(response._bodyText)})
       .then((responseJson) => Polyline.decode(responseJson.routes[0].overview_polyline.points))
       .then((points) => points.map((point, index) => {
-        console.log('In fetch all to google API, points:');
-        console.log(points);
+        // console.log('In fetch all to google API, points:');
+        // console.log(points);
         return {
           latitude: point[0],
           longitude: point[1]
@@ -108,8 +108,8 @@ export default class App extends Component {
     fetch(RAILSAPI)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
-      console.log(responseJson);
+      // console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
+      // console.log(responseJson);
 
       const userLocation = {
         user_lat: region.latitude,
@@ -124,8 +124,8 @@ export default class App extends Component {
         userLocation: userLocation,
       });
 
-      console.log('In App.js, fetchBins, userlocation:');
-      console.log(this.state.userLocation);
+      // console.log('In App.js, fetchBins, userlocation:');
+      // console.log(this.state.userLocation);
 
       let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
       // console.log('current latitude:')
@@ -164,7 +164,7 @@ export default class App extends Component {
     const { mapRegion, bins } = this.state;
 
     if (mapRegion) {
-      console.log('%%%%%%%% Got Map Region %%%%%%%%%');
+      // console.log('%%%%%%%% Got Map Region %%%%%%%%%');
       return (
         <View style={styles.container}>
 

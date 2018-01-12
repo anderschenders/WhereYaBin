@@ -105,8 +105,6 @@ class SignUpScreen extends Component {
 
           console.log('parsedResponse:');
           console.log(parsedResponse);
-          console.log('parsedResponse.id:');
-          console.log(parsedResponse.id);
 
           onSignIn(parsedResponse).then((res) => {
           if (res === true) {
@@ -147,14 +145,14 @@ class SignUpScreen extends Component {
     if (this.state.error) {
       let errorMessage = this.state.error;
 
-      console.log('In render error handling, errorMessage: ');
-      console.log(errorMessage);
+      // console.log('In render error handling, errorMessage: ');
+      // console.log(errorMessage);
 
       for(key in errorMessage) {
         errorMessage = `${key}: ${errorMessage[key]}`
       }
-      console.log('New errorMessage:');
-      console.log(errorMessage);
+      // console.log('New errorMessage:');
+      // console.log(errorMessage);
 
       error = <Text
                 style={{
