@@ -81,13 +81,15 @@ class SignInScreen extends Component {
        // fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
       //   method: 'GET',
       // })
-
+      console.log('BEFORE FETCH to get user data');
+      console.log(new Date().toTimeString());
       fetch(`https://whereyabin.herokuapp.com/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
         method: 'GET',
       })
       .then((response) => {
-        console.log('API response:');
+        console.log('AFTER FETCH, API response:');
         console.log(response);
+        console.log(new Date().toTimeString());
 
         if (response.status === 200) {
           console.log('API status 200');
@@ -108,7 +110,8 @@ class SignInScreen extends Component {
         })
 
         } else {
-          console.log('@@@@@ API status 400 response body text: @@@@@');
+          console.log('API status 400 response body text:');
+          console.log(new Date().toTimeString());
           console.log(response._bodyText);
 
           const parsedResponse = JSON.parse(response._bodyText);
@@ -148,8 +151,9 @@ class SignInScreen extends Component {
     }
 
     return (
-      <KeyboardAvoidingView behavior='padding'>
-        <View style={styles.container}>
+
+        <View
+          style={styles.container}>
 
           {error}
 
@@ -176,10 +180,11 @@ class SignInScreen extends Component {
               backgroundColor="transparent"
               textStyle={{ color: "#bcbec1" }}
               title="Sign up"
-              onPress={() => navigate("SignUpScreen")} />
-            </View>
-        </View>
-      </KeyboardAvoidingView>
+              onPress={() => navigate("SignUpScreen")}
+            />
+          </View>
+
+      </View>
     );
   }
 }
@@ -187,10 +192,13 @@ class SignInScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 50,
-    marginLeft: 20,
-    marginRight: 20,
-    padding: 20,
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
+    paddingTop: 13,
+    paddingBottom: 10,
     backgroundColor: '#ffffff',
   },
   textStyle: {

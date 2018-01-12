@@ -185,10 +185,13 @@ class SignUpScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 100,
-    marginLeft: 20,
-    marginRight: 20,
-    padding: 20,
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
+    paddingTop: 13,
+    paddingBottom: 13,
     backgroundColor: '#ffffff',
   },
   textStyle: {

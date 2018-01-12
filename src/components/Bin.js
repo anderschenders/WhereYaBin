@@ -27,7 +27,8 @@ class Bin extends Component {
       // userData: this.props.userData,
     };
 
-    // console.log('@@@@@@@ In Bin.js, constructor, this.props: ');
+    // console.log('@@@@@@@ In Bin.js, constructor()');
+    // console.log(new Date().toTimeString());
     // console.log(this.props);
   }
 
@@ -46,7 +47,8 @@ class Bin extends Component {
   //  }
 
   checkBinType() {
-    console.log('@@@@@@@ In Bin.js, checkBinType() @@@@@@@');
+    // console.log('@@@@@@@ In Bin.js, checkBinType() @@@@@@@');
+    // console.log(new Date().toTimeString());
 
     if (this.props.binArray.length == 1) { //unique location
       if (this.props.binArray[0].bin_type === 'GPUBL') {
@@ -106,6 +108,7 @@ class Bin extends Component {
           //       'Accept': 'application/json',
           //       'Content-Type': 'application/json',
           //     },
+          console.log(new Date().toTimeString());
           fetch(
             'https://whereyabin.herokuapp.com/user_bins', {
               method: 'POST',
@@ -124,7 +127,8 @@ class Bin extends Component {
           )
           .then((response) => {
             if (response.status === 200) {
-              // console.log('API status 200');
+              console.log('API status 200');
+              console.log(new Date().toTimeString());
 
               const parsedResponse = JSON.parse(response._bodyText);
 
@@ -155,12 +159,10 @@ class Bin extends Component {
                 // set USER_KEY with updated user data
                 AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
                 .then(res => {
-                  console.log("Successfully set new user data, res: ");
-                  console.log(res); //returns null
-                  // resolve(true);
+                  console.log("Successfully set new user data ");
+                  // console.log(res); //returns null
                   this.props.screenProps.setUserData(newUserData);
 
-                  // this.props.screenProps.forceIndexComponentRender();
                 })
                 .catch(err => console.log(err))
 
@@ -210,7 +212,7 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin recycling');
-
+          console.log(new Date().toTimeString());
           // fetch(
           //   'http://localhost:3000/user_bins', {
           //     method: 'POST',
@@ -237,6 +239,7 @@ class Bin extends Component {
           .then((response) => {
             if (response.status === 200) {
               console.log('API status 200');
+              console.log(new Date().toTimeString());
 
               const parsedResponse = JSON.parse(response._bodyText);
 
@@ -262,11 +265,9 @@ class Bin extends Component {
                 // set USER_KEY with updated user data
                 AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
                 .then(res => {
-                  console.log("Successfully set new user data, res: ");
-                  console.log(res); //returns null
-                  // // resolve(true);
+                  console.log("Successfully set new user data ");
+
                   this.props.screenProps.setUserData(newUserData);
-                  // this.props.screenProps.forceIndexComponentRender();
                 })
                 .catch(err => console.log(err))
 
@@ -317,6 +318,7 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
+          console.log(new Date().toTimeString());
 
           // fetch(
           //   'http://localhost:3000/user_bins', {
@@ -344,6 +346,7 @@ class Bin extends Component {
           .then((response) => {
             if (response.status === 200) {
               console.log('API status 200');
+              console.log(new Date().toTimeString());
 
               const parsedResponse = JSON.parse(response._bodyText);
 
@@ -367,11 +370,10 @@ class Bin extends Component {
                 // set USER_KEY with updated user data
                 AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
                 .then(res => {
-                  console.log("Successfully set new user data, res: ");
-                  console.log(res); //returns null
-                  // resolve(true);
+                  console.log("Successfully set new user data");
+
                   this.props.screenProps.setUserData(newUserData);
-                  // this.props.screenProps.forceIndexComponentRender();
+
                 })
                 .catch(err => console.log(err))
 
@@ -405,7 +407,7 @@ class Bin extends Component {
 
   reportRecyclingBinFull() {
     console.log('In reportRecyclingBinFull:');
-
+    console.log(new Date().toTimeString());
     console.log('Getting binID:');
     console.log(this.props.binArray[1].id);
 
@@ -423,7 +425,7 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-
+          console.log(new Date().toTimeString());
           // fetch(
           //   'http://localhost:3000/user_bins', {
           //     method: 'POST',
@@ -450,6 +452,7 @@ class Bin extends Component {
           .then((response) => {
             if (response.status === 200) {
               console.log('API status 200');
+              console.log(new Date().toTimeString());
 
               const parsedResponse = JSON.parse(response._bodyText);
 
@@ -473,11 +476,10 @@ class Bin extends Component {
                 // set USER_KEY with updated user data
                 AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
                 .then(res => {
-                  console.log("Successfully set new user data, res: ");
-                  console.log(res); //returns null
-                  // resolve(true);
+                  console.log("Successfully set new user data");
+
                   this.props.screenProps.setUserData(newUserData);
-                  // this.props.screenProps.forceIndexComponentRender();
+
                 })
                 .catch(err => console.log(err))
 
@@ -510,7 +512,7 @@ class Bin extends Component {
 
   reportMissingBin() {
     console.log('In reportMissingBin:');
-
+    console.log(new Date().toTimeString());
     console.log('Getting binID:');
     console.log(this.props.binArray[0].id);
 
@@ -528,7 +530,7 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-
+          console.log(new Date().toTimeString());
           // fetch(
           //   'http://localhost:3000/user_bins', {
           //     method: 'POST',
@@ -555,6 +557,7 @@ class Bin extends Component {
           .then((response) => {
             if (response.status === 200) {
               console.log('API status 200');
+              console.log(new Date().toTimeString());
 
               const parsedResponse = JSON.parse(response._bodyText);
 
@@ -578,11 +581,10 @@ class Bin extends Component {
                 // set USER_KEY with updated user data
                 AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
                 .then(res => {
-                  console.log("Successfully set new user data, res: ");
-                  console.log(res); //returns null
-                  // resolve(true);
+                  console.log("Successfully set new user data");
+
                   this.props.screenProps.setUserData(newUserData);
-                  // this.props.screenProps.forceIndexComponentRender();
+
                 })
                 .catch(err => console.log(err))
 
@@ -615,7 +617,7 @@ class Bin extends Component {
 
   reportMissingRecyclingBin() {
     console.log('In reportMissingRecyclingBin:');
-
+    console.log(new Date().toTimeString());
     console.log('Getting binID:');
     console.log(this.props.binArray[1].id);
 
@@ -633,7 +635,7 @@ class Bin extends Component {
           userID = JSON.parse(keyValue).user.id;
 
           console.log('Making POST request to API to create user_bin');
-
+          console.log(new Date().toTimeString());
           // fetch(
           //   'http://localhost:3000/user_bins', {
           //     method: 'POST',
@@ -660,6 +662,7 @@ class Bin extends Component {
           .then((response) => {
             if (response.status === 200) {
               console.log('API status 200');
+              console.log(new Date().toTimeString());
 
               const parsedResponse = JSON.parse(response._bodyText);
 
@@ -683,11 +686,10 @@ class Bin extends Component {
                 // set USER_KEY with updated user data
                 AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
                 .then(res => {
-                  console.log("Successfully set new user data, res: ");
-                  console.log(res); //returns null
-                  // resolve(true);
+                  console.log("Successfully set new user data");
+
                   this.props.screenProps.setUserData(newUserData);
-                  // this.props.screenProps.forceIndexComponentRender();
+
                 })
                 .catch(err => console.log(err))
 

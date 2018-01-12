@@ -28,7 +28,7 @@ class WhereYaBin extends Component {
   //updateUserData()
 
   setUserData(userData) {
-    // console.log("In Index.js, setting/resetting user data:");
+    console.log("In Index.js, setting/resetting user data:");
     this.setState({ userData: userData});
   }
 
@@ -37,13 +37,14 @@ class WhereYaBin extends Component {
   }
 
   setWelcomeModal(visible) {
-    // console.log("In Index.js, settingWelcomeModal");
+    console.log("In Index.js, settingWelcomeModal");
     this.setState({ welcomeModalVisible: visible })
   }
 
   render() {
-    // console.log('@@@@@@ In index.js, render @@@@@@');
-    // console.log(this.state.userData);
+    console.log('@@@@@@ In index.js, render @@@@@@');
+    console.log(this.state.userData);
+    console.log(new Date().toTimeString());
 
     const { signedIn } = this.state;
 
@@ -57,13 +58,13 @@ class WhereYaBin extends Component {
 
 
     if (signedIn) {
-      // console.log('User is signedIn');
-      // console.log(signedIn);
+      console.log('User is signedIn');
+      console.log(signedIn);
 
       return <SignedIn screenProps={ screenProps } />;
 
     } else {
-        // console.log('User is NOT signedIn');
+        console.log('User is NOT signedIn');
 
 
       return <MainNavigator screenProps={ screenProps } />;

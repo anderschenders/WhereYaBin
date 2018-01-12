@@ -16,13 +16,14 @@ class UserHistorySection extends Component {
   }
 
   componentDidMount() {
-    console.log('@@@@@@ In UserHistorySection.js, componentDidMount @@@@@@ ');
+    // console.log('@@@@@@ In UserHistorySection.js, componentDidMount @@@@@@ ');
+    // console.log(new Date().toTimeString());
     // console.log('this.props');
     // console.log(this.props);
 
     const garbageIcon = require('../images/garbage_icon.png');
     const recyclingIcon = require('../images/recycling_icon.jpg');
-    const useBinImage = require('../images/earth_icon2.png');
+    // const useBinImage = require('../images/earth_icon2.png');
     const reportFullBinImage = require('../images/bin_full.png');
     const reportMissingBinImage = require('../images/yellow_question_mark.png');
 

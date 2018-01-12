@@ -36,6 +36,8 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    console.log('@@@@@@@@@ In App.js, componentDidMount @@@@@@@@@');
+    console.log(new Date().toTimeString());
     this.watchID = navigator.geolocation.watchPosition(
       position => {
         let region = {
@@ -55,8 +57,9 @@ export default class App extends Component {
   }
 
   setBinLocation(binLocation) {
-    // console.log('@@@@@@@ In App.js, setBinLocation, binLocation @@@@@@@');
-    // console.log(binLocation);
+    console.log('@@@@@@@ In App.js, setBinLocation, binLocation @@@@@@@');
+    console.log(binLocation);
+    console.log(new Date().toTimeString());
     // console.log('this.state');
     // console.log(this.state);
 
@@ -68,7 +71,7 @@ export default class App extends Component {
   }
 
   getDirections(startLoc, desinationLoc) {
-    // console.log('@@@@@@@@ In App.js, getDirections() @@@@@@@@');
+    console.log('@@@@@@@@ In App.js, getDirections() @@@@@@@@');
     const mode = 'walking';
     const APIKEY = 'AIzaSyCDMdyVaob5663a2l6ZSr7Kcuc6wKgsS74';
     let origin = startLoc;
@@ -77,10 +80,11 @@ export default class App extends Component {
 
     fetch(url)
       .then((response) => {
-        // console.log('In fetch all to google API, response:');
-        // console.log('response.json()');
-        // console.log(response.json());
-        // console.log(JSON.parse(response._bodyText));
+        console.log('In fetch request to google directions API, response:');
+        console.log(new Date().toTimeString());
+        console.log('response.json()');
+        console.log(response.json());
+        console.log(JSON.parse(response._bodyText));
         return JSON.parse(response._bodyText)})
       .then((responseJson) => Polyline.decode(responseJson.routes[0].overview_polyline.points))
       .then((points) => points.map((point, index) => {
@@ -105,11 +109,15 @@ export default class App extends Component {
   }
 
   fetchBins(region) {
+    console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
+    console.log('BEFORE FETCH');
+    console.log(new Date().toTimeString());
     fetch(RAILSAPI)
     .then((response) => response.json())
     .then((responseJson) => {
-      // console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
-      // console.log(responseJson);
+      console.log('AFTER FETCH');
+      console.log(new Date().toTimeString());
+      console.log(responseJson);
 
       const userLocation = {
         user_lat: region.latitude,
@@ -140,10 +148,6 @@ export default class App extends Component {
     });
   }
 
-  // updateUserData() {
-  //
-  // }
-
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
@@ -155,7 +159,7 @@ export default class App extends Component {
         this.setState({ modalVisible: false });
         // console.log('Bye modal');
       }
-      , 300);
+      , 400);
     })
   }
 
@@ -178,7 +182,6 @@ export default class App extends Component {
                 style={{fontSize: 30, textAlign: 'center', fontWeight: 'bold', color: 'blue' }}>
                 {this.state.modalMessage}
               </Text>
-
             </View>
 
           </Modal>
@@ -245,7 +248,6 @@ export default class App extends Component {
           </Modal>
 
           <BinMap
-
             userLocation={ this.state.userLocation }
             setBinLocation={ this.setBinLocation.bind(this) }
             coordinates={ this.state.coordinates }

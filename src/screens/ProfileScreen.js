@@ -35,19 +35,11 @@ class ProfileScreen extends Component {
       console.log(this.props.screenProps.userData);
       console.log('nextProps.screenProps.userData:');
       console.log(nextProps.screenProps.userData);
-      console.log('nextProps.screenProps.userData.user:');
-      console.log(nextProps.screenProps.userData.user);
 
       console.log('Making GET request to API to get UserBin data for this particular User');
+      console.log(new Date().toTimeString());
 
       userID = this.props.screenProps.userData.user.id;
-
-      console.log('userData:');
-      console.log(this.props.screenProps.userData);
-      console.log('userID');
-      console.log(this.props.screenProps.userData.user.id);
-      console.log('encodeURI');
-      console.log(encodeURIComponent(userID));
       // fetch(`http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
       //     method: 'GET',
       // })
@@ -56,6 +48,7 @@ class ProfileScreen extends Component {
       })
       .then((response) => {
         console.log('Getting UserBins API response:');
+        console.log(new Date().toTimeString());
         console.log(response);
 
         if (response.status === 200) {
@@ -81,18 +74,8 @@ class ProfileScreen extends Component {
   }
 
   componentDidMount() {
-    console.log('@@@@@@@@@ In ProfileScreen.js, componentDidMount @@@@@@@@@');
-
-  //   this.setState({
-  //     username: this.props.screenProps.userData.username,
-  //     memberSince: this.props.screenProps.userData.created_at.substring(0,10),
-  //     activityCount: this.props.screenProps.userData.bin_count,
-  //     userBinnedHistory: userBinDataParsedResponse,
-  //   });
-  //
-  //   console.log('Got all API data, setState');
-  //   console.log(this.state);
-  // }
+    console.log('@@@@@@@@@ In ProfileScreen.js, componentDidMount, getting userData from AsyncStorage @@@@@@@@@');
+    console.log(new Date().toTimeString());
 
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
@@ -106,6 +89,7 @@ class ProfileScreen extends Component {
 
           // request to API for User data
           console.log('Making GET request to API to get User data');
+          console.log(new Date().toTimeString());
 
           let userDataParsedResponse = null;
           let userBinDataParsedResponse = null;
@@ -119,6 +103,7 @@ class ProfileScreen extends Component {
           })
           .then((response) => {
             console.log('API response:');
+            console.log(new Date().toTimeString());
             console.log(response);
 
             if (response.status === 200) {
@@ -133,7 +118,7 @@ class ProfileScreen extends Component {
           .then(() => {
             // request to API for UserBin data for this User
             console.log('Making GET request to API to get UserBin data for this particular User');
-
+            console.log(new Date().toTimeString());
             //   `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
             //     method: 'GET',
             // })
@@ -143,6 +128,7 @@ class ProfileScreen extends Component {
           })
           .then((response) => {
             console.log('API response:');
+            console.log(new Date().toTimeString());
             console.log(response);
 
             if (response.status === 200) {
@@ -161,7 +147,7 @@ class ProfileScreen extends Component {
                 userBinnedHistory: userBinDataParsedResponse,
               })
 
-              console.log('Got all API data, setState');
+              console.log('Got all API data, after setState');
               console.log(this.state);
             }
           })
@@ -179,6 +165,7 @@ class ProfileScreen extends Component {
     const { username, memberSince, activityCount, distanceTravelled } = this.props.screenProps.userData.user;
 
     console.log('In profile screen render()');
+    console.log(new Date().toTimeString());
     console.log(this.props.screenProps.userData);
 
     return (
