@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableHighlight, KeyboardAvoidingView  } from 'react-native';
 // import SignUpScreen from './SignUpScreen';
 import { onSignIn } from "../../auth";
 
@@ -148,36 +148,38 @@ class SignInScreen extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding'>
+        <View style={styles.container}>
 
-        {error}
+          {error}
 
-        <Form
-          ref='form'
-          type={User}
-          options={options}
-        />
-        <TouchableHighlight
-          style={styles.signInButtonStyle}
-          onPress={this.handleSubmit}
+          <Form
+            ref='form'
+            type={User}
+            options={options}
+          />
+          <TouchableHighlight
+            style={styles.signInButtonStyle}
+            onPress={this.handleSubmit}
 
-          underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Sign in</Text>
-        </TouchableHighlight>
+            underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Sign in</Text>
+          </TouchableHighlight>
 
-        <View style={styles.signUpContainer}>
-          <Text style={styles.textStyle}>
-          Not a user yet?:
-          </Text>
+          <View style={styles.signUpContainer}>
+            <Text style={styles.textStyle}>
+            Not a user yet?:
+            </Text>
 
-          <Button
-            buttonStyle={{ marginTop: 20 }}
-            backgroundColor="transparent"
-            textStyle={{ color: "#bcbec1" }}
-            title="Sign up"
-            onPress={() => navigate("SignUpScreen")} />
-          </View>
-      </View>
+            <Button
+              buttonStyle={{ marginTop: 20 }}
+              backgroundColor="transparent"
+              textStyle={{ color: "#bcbec1" }}
+              title="Sign up"
+              onPress={() => navigate("SignUpScreen")} />
+            </View>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
