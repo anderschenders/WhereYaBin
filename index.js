@@ -11,6 +11,7 @@ class WhereYaBin extends Component {
       signedIn: false,
       userData: null,
       welcomeModalVisible: false,
+      communityData: null,
     };
   }
 
@@ -37,8 +38,37 @@ class WhereYaBin extends Component {
   }
 
   setWelcomeModal(visible) {
-    console.log("In Index.js, settingWelcomeModal");
-    this.setState({ welcomeModalVisible: visible })
+    console.log("In Index.js, settingWelcomeModal, and fetching community data");
+
+    const communityDataURL = 'http://localhost:3000/user_bins/community_data'
+
+    fetch(communityDataURL, {
+      method: 'GET',
+    })
+    .then((response) => {
+      console.log('API response');
+      console.log(new Date().toTimeString());
+      console.log(response);
+
+      if (response.status === 200) {
+        console.log('API status 200');
+
+        communityDataParsedResponse = JSON.parse(response._bodyText);
+
+        console.log('communityDataParsedResponse:');
+        console.log(communityDataParsedResponse);
+
+        this.setState({
+          welcomeModalVisible: visible,
+          communityData: communityDataParsedResponse,
+
+        })
+      }
+    })
+    .catch(err => console.log(err))
+
+
+
   }
 
   render() {
@@ -54,6 +84,7 @@ class WhereYaBin extends Component {
       userData: this.state.userData,
       setWelcomeModal: this.setWelcomeModal.bind(this),
       welcomeModalVisible: this.state.welcomeModalVisible,
+      communityData: this.state.communityData,
     };
 
 

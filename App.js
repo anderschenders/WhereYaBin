@@ -165,6 +165,9 @@ export default class App extends Component {
 
   render() {
 
+    console.log('this.props.screenProps.communityData');
+    console.log(this.props.screenProps.communityData);
+
     const { mapRegion, bins } = this.state;
 
     if (mapRegion) {
@@ -224,9 +227,15 @@ export default class App extends Component {
 
               </View>
 
-              <View style={{marginTop: 15, marginRight: 20, marginLeft: 20, backgroundColor: 'white', }}>
+              <View style={{marginTop: 15, marginRight: 20, marginLeft: 20, marginBottom: 15, backgroundColor: 'white', }}>
                 <Text style={{marginTop: 10, textAlign: 'center', color: '#468cba', fontSize: 18, fontWeight: 'bold',}}>
                   Some interesting information:
+                </Text>
+                <Text style={{fontWeight: 'bold', marginLeft: 20, marginTop: 10, fontSize: 15,}}>
+                  You are user #{this.props.screenProps.communityData.user_count + 1}
+                </Text>
+                <Text style={{fontWeight: 'bold', marginTop: 3, marginLeft: 20, marginBottom: 10, fontSize: 15,}}>
+                  Current total of trash binned: {this.props.screenProps.communityData.action_use_count}
                 </Text>
               </View>
 
