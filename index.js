@@ -45,60 +45,68 @@ class WhereYaBin extends Component {
     //   signedIn: signedIn,
     //   communityData: communityData,
     // });
+    this.getCommunityData();
+    this.setState({
+      signedIn: signedIn,
+    })
+    //
+    // const communityDataURL = 'http://localhost:3000/user_bins/community_data'
+    //
+    //   fetch(communityDataURL, {
+    //     method: 'GET',
+    //   })
+    //   .then((response) => {
+    //     console.log('API response');
+    //     console.log(new Date().toTimeString());
+    //     console.log(response);
+    //
+    //     if (response.status === 200) {
+    //       console.log('API status 200');
+    //
+    //       communityDataParsedResponse = JSON.parse(response._bodyText);
+    //
+    //       console.log('communityDataParsedResponse:');
+    //       console.log(communityDataParsedResponse);
+    //
+    //       this.setState({
+    //         signedIn: signedIn,
+    //         communityData: communityDataParsedResponse,
+    //       })
+    //     }
+    //   })
+    //   .catch(err => console.log(err))
+  }
+
+  getCommunityData() {
+    console.log('In getCommunityData(), fetching community data');
 
     const communityDataURL = 'http://localhost:3000/user_bins/community_data'
 
-      fetch(communityDataURL, {
-        method: 'GET',
-      })
-      .then((response) => {
-        console.log('API response');
-        console.log(new Date().toTimeString());
-        console.log(response);
+    fetch(communityDataURL, {
+      method: 'GET',
+    })
+    .then((response) => {
+      console.log('API response');
+      console.log(new Date().toTimeString());
+      console.log(response);
 
-        if (response.status === 200) {
-          console.log('API status 200');
+      if (response.status === 200) {
+        console.log('API status 200');
 
-          communityDataParsedResponse = JSON.parse(response._bodyText);
+        communityDataParsedResponse = JSON.parse(response._bodyText);
 
-          console.log('communityDataParsedResponse:');
-          console.log(communityDataParsedResponse);
+        console.log('communityDataParsedResponse:');
+        console.log(communityDataParsedResponse);
 
-          this.setState({
-            signedIn: signedIn,
-            communityData: communityDataParsedResponse,
-          })
-        }
-      })
-      .catch(err => console.log(err))
+        this.setState({
+          communityData: communityDataParsedResponse,
+        })
+
+      }
+    })
+    .catch(err => console.log(err))
+
   }
-
-  // getCommunityData() {
-  //   console.log('In getCommunityData(), fetching community data');
-  //
-  //   const communityDataURL = 'http://localhost:3000/user_bins/community_data'
-  //
-  //   fetch(communityDataURL, {
-  //     method: 'GET',
-  //   })
-  //   .then((response) => {
-  //     console.log('API response');
-  //     console.log(new Date().toTimeString());
-  //     console.log(response);
-  //
-  //     if (response.status === 200) {
-  //       console.log('API status 200');
-  //
-  //       communityDataParsedResponse = JSON.parse(response._bodyText);
-  //
-  //       console.log('communityDataParsedResponse:');
-  //       console.log(communityDataParsedResponse);
-  //       return communityDataParsedResponse;
-  //     }
-  //   })
-  //   .catch(err => console.log(err))
-  //
-  // }
 
   setWelcomeModal(visible) {
     console.log("In Index.js, settingWelcomeModal");
@@ -109,31 +117,36 @@ class WhereYaBin extends Component {
     //   console.log(communityDataParsedResponse);
     // })
 
-    const communityDataURL = 'http://localhost:3000/user_bins/community_data'
+    this.getCommunityData();
+    this.setState({
+      welcomeModalVisible: visible,
+    })
 
-      fetch(communityDataURL, {
-        method: 'GET',
-      })
-      .then((response) => {
-        console.log('API response');
-        console.log(new Date().toTimeString());
-        console.log(response);
-
-        if (response.status === 200) {
-          console.log('API status 200');
-
-          communityDataParsedResponse = JSON.parse(response._bodyText);
-
-          console.log('communityDataParsedResponse:');
-          console.log(communityDataParsedResponse);
-
-          this.setState({
-            welcomeModalVisible: visible,
-            communityData: communityDataParsedResponse,
-          })
-        }
-      })
-      .catch(err => console.log(err))
+    // const communityDataURL = 'http://localhost:3000/user_bins/community_data'
+    //
+    //   fetch(communityDataURL, {
+    //     method: 'GET',
+    //   })
+    //   .then((response) => {
+    //     console.log('API response');
+    //     console.log(new Date().toTimeString());
+    //     console.log(response);
+    //
+    //     if (response.status === 200) {
+    //       console.log('API status 200');
+    //
+    //       communityDataParsedResponse = JSON.parse(response._bodyText);
+    //
+    //       console.log('communityDataParsedResponse:');
+    //       console.log(communityDataParsedResponse);
+    //
+    //       this.setState({
+    //         welcomeModalVisible: visible,
+    //         communityData: communityDataParsedResponse,
+    //       })
+    //     }
+    //   })
+    //   .catch(err => console.log(err))
 
   }
 

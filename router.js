@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements';
 import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";
 import ProfileScreen from './src/screens/ProfileScreen';
+import CommunityScreen from './src/screens/CommunityScreen';
 import App from './App';
 
 export const MainNavigator = StackNavigator({
@@ -40,6 +41,14 @@ export const SignedIn = TabNavigator({
     navigationOptions: {
       tabBarLabel: "Profile", //account-circle
       tabBarIcon: ({ tintColor }) => <Icon name="face" size={35} color={tintColor} />
+    }
+  },
+
+  CommunityScreen: {
+    screen: CommunityScreen,
+    navigationOptions: {
+      tabBarLabel: "Community", //account-circle
+      tabBarIcon: ({ tintColor }) => <Icon name="group-work" size={35} color={tintColor} />
     }
   },
 });

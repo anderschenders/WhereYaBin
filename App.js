@@ -237,6 +237,9 @@ export default class App extends Component {
                 <Text style={{fontWeight: 'bold', marginTop: 3, marginLeft: 20, marginBottom: 10, fontSize: 15,}}>
                   Current total of trash binned: {this.props.screenProps.communityData.action_use_count}
                 </Text>
+                <Text style={{fontWeight: 'bold', marginTop: 8, marginLeft: 20, marginBottom: 10, fontSize: 15, color: '#284F80'}}>
+                  Check out the Community tab for more stats!
+                </Text>
               </View>
 
               <TouchableOpacity onPress={() => this.props.screenProps.setWelcomeModal(false)}>
