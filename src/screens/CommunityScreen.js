@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, AsyncStorage, StyleSheet } from 'react-native';
 
-import Header from '../components/Header';
+import CommunityHeader from '../components/CommunityHeader';
 import ProfileCard from '../components/ProfileCard';
 // import CardSection from '../components/CardSection';
-import UserBinnedHistory from '../components/UserBinnedHistory'
+// import UserBinnedHistory from '../components/UserBinnedHistory'
 // import ProfileHistoryCard from '../components/ProfileHistoryCard'
 
 class CommunityScreen extends Component {
@@ -13,180 +13,99 @@ class CommunityScreen extends Component {
     super(props);
 
     this.state = {
-      // userData: this.props.screenProps.userData,
-      // username: null,
-      // memberSince: null,
-      // activityCount: null,
-      // distanceTravelled: null,
-      userBinnedHistory: [],
-    }
-    console.log('@@@@@@@ In ProfileScreen constructor, this.state @@@@@@@');
-    console.log(this.state);
-    console.log('this.props');
-    console.log(this.props);
 
-    let userID = null;
+    }
+    console.log('@@@@@@@ In CommunityScreen constructor, screenProps.communityData @@@@@@@');
+    console.log(this.props.screenProps.communityData);
+
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.screenProps.userData !== this.props.screenProps.userData) {
-      console.log('In Profile.js, componentWillReceiveProps, props changed!');
-      console.log('this.props.screenProps.userData:');
-      console.log(this.props.screenProps.userData);
-      console.log('nextProps.screenProps.userData:');
-      console.log(nextProps.screenProps.userData);
-
-      console.log('Making GET request to API to get UserBin data for this particular User');
-      console.log(new Date().toTimeString());
-
-      userID = this.props.screenProps.userData.user.id;
-      // fetch(`http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
-      //     method: 'GET',
-      // })
-      fetch(`https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`, {
-          method: 'GET',
-      })
-      .then((response) => {
-        console.log('Getting UserBins API response:');
-        console.log(new Date().toTimeString());
-        console.log(response);
-
-        if (response.status === 200) {
-          console.log('API status 200');
-
-          userBinDataParsedResponse = JSON.parse(response._bodyText);
-
-          console.log('userBinDataParsedResponse:');
-          console.log(userBinDataParsedResponse);
-
-          this.setState({
-            // userData: nextProps.screenProps.userData,
-            username: nextProps.screenProps.userData.user.username,
-            memberSince: nextProps.screenProps.userData.user.created_at.substring(0,10),
-            activityCount: nextProps.screenProps.userData.user.bin_count,
-            distanceTravelled: nextProps.screenProps.userData.total_dist,
-            userBinnedHistory: userBinDataParsedResponse,
-          })
-        }
-      })
-      .catch(err => console.log(err))
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.screenProps.communityData !== this.props.screenProps.communityData) {
+  //     console.log('In CommunityScreen.js, componentWillReceiveProps, props changed!');
+  //     console.log('this.props.screenProps.communityData:');
+  //     console.log(this.props.screenProps.communityData);
+  //     console.log('nextProps.screenProps.communityData:');
+  //     console.log(nextProps.screenProps.communityData);
+  // }
 
   componentDidMount() {
-    console.log('@@@@@@@@@ In ProfileScreen.js, componentDidMount, getting userData from AsyncStorage @@@@@@@@@');
+    console.log('@@@@@@@@@ In CommunityScreen.js, componentDidMount @@@@@@@@@');
     console.log(new Date().toTimeString());
-
-    AsyncStorage.getItem("USER_KEY")
-      .then(keyValue => {
-        if ( Boolean(keyValue) ) {
-          console.log('There is a valid res/USER_KEY: ');
-          console.log(keyValue);
-          console.log('keyValue.id');
-          console.log(JSON.parse(keyValue).user.id);
-
-          userID = JSON.parse(keyValue).user.id;
-
-          // request to API for User data
-          console.log('Making GET request to API to get User data');
-          console.log(new Date().toTimeString());
-
-          let userDataParsedResponse = null;
-          let userBinDataParsedResponse = null;
-
-          // fetch(
-          //   `http://localhost:3000/users?id=${encodeURIComponent(userID)}`, {
-          //     method: 'GET',
-          // })
-          fetch(`https://whereyabin.herokuapp.com/users?id=${encodeURIComponent(userID)}`, {
-            method: 'GET',
-          })
-          .then((response) => {
-            console.log('API response:');
-            console.log(new Date().toTimeString());
-            console.log(response);
-
-            if (response.status === 200) {
-              console.log('API status 200');
-
-              userDataParsedResponse = JSON.parse(response._bodyText);
-
-              console.log('userDataParsedResponse:');
-              console.log(userDataParsedResponse);
-            }
-          })
-          .then(() => {
-            // request to API for UserBin data for this User
-            console.log('Making GET request to API to get UserBin data for this particular User');
-            console.log(new Date().toTimeString());
-            //   `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
-            //     method: 'GET',
-            // })
-            return fetch(`https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`, {
-              method: 'GET',
-            })
-          })
-          .then((response) => {
-            console.log('API response:');
-            console.log(new Date().toTimeString());
-            console.log(response);
-
-            if (response.status === 200) {
-              console.log('API status 200');
-
-              userBinDataParsedResponse = JSON.parse(response._bodyText);
-
-              console.log('userBinDataParsedResponse:');
-              console.log(userBinDataParsedResponse);
-
-              this.setState({
-                username: userDataParsedResponse.user.username,
-                memberSince: userDataParsedResponse.user.created_at.substring(0,10),
-                activityCount: userDataParsedResponse.user.bin_count,
-                distanceTravelled: userDataParsedResponse.total_dist,
-                userBinnedHistory: userBinDataParsedResponse,
-              })
-
-              console.log('Got all API data, after setState');
-              console.log(this.state);
-            }
-          })
-          .catch(err => console.log(err))
-
-        }})
-      }
+  }
 
   render() {
 
-    if (this.props.screenProps.userData == null) {
+    if (this.props.screenProps.communityData == null) {
       return <View></View>
     }
 
-    const { username, memberSince, activityCount, distanceTravelled } = this.props.screenProps.userData.user;
+    const { userCount, topUser, allActivity, distanceTravelled } = this.props.screenProps.communityData;
 
-    console.log('In profile screen render()');
+    console.log('In communityScreen render()');
     console.log(new Date().toTimeString());
-    console.log(this.props.screenProps.userData);
+    console.log(this.props.screenProps.communityData);
 
     return (
       <View style={{backgroundColor: '#468CBA', height: '100%'}}>
-        <Header headerText={ username } headerSummaryText={{
-          memberSince: this.props.screenProps.userData.user.created_at.substring(0,10),
-          activityCount: this.props.screenProps.userData.user.bin_count,
-          distanceTravelled: this.props.screenProps.userData.total_dist,
-        }}/>
+        <CommunityHeader headerText={ 'Community Stats' } />
 
-        <UserBinnedHistory
-          userBinnedHistory={ this.state.userBinnedHistory }>
-        </UserBinnedHistory>
+        <View style={ styles.containerViewStyle }>
+          <Text style={ styles.textStyle }>
+          adfadfadf
+          </Text>
+        </View>
 
+        <View style={ styles.containerViewStyle }>
+          <Text style={ styles.textStyle }>
+          adfadfadf
+          </Text>
+        </View>
+
+        <View style={ styles.containerViewStyle }>
+          <Text style={ styles.textStyle }>
+          adfadfadf
+          </Text>
+        </View>
+
+        <View style={ styles.containerViewStyle }>
+          <Text style={ styles.textStyle }>
+          adfadfadf
+          </Text>
+        </View>
+
+        <View style={ styles.containerViewStyle }>
+          <Text style={ styles.textStyle }>
+          adfadfadf
+          </Text>
+        </View>
       </View>
+
     );
   }
 }
 
 
 const styles = StyleSheet.create({
+
+  containerViewStyle: {
+    // flex: 1,
+    backgroundColor: '#65B783',
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: "#65B783",
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
+    marginLeft: 20,
+    marginRight:20,
+    marginTop: 25,
+    // marginBottom: 20,
+    // height: 420,
+  },
   // containerViewStyle: {
   //   borderWidth: 1,
   //   borderRadius: 2,
@@ -204,11 +123,14 @@ const styles = StyleSheet.create({
   //   height: 550,
   //   // flex: 1,
   // },
-  // textStyle: {
-  //   marginTop: 5,
-  //   marginBottom: 5,
-  //   textAlign: 'center',
-  // },
+  textStyle: {
+    fontSize: 20,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    textAlign: 'center',
+  },
 });
 
 

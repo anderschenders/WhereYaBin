@@ -33,6 +33,7 @@ class WhereYaBin extends Component {
   setUserData(userData) {
     console.log("In Index.js, setting/resetting user data:");
     this.setState({ userData: userData});
+    this.getCommunityData();
   }
 
   setSignInState(signedIn) {
