@@ -13,11 +13,15 @@ class WhereYaBin extends Component {
       welcomeModalVisible: false,
       communityData: null,
     };
+    this.getCommunityData();
     console.log('In WhereYaBin constructor, communityData');
     console.log(this.state.communityData);
+
   }
 
   componentWillMount() {
+    this.getCommunityData();
+
     isSignedIn() //check if user is signed in
       .then(res => {
         return AsyncStorage.getItem("USER_KEY").then(keyValue => this.setState({
@@ -25,6 +29,7 @@ class WhereYaBin extends Component {
           signedIn: res }))
       })
       .catch(err => console.log(err));
+
   }
 
   // TODO: use AsyncStorage to update userData instead of having other components set it and pass it back up to Index

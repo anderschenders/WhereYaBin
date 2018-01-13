@@ -52,31 +52,31 @@ class CommunityScreen extends Component {
 
         <View style={ styles.containerViewStyle }>
           <Text style={ styles.textStyle }>
-          adfadfadf
+            TOTAL USERS: { this.props.screenProps.communityData.user_count }
           </Text>
         </View>
 
         <View style={ styles.containerViewStyle }>
           <Text style={ styles.textStyle }>
-          adfadfadf
+            TOTAL GARBAGE&RECYCLING BINNED: { this.props.screenProps.communityData.action_use_count }
           </Text>
         </View>
 
         <View style={ styles.containerViewStyle }>
           <Text style={ styles.textStyle }>
-          adfadfadf
+            TOTAL DISTANCE TRAVELLED: { this.props.screenProps.communityData.total_dist_travelled } MILES
           </Text>
         </View>
 
         <View style={ styles.containerViewStyle }>
           <Text style={ styles.textStyle }>
-          adfadfadf
+            USER { this.props.screenProps.communityData.top_dist_username } TRAVELLED THE MOST AT { this.props.screenProps.communityData.top_dist } MILES
           </Text>
         </View>
 
         <View style={ styles.containerViewStyle }>
           <Text style={ styles.textStyle }>
-          adfadfadf
+            USER { this.props.screenProps.communityData.top_user_activity_username } IS OUR CURRENT MOST ACTIVE USER WITH { this.props.screenProps.communityData.top_user_activity } ACTIVITIES
           </Text>
         </View>
       </View>
