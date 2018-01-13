@@ -13,10 +13,6 @@ class WhereYaBin extends Component {
       welcomeModalVisible: false,
       communityData: null,
     };
-    // this.getCommunityData();
-    // console.log('In WhereYaBin constructor, communityData');
-    // console.log(this.state.communityData);
-
   }
 
   componentWillMount() {
@@ -29,64 +25,53 @@ class WhereYaBin extends Component {
           signedIn: res }))
       })
       .catch(err => console.log(err));
-
   }
 
   // TODO: use AsyncStorage to update userData instead of having other components set it and pass it back up to Index
   //updateUserData()
 
-  setUserData(userData) {
-    console.log("In Index.js, setting/resetting user data:");
-    this.setState({ userData: userData});
-    this.getCommunityData();
+  updateAsyncStorage(newUserData) {
+    console.log('In updateAsyncStorage()');
+
+    AsyncStorage.removeItem('USER_KEY')
+    .then(res => {
+      console.log('AsyncStorage removeItem resolved')
+      console.log('AsyncStorage setItem: ');
+
+      // set USER_KEY with updated user data
+      AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
+      .then(res => {
+        console.log("Successfully set new user data ");
+        this.setState({ userData: newUserData});
+        this.getCommunityData();
+      })
+      .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
   }
+
+  // setUserData(userData) {
+  //   console.log("In Index.js, setting/resetting user data:");
+  //   this.setState({ userData: userData});
+  //   this.getCommunityData();
+  // }
 
   setSignInState(signedIn) {
     console.log('In setSignInState()');
+    console.log(new Date().toTimeString());
 
-    // this.getCommunityData()
-    // .then((communityDataParsedResponse) => console.log(communityDataParsedResponse))
-    //
-    // this.setState({
-    //   signedIn: signedIn,
-    //   communityData: communityData,
-    // });
+
     this.getCommunityData();
     this.setState({
       signedIn: signedIn,
     })
-    //
-    // const communityDataURL = 'http://localhost:3000/user_bins/community_data'
-    //
-    //   fetch(communityDataURL, {
-    //     method: 'GET',
-    //   })
-    //   .then((response) => {
-    //     console.log('API response');
-    //     console.log(new Date().toTimeString());
-    //     console.log(response);
-    //
-    //     if (response.status === 200) {
-    //       console.log('API status 200');
-    //
-    //       communityDataParsedResponse = JSON.parse(response._bodyText);
-    //
-    //       console.log('communityDataParsedResponse:');
-    //       console.log(communityDataParsedResponse);
-    //
-    //       this.setState({
-    //         signedIn: signedIn,
-    //         communityData: communityDataParsedResponse,
-    //       })
-    //     }
-    //   })
-    //   .catch(err => console.log(err))
   }
 
   getCommunityData() {
     console.log('In getCommunityData(), fetching community data');
+    console.log(new Date().toTimeString());
 
-    const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data'
+    const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data';
 
     fetch(communityDataURL, {
       method: 'GET',
@@ -107,53 +92,18 @@ class WhereYaBin extends Component {
         this.setState({
           communityData: communityDataParsedResponse,
         })
-
       }
     })
     .catch(err => console.log(err))
-
   }
 
   setWelcomeModal(visible) {
     console.log("In Index.js, settingWelcomeModal");
 
-    // this.getCommunityData()
-    // .then(communityDataParsedResponse => {
-    //   console.log('communityDataParsedResponse');
-    //   console.log(communityDataParsedResponse);
-    // })
-
     this.getCommunityData();
     this.setState({
       welcomeModalVisible: visible,
     })
-
-    // const communityDataURL = 'http://localhost:3000/user_bins/community_data'
-    //
-    //   fetch(communityDataURL, {
-    //     method: 'GET',
-    //   })
-    //   .then((response) => {
-    //     console.log('API response');
-    //     console.log(new Date().toTimeString());
-    //     console.log(response);
-    //
-    //     if (response.status === 200) {
-    //       console.log('API status 200');
-    //
-    //       communityDataParsedResponse = JSON.parse(response._bodyText);
-    //
-    //       console.log('communityDataParsedResponse:');
-    //       console.log(communityDataParsedResponse);
-    //
-    //       this.setState({
-    //         welcomeModalVisible: visible,
-    //         communityData: communityDataParsedResponse,
-    //       })
-    //     }
-    //   })
-    //   .catch(err => console.log(err))
-
   }
 
   render() {
@@ -167,6 +117,7 @@ class WhereYaBin extends Component {
     const screenProps = {
       setSignInState: this.setSignInState.bind(this),
       setUserData: this.setUserData.bind(this),
+      updateAsyncStorage: this.updateAsyncStorage.bind(this),
       userData: this.state.userData,
       setWelcomeModal: this.setWelcomeModal.bind(this),
       welcomeModalVisible: this.state.welcomeModalVisible,

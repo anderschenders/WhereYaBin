@@ -72,8 +72,10 @@ class Bin extends Component {
   postRequest(userID, binID, action) {
     console.log('In postRequest, to create user_bin');
     console.log(new Date().toTimeString());
-    fetch(
-      'https://whereyabin.herokuapp.com/user_bins', {
+
+    const userBinURL = 'https://whereyabin.herokuapp.com/user_bins';
+
+    fetch(userBinURL, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -122,21 +124,23 @@ class Bin extends Component {
         //TODO: disableButton not working
         // this.disableButton();
 
-        // remove USER_KEY from AsyncStorage
-        AsyncStorage.removeItem('USER_KEY')
-        .then(res => {
-          console.log('AsyncStorage removeItem resolved')
-          console.log('AsyncStorage setItem: ');
+        this.props.screenProps.updateAsyncStorage(newUserData);
 
-          // set USER_KEY with updated user data
-          AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-          .then(res => {
-            console.log("Successfully set new user data ");
-            this.props.screenProps.setUserData(newUserData);
-          })
-          .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
+        // remove USER_KEY from AsyncStorage
+        // AsyncStorage.removeItem('USER_KEY')
+        // .then(res => {
+        //   console.log('AsyncStorage removeItem resolved')
+        //   console.log('AsyncStorage setItem: ');
+        //
+        //   // set USER_KEY with updated user data
+        //   AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
+        //   .then(res => {
+        //     console.log("Successfully set new user data ");
+        //     this.props.screenProps.setUserData(newUserData);
+        //   })
+        //   .catch(err => console.log(err))
+        // })
+        // .catch(err => console.log(err))
 
       } else {
         console.log('@@@@@ API status 400 response body text: @@@@@');
