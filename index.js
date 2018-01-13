@@ -13,6 +13,8 @@ class WhereYaBin extends Component {
       welcomeModalVisible: false,
       communityData: null,
     };
+    console.log('In WhereYaBin constructor, communityData');
+    console.log(this.state.communityData);
   }
 
   componentWillMount() {
@@ -34,46 +36,111 @@ class WhereYaBin extends Component {
   }
 
   setSignInState(signedIn) {
-    this.setState({ signedIn: signedIn });
-  }
+    console.log('In setSignInState()');
 
-  setWelcomeModal(visible) {
-    console.log("In Index.js, settingWelcomeModal, and fetching community data");
+    // this.getCommunityData()
+    // .then((communityDataParsedResponse) => console.log(communityDataParsedResponse))
+    //
+    // this.setState({
+    //   signedIn: signedIn,
+    //   communityData: communityData,
+    // });
 
     const communityDataURL = 'http://localhost:3000/user_bins/community_data'
 
-    fetch(communityDataURL, {
-      method: 'GET',
-    })
-    .then((response) => {
-      console.log('API response');
-      console.log(new Date().toTimeString());
-      console.log(response);
+      fetch(communityDataURL, {
+        method: 'GET',
+      })
+      .then((response) => {
+        console.log('API response');
+        console.log(new Date().toTimeString());
+        console.log(response);
 
-      if (response.status === 200) {
-        console.log('API status 200');
+        if (response.status === 200) {
+          console.log('API status 200');
 
-        communityDataParsedResponse = JSON.parse(response._bodyText);
+          communityDataParsedResponse = JSON.parse(response._bodyText);
 
-        console.log('communityDataParsedResponse:');
-        console.log(communityDataParsedResponse);
+          console.log('communityDataParsedResponse:');
+          console.log(communityDataParsedResponse);
 
-        this.setState({
-          welcomeModalVisible: visible,
-          communityData: communityDataParsedResponse,
+          this.setState({
+            signedIn: signedIn,
+            communityData: communityDataParsedResponse,
+          })
+        }
+      })
+      .catch(err => console.log(err))
+  }
 
-        })
-      }
-    })
-    .catch(err => console.log(err))
+  // getCommunityData() {
+  //   console.log('In getCommunityData(), fetching community data');
+  //
+  //   const communityDataURL = 'http://localhost:3000/user_bins/community_data'
+  //
+  //   fetch(communityDataURL, {
+  //     method: 'GET',
+  //   })
+  //   .then((response) => {
+  //     console.log('API response');
+  //     console.log(new Date().toTimeString());
+  //     console.log(response);
+  //
+  //     if (response.status === 200) {
+  //       console.log('API status 200');
+  //
+  //       communityDataParsedResponse = JSON.parse(response._bodyText);
+  //
+  //       console.log('communityDataParsedResponse:');
+  //       console.log(communityDataParsedResponse);
+  //       return communityDataParsedResponse;
+  //     }
+  //   })
+  //   .catch(err => console.log(err))
+  //
+  // }
 
+  setWelcomeModal(visible) {
+    console.log("In Index.js, settingWelcomeModal");
 
+    // this.getCommunityData()
+    // .then(communityDataParsedResponse => {
+    //   console.log('communityDataParsedResponse');
+    //   console.log(communityDataParsedResponse);
+    // })
+
+    const communityDataURL = 'http://localhost:3000/user_bins/community_data'
+
+      fetch(communityDataURL, {
+        method: 'GET',
+      })
+      .then((response) => {
+        console.log('API response');
+        console.log(new Date().toTimeString());
+        console.log(response);
+
+        if (response.status === 200) {
+          console.log('API status 200');
+
+          communityDataParsedResponse = JSON.parse(response._bodyText);
+
+          console.log('communityDataParsedResponse:');
+          console.log(communityDataParsedResponse);
+
+          this.setState({
+            welcomeModalVisible: visible,
+            communityData: communityDataParsedResponse,
+          })
+        }
+      })
+      .catch(err => console.log(err))
 
   }
 
   render() {
     console.log('@@@@@@ In index.js, render @@@@@@');
     console.log(this.state.userData);
+    console.log(this.state.communityData);
     console.log(new Date().toTimeString());
 
     const { signedIn } = this.state;
