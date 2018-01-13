@@ -13,9 +13,9 @@ class WhereYaBin extends Component {
       welcomeModalVisible: false,
       communityData: null,
     };
-    this.getCommunityData();
-    console.log('In WhereYaBin constructor, communityData');
-    console.log(this.state.communityData);
+    // this.getCommunityData();
+    // console.log('In WhereYaBin constructor, communityData');
+    // console.log(this.state.communityData);
 
   }
 

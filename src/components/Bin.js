@@ -12,19 +12,14 @@ class Bin extends Component {
   constructor(props){
     super(props);
     this.state = {
-      //TODO: Below not working
-      // Default values for disabled button property
-      useBinButtondisabled: false,
-      reportFullBinButtonDisabled: false,
+      useBinButtondisabled: false, // TODO: not working
+      reportFullBinButtonDisabled: false, // TODO: not working
       pinColor: null,
       binText: null,
       binText2: null,
-      // image: null,
-      // image2: null,
       bothTypes: null,
       useBinSuccessMessage: null,
       modalVisible: false,
-      // userData: this.props.userData,
     };
 
     // console.log('@@@@@@@ In Bin.js, constructor()');
@@ -74,6 +69,89 @@ class Bin extends Component {
     }
   }
 
+  postRequest(userID, binID, action) {
+    console.log('In postRequest, to create user_bin');
+    console.log(new Date().toTimeString());
+    fetch(
+      'https://whereyabin.herokuapp.com/user_bins', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userID,
+          bin_id: binID,
+          userAction: action,
+          user_lat: this.props.userLocation.user_lat,
+          user_lng: this.props.userLocation.user_lng,
+        })
+      }
+    )
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('API status 200');
+        console.log(new Date().toTimeString());
+
+        const parsedResponse = JSON.parse(response._bodyText);
+
+        console.log('parsedResponse:');
+        console.log(parsedResponse);
+
+        newUserData = {
+          user: parsedResponse.updated_user,
+          total_dist: parsedResponse.total_dist,
+        }
+
+        // set modal message
+        let modalMessage = null;
+
+        if (action === 'use') {
+          modalMessage = 'BINNED!';
+        } else {
+          modalMessage = 'REPORTED!';
+        }
+
+        this.props.setModalVisible(modalMessage);
+
+        console.log('binLocation: ');
+        console.log(parsedResponse.bin_location);
+
+        this.props.setBinLocation(parsedResponse.bin_location);
+
+        //TODO: disableButton not working
+        // this.disableButton();
+
+        // remove USER_KEY from AsyncStorage
+        AsyncStorage.removeItem('USER_KEY')
+        .then(res => {
+          console.log('AsyncStorage removeItem resolved')
+          console.log('AsyncStorage setItem: ');
+
+          // set USER_KEY with updated user data
+          AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
+          .then(res => {
+            console.log("Successfully set new user data ");
+            this.props.screenProps.setUserData(newUserData);
+          })
+          .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+
+      } else {
+        console.log('@@@@@ API status 400 response body text: @@@@@');
+        console.log(response._bodyText);
+
+        const parsedResponse = JSON.parse(response._bodyText);
+        console.log('parsedResponse:');
+        console.log(parsedResponse);
+      }
+    })
+    .catch((error) => {
+      console.log('error:', error);
+    })
+  }
+
   useBin() {
     console.log('@@@@@@@@ In useBin function @@@@@@@@@');
     console.log('Getting binID:');
@@ -92,102 +170,10 @@ class Bin extends Component {
 
           userID = JSON.parse(keyValue).user.id;
 
-          // this.props.sendUserLocation();
-          // console.log('Checking user location:');
-          // console.log(this.props.userLocation);
-          // console.log(this.props.userLocation['latitude']);
-          // console.log(this.props.userLocation.user_lat);
-          // console.log(this.props.userLocation.user_lng);
-          //
-          console.log('Making POST request to API to create user_bin');
-
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          console.log(new Date().toTimeString());
-          fetch(
-            'https://whereyabin.herokuapp.com/user_bins', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                user_id: userID,
-                bin_id: binID,
-                userAction: 'use',
-                user_lat: this.props.userLocation.user_lat,
-                user_lng: this.props.userLocation.user_lng,
-              })
-            }
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              console.log('API status 200');
-              console.log(new Date().toTimeString());
-
-              const parsedResponse = JSON.parse(response._bodyText);
-
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-              // console.log('parsedResponse.total_dist');
-              // console.log(parsedResponse.total_dist);
-
-              newUserData = {
-                user: parsedResponse.updated_user,
-                total_dist: parsedResponse.total_dist,
-              }
-
-              const message = 'BINNED!'
-              this.props.setModalVisible(message);
-
-              console.log('binLocation: ');
-              console.log(parsedResponse.bin_location);
-
-              this.props.setBinLocation(parsedResponse.bin_location);
-
-              // remove USER_KEY from AsyncStorage
-              AsyncStorage.removeItem('USER_KEY')
-              .then(res => {
-                console.log('AsyncStorage removeItem resolved')
-                console.log('AsyncStorage setItem: ');
-
-                // set USER_KEY with updated user data
-                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-                .then(res => {
-                  console.log("Successfully set new user data ");
-                  // console.log(res); //returns null
-                  this.props.screenProps.setUserData(newUserData);
-
-                })
-                .catch(err => console.log(err))
-
-              })
-              .catch(err => console.log(err))
-
-            } else {
-              console.log('@@@@@ API status 400 response body text: @@@@@');
-              console.log(response._bodyText);
-
-              const parsedResponse = JSON.parse(response._bodyText);
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-            }
-          })
-          .catch((error) => {
-            console.log('error:', error);
-          })
-
-          //BUG: disableButton not working
-          // this.disableButton();
-
+          this.postRequest(userID, binID, 'use');
         } else {
           console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user
+          console.log(keyValue); //TODO: display message to user?
         }
       })
       .catch(err => reject(err));
@@ -211,95 +197,17 @@ class Bin extends Component {
 
           userID = JSON.parse(keyValue).user.id;
 
-          console.log('Making POST request to API to create user_bin recycling');
-          console.log(new Date().toTimeString());
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          fetch(
-            'https://whereyabin.herokuapp.com/user_bins', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                user_id: userID,
-                bin_id: binID,
-                userAction: 'use',
-                user_lat: this.props.userLocation.user_lat,
-                user_lng: this.props.userLocation.user_lng,
-              })
-            }
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              console.log('API status 200');
-              console.log(new Date().toTimeString());
-
-              const parsedResponse = JSON.parse(response._bodyText);
-
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-
-              newUserData = {
-                user: parsedResponse.updated_user,
-                total_dist: parsedResponse.total_dist,
-              }
-
-              const message = 'BINNED!'
-              this.props.setModalVisible(message);
-
-              this.props.setBinLocation(parsedResponse.bin_location);
-
-              // remove USER_KEY from AsyncStorage
-              AsyncStorage.removeItem('USER_KEY')
-              .then(res => {
-                console.log('AsyncStorage removeItem resolved')
-                console.log('AsyncStorage setItem: ');
-
-                // set USER_KEY with updated user data
-                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-                .then(res => {
-                  console.log("Successfully set new user data ");
-
-                  this.props.screenProps.setUserData(newUserData);
-                })
-                .catch(err => console.log(err))
-
-              })
-              .catch(err => console.log(err))
-
-            } else {
-              console.log('@@@@@ API status 400 response body text: @@@@@');
-              console.log(response._bodyText);
-
-              const parsedResponse = JSON.parse(response._bodyText);
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-            }
-          })
-          .catch((error) => {
-            console.log('error:', error);
-          })
-
-          //BUG: disableButton not working
-          // this.disableButton();
-
+          this.postRequest(userID, binID, 'use');
         } else {
           console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user
+          console.log(keyValue); //TODO: display message to user?
         }
       })
       .catch(err => reject(err));
   }
 
   reportBinFull() {
-    console.log('In reportBillFull:');
+    console.log('In reportBinFull:');
 
     console.log('Getting binID:');
     console.log(this.props.binArray[0].id);
@@ -317,85 +225,7 @@ class Bin extends Component {
 
           userID = JSON.parse(keyValue).user.id;
 
-          console.log('Making POST request to API to create user_bin');
-          console.log(new Date().toTimeString());
-
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          fetch(
-            'https://whereyabin.herokuapp.com/user_bins', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                user_id: userID,
-                bin_id: binID,
-                userAction: 'full',
-                user_lat: this.props.userLocation.user_lat,
-                user_lng: this.props.userLocation.user_lng,
-              })
-            }
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              console.log('API status 200');
-              console.log(new Date().toTimeString());
-
-              const parsedResponse = JSON.parse(response._bodyText);
-
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-
-              newUserData = {
-                user: parsedResponse.updated_user,
-                total_dist: parsedResponse.total_dist,
-              }
-
-              const message = 'REPORTED!'
-              this.props.setModalVisible(message);
-
-              // remove USER_KEY from AsyncStorage
-              AsyncStorage.removeItem('USER_KEY')
-              .then(res => {
-                console.log('AsyncStorage removeItem resolved')
-                console.log('AsyncStorage setItem: ');
-
-                // set USER_KEY with updated user data
-                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-                .then(res => {
-                  console.log("Successfully set new user data");
-
-                  this.props.screenProps.setUserData(newUserData);
-
-                })
-                .catch(err => console.log(err))
-
-              })
-              .catch(err => console.log(err))
-
-            } else {
-              console.log('@@@@@ API status 400 response body text: @@@@@');
-              console.log(response._bodyText);
-
-              const parsedResponse = JSON.parse(response._bodyText);
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-            }
-          })
-          .catch((error) => {
-            console.log('error:', error);
-          })
-
-          //BUG: disableButton not working
-          // this.disableButton();
-
+          this.postRequest(userID, binID, 'full');
         } else {
           console.log('There is not a valid res/USER_KEY: ');
           console.log(keyValue); //TODO: display message to user
@@ -403,7 +233,6 @@ class Bin extends Component {
       })
       .catch(err => reject(err));
   }
-
 
   reportRecyclingBinFull() {
     console.log('In reportRecyclingBinFull:');
@@ -415,7 +244,7 @@ class Bin extends Component {
     let binID = this.props.binArray[1].id;
     let newUserData = null;
 
-    // console.log('Getting USER_KEY: ');
+    console.log('Getting USER_KEY: ');
     AsyncStorage.getItem("USER_KEY")
       .then(keyValue => {
         if ( Boolean(keyValue) ) {
@@ -424,87 +253,10 @@ class Bin extends Component {
 
           userID = JSON.parse(keyValue).user.id;
 
-          console.log('Making POST request to API to create user_bin');
-          console.log(new Date().toTimeString());
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          fetch(
-            'https://whereyabin.herokuapp.com/user_bins', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                user_id: userID,
-                bin_id: binID,
-                userAction: 'full',
-                user_lat: this.props.userLocation.user_lat,
-                user_lng: this.props.userLocation.user_lng,
-              })
-            }
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              console.log('API status 200');
-              console.log(new Date().toTimeString());
-
-              const parsedResponse = JSON.parse(response._bodyText);
-
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-
-              newUserData = {
-                user: parsedResponse.updated_user,
-                total_dist: parsedResponse.total_dist,
-              }
-
-              const message = 'REPORTED!'
-              this.props.setModalVisible(message);
-
-              // remove USER_KEY from AsyncStorage
-              AsyncStorage.removeItem('USER_KEY')
-              .then(res => {
-                console.log('AsyncStorage removeItem resolved')
-                console.log('AsyncStorage setItem: ');
-
-                // set USER_KEY with updated user data
-                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-                .then(res => {
-                  console.log("Successfully set new user data");
-
-                  this.props.screenProps.setUserData(newUserData);
-
-                })
-                .catch(err => console.log(err))
-
-              })
-              .catch(err => console.log(err))
-
-            } else {
-              console.log('@@@@@ API status 400 response body text: @@@@@');
-              console.log(response._bodyText);
-
-              const parsedResponse = JSON.parse(response._bodyText);
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-            }
-          })
-          .catch((error) => {
-            console.log('error:', error);
-          })
-
-          //BUG: disableButton not working
-          // this.disableButton();
-
+          this.postRequest(userID, binID, 'full');
         } else {
           console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user
+          console.log(keyValue); //TODO: display message to user?
         }
       })
       .catch(err => reject(err));
@@ -529,87 +281,10 @@ class Bin extends Component {
 
           userID = JSON.parse(keyValue).user.id;
 
-          console.log('Making POST request to API to create user_bin');
-          console.log(new Date().toTimeString());
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          fetch(
-            'https://whereyabin.herokuapp.com/user_bins', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                user_id: userID,
-                bin_id: binID,
-                userAction: 'missing',
-                user_lat: this.props.userLocation.user_lat,
-                user_lng: this.props.userLocation.user_lng,
-              })
-            }
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              console.log('API status 200');
-              console.log(new Date().toTimeString());
-
-              const parsedResponse = JSON.parse(response._bodyText);
-
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-
-              newUserData = {
-                user: parsedResponse.updated_user,
-                total_dist: parsedResponse.total_dist,
-              }
-
-              const message = 'REPORTED!'
-              this.props.setModalVisible(message);
-
-              // remove USER_KEY from AsyncStorage
-              AsyncStorage.removeItem('USER_KEY')
-              .then(res => {
-                console.log('AsyncStorage removeItem resolved')
-                console.log('AsyncStorage setItem: ');
-
-                // set USER_KEY with updated user data
-                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-                .then(res => {
-                  console.log("Successfully set new user data");
-
-                  this.props.screenProps.setUserData(newUserData);
-
-                })
-                .catch(err => console.log(err))
-
-              })
-              .catch(err => console.log(err))
-
-            } else {
-              console.log('@@@@@ API status 400 response body text: @@@@@');
-              console.log(response._bodyText);
-
-              const parsedResponse = JSON.parse(response._bodyText);
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-            }
-          })
-          .catch((error) => {
-            console.log('error:', error);
-          })
-
-          //BUG: disableButton not working
-          // this.disableButton();
-
+          this.postRequest(userID, binID, 'missing');
         } else {
           console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user
+          console.log(keyValue); //TODO: display message to user?
         }
       })
       .catch(err => reject(err));
@@ -634,84 +309,7 @@ class Bin extends Component {
 
           userID = JSON.parse(keyValue).user.id;
 
-          console.log('Making POST request to API to create user_bin');
-          console.log(new Date().toTimeString());
-          // fetch(
-          //   'http://localhost:3000/user_bins', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json',
-          //     },
-          fetch(
-            'https://whereyabin.herokuapp.com/user_bins', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                user_id: userID,
-                bin_id: binID,
-                userAction: 'missing',
-                user_lat: this.props.userLocation.user_lat,
-                user_lng: this.props.userLocation.user_lng,
-              })
-            }
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              console.log('API status 200');
-              console.log(new Date().toTimeString());
-
-              const parsedResponse = JSON.parse(response._bodyText);
-
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-
-              newUserData = {
-                user: parsedResponse.updated_user,
-                total_dist: parsedResponse.total_dist,
-              }
-
-              const message = 'REPORTED!'
-              this.props.setModalVisible(message);
-
-              // remove USER_KEY from AsyncStorage
-              AsyncStorage.removeItem('USER_KEY')
-              .then(res => {
-                console.log('AsyncStorage removeItem resolved')
-                console.log('AsyncStorage setItem: ');
-
-                // set USER_KEY with updated user data
-                AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-                .then(res => {
-                  console.log("Successfully set new user data");
-
-                  this.props.screenProps.setUserData(newUserData);
-
-                })
-                .catch(err => console.log(err))
-
-              })
-              .catch(err => console.log(err))
-
-            } else {
-              console.log('@@@@@ API status 400 response body text: @@@@@');
-              console.log(response._bodyText);
-
-              const parsedResponse = JSON.parse(response._bodyText);
-              console.log('parsedResponse:');
-              console.log(parsedResponse);
-            }
-          })
-          .catch((error) => {
-            console.log('error:', error);
-          })
-
-          //BUG: disableButton not working
-          // this.disableButton();
-
+          this.postRequest(userID, binID, 'missing');
         } else {
           console.log('There is not a valid res/USER_KEY: ');
           console.log(keyValue); //TODO: display message to user
