@@ -86,7 +86,7 @@ class WhereYaBin extends Component {
   getCommunityData() {
     console.log('In getCommunityData(), fetching community data');
 
-    const communityDataURL = 'http://localhost:3000/user_bins/community_data'
+    const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data'
 
     fetch(communityDataURL, {
       method: 'GET',

@@ -210,7 +210,7 @@ export default class App extends Component {
                   How to use the Map
                 </Text>
                 <Text style={{ fontWeight: 'bold', marginTop: 10, marginRight: 20, marginLeft: 20, textAlign: 'center', fontSize: 16, }}>
-                  Tap on pins to: 1) use a bin, 2) report a full bin, or 3) report a missing bin.
+                  Tap on pins to: 1) use a bin (directions will pop up!), 2) report a full bin, or 3) report a missing bin.
                 </Text>
 
                 <View style={{ marginTop: 5, marginRight: 22, marginLeft: 22, marginBottom: 15, }}>
