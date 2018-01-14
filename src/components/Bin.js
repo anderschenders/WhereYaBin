@@ -84,7 +84,7 @@ class Bin extends Component {
         body: JSON.stringify({
           user_id: userID,
           bin_id: binID,
-          userAction: action,
+          user_action: action,
           user_lat: this.props.userLocation.user_lat,
           user_lng: this.props.userLocation.user_lng,
         })
@@ -103,12 +103,14 @@ class Bin extends Component {
         newUserData = {
           user: parsedResponse.updated_user,
           total_dist: parsedResponse.total_dist,
+          user_bins: parsedResponse.user_bins,
         }
 
         // set modal message
         let modalMessage = null;
 
         if (action === 'use') {
+          this.props.setBinLocation(parsedResponse.bin_location);
           modalMessage = 'BINNED!';
         } else {
           modalMessage = 'REPORTED!';
@@ -119,28 +121,10 @@ class Bin extends Component {
         console.log('binLocation: ');
         console.log(parsedResponse.bin_location);
 
-        this.props.setBinLocation(parsedResponse.bin_location);
-
         //TODO: disableButton not working
         // this.disableButton();
 
         this.props.screenProps.updateAsyncStorage(newUserData);
-
-        // remove USER_KEY from AsyncStorage
-        // AsyncStorage.removeItem('USER_KEY')
-        // .then(res => {
-        //   console.log('AsyncStorage removeItem resolved')
-        //   console.log('AsyncStorage setItem: ');
-        //
-        //   // set USER_KEY with updated user data
-        //   AsyncStorage.setItem("USER_KEY", JSON.stringify(newUserData))
-        //   .then(res => {
-        //     console.log("Successfully set new user data ");
-        //     this.props.screenProps.setUserData(newUserData);
-        //   })
-        //   .catch(err => console.log(err))
-        // })
-        // .catch(err => console.log(err))
 
       } else {
         console.log('@@@@@ API status 400 response body text: @@@@@');

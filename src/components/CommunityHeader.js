@@ -34,11 +34,6 @@ const styles = {
     marginTop: 15,
     marginBottom: 8,
   },
-  // textStyle: {
-  //   marginTop: 1,
-  //   marginBottom: 1,
-  //   textAlign: 'center',
-  // },
 };
 
 export default CommunityHeader;

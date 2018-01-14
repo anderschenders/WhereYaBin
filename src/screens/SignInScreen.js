@@ -83,7 +83,10 @@ class SignInScreen extends Component {
       // })
       console.log('BEFORE FETCH to get user data');
       console.log(new Date().toTimeString());
-      fetch(`https://whereyabin.herokuapp.com/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
+
+      const signInURL = `https://whereyabin.herokuapp.com/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`;
+
+      fetch(signInURL, {
         method: 'GET',
       })
       .then((response) => {
@@ -102,7 +105,8 @@ class SignInScreen extends Component {
           onSignIn(parsedResponse).then((res) => {
           if (res === true) {
             this.props.screenProps.setSignInState(true);
-            this.props.screenProps.setUserData(parsedResponse);
+            this.props.screenProps.updateAsyncStorage(parsedResponse)
+            // this.props.screenProps.setUserData(parsedResponse);
             this.props.navigation.navigate("App");
           } else {
             console.log('sign in didnt work');

@@ -86,7 +86,9 @@ class SignUpScreen extends Component {
       //   },
       //   body: JSON.stringify(getFormData),
       // })
-      fetch('https://whereyabin.herokuapp.com/users', {
+      const signUpURL = 'https://whereyabin.herokuapp.com/users';
+
+      fetch(signUpURL, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -109,7 +111,8 @@ class SignUpScreen extends Component {
           onSignIn(parsedResponse).then((res) => {
           if (res === true) {
             this.props.screenProps.setSignInState(true);
-            this.props.screenProps.setUserData(parsedResponse);
+            this.props.screenProps.updateAsyncStorage(parsedResponse)
+            // this.props.screenProps.setUserData(parsedResponse);
             this.props.screenProps.setWelcomeModal(true);
             this.props.navigation.navigate("App");
           } else {

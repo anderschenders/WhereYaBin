@@ -3,12 +3,10 @@ import { AppRegistry, StyleSheet, ScrollView, Text, View, Image } from 'react-na
 
 import ProfileCard from './ProfileCard';
 import UserHistorySection from './UserHistorySection';
-// import ProfileCard from './ProfileCard';
-// import ProfileHistoryCardSection from './ProfileHistoryCardSection'
 
 const UserBinnedHistory = ({ userBinnedHistory }) => {
 
-    if (userBinnedHistory.length === 0) {
+    if (userBinnedHistory === null) {
 
       return (
         <View style={ styles.containerViewStyle }>
@@ -74,30 +72,6 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     backgroundColor: 'white',
   }
-  // viewSectionTextStyle: {
-  //   fontSize: 20,
-  //   marginTop: 20,
-  // },
-  // imageStyle: {
-  //   marginTop: 10,
-  //   marginBottom: 10,
-  //   marginLeft: 10,
-  //   marginRight: 10,
-  //   height: 50,
-  //   width: 50,
-  // },
-  // viewSectionStyle: {
-  //   borderTopWidth: 1,
-  //   borderBottomWidth: 1,
-  //   padding: 1,
-  //   backgroundColor: '#fff',
-  //   justifyContent: 'flex-start', //push items to the left
-  //   flexDirection: 'row', //defaults to column(block)
-  //   // flexWrap: 'wrap',
-  //   // flex: 1,
-  //   borderColor: '#ddd',
-  //   position: 'relative'
-  // },
 });
 
 export default UserBinnedHistory;

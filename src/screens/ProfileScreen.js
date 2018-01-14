@@ -1,164 +1,25 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, ScrollView, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import Header from '../components/Header';
 import ProfileCard from '../components/ProfileCard';
-// import CardSection from '../components/CardSection';
 import UserBinnedHistory from '../components/UserBinnedHistory'
-// import ProfileHistoryCard from '../components/ProfileHistoryCard'
 
 class ProfileScreen extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      // userData: this.props.screenProps.userData,
-      // username: null,
-      // memberSince: null,
-      // activityCount: null,
-      // distanceTravelled: null,
-      userBinnedHistory: [],
-    }
-    console.log('@@@@@@@ In ProfileScreen constructor, this.state @@@@@@@');
-    console.log(this.state);
-    console.log('this.props');
+    console.log('@@@@@@@ In ProfileScreen constructor, this.props @@@@@@@');
     console.log(this.props);
-
-    let userID = null;
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.screenProps.userData !== this.props.screenProps.userData) {
-      console.log('In Profile.js, componentWillReceiveProps, props changed!');
-      console.log('this.props.screenProps.userData:');
-      console.log(this.props.screenProps.userData);
-      console.log('nextProps.screenProps.userData:');
-      console.log(nextProps.screenProps.userData);
-
-      console.log('Making GET request to API to get UserBin data for this particular User');
-      console.log(new Date().toTimeString());
-
-      userID = this.props.screenProps.userData.user.id;
-      // fetch(`http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
-      //     method: 'GET',
-      // })
-      fetch(`https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`, {
-          method: 'GET',
-      })
-      .then((response) => {
-        console.log('Getting UserBins API response:');
-        console.log(new Date().toTimeString());
-        console.log(response);
-
-        if (response.status === 200) {
-          console.log('API status 200');
-
-          userBinDataParsedResponse = JSON.parse(response._bodyText);
-
-          console.log('userBinDataParsedResponse:');
-          console.log(userBinDataParsedResponse);
-
-          this.setState({
-            // userData: nextProps.screenProps.userData,
-            username: nextProps.screenProps.userData.user.username,
-            memberSince: nextProps.screenProps.userData.user.created_at.substring(0,10),
-            activityCount: nextProps.screenProps.userData.user.bin_count,
-            distanceTravelled: nextProps.screenProps.userData.total_dist,
-            userBinnedHistory: userBinDataParsedResponse,
-          })
-        }
-      })
-      .catch(err => console.log(err))
-    }
-  }
-
-  componentDidMount() {
-    console.log('@@@@@@@@@ In ProfileScreen.js, componentDidMount, getting userData from AsyncStorage @@@@@@@@@');
-    console.log(new Date().toTimeString());
-
-    AsyncStorage.getItem("USER_KEY")
-      .then(keyValue => {
-        if ( Boolean(keyValue) ) {
-          console.log('There is a valid res/USER_KEY: ');
-          console.log(keyValue);
-          console.log('keyValue.id');
-          console.log(JSON.parse(keyValue).user.id);
-
-          userID = JSON.parse(keyValue).user.id;
-
-          // request to API for User data
-          console.log('Making GET request to API to get User data');
-          console.log(new Date().toTimeString());
-
-          let userDataParsedResponse = null;
-          let userBinDataParsedResponse = null;
-
-          // fetch(
-          //   `http://localhost:3000/users?id=${encodeURIComponent(userID)}`, {
-          //     method: 'GET',
-          // })
-          fetch(`https://whereyabin.herokuapp.com/users?id=${encodeURIComponent(userID)}`, {
-            method: 'GET',
-          })
-          .then((response) => {
-            console.log('API response:');
-            console.log(new Date().toTimeString());
-            console.log(response);
-
-            if (response.status === 200) {
-              console.log('API status 200');
-
-              userDataParsedResponse = JSON.parse(response._bodyText);
-
-              console.log('userDataParsedResponse:');
-              console.log(userDataParsedResponse);
-            }
-          })
-          .then(() => {
-            // request to API for UserBin data for this User
-            console.log('Making GET request to API to get UserBin data for this particular User');
-            console.log(new Date().toTimeString());
-            //   `http://localhost:3000/user_bins?user_id=${encodeURIComponent(userID)}`, {
-            //     method: 'GET',
-            // })
-            return fetch(`https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`, {
-              method: 'GET',
-            })
-          })
-          .then((response) => {
-            console.log('API response:');
-            console.log(new Date().toTimeString());
-            console.log(response);
-
-            if (response.status === 200) {
-              console.log('API status 200');
-
-              userBinDataParsedResponse = JSON.parse(response._bodyText);
-
-              console.log('userBinDataParsedResponse:');
-              console.log(userBinDataParsedResponse);
-
-              this.setState({
-                username: userDataParsedResponse.user.username,
-                memberSince: userDataParsedResponse.user.created_at.substring(0,10),
-                activityCount: userDataParsedResponse.user.bin_count,
-                distanceTravelled: userDataParsedResponse.total_dist,
-                userBinnedHistory: userBinDataParsedResponse,
-              })
-
-              console.log('Got all API data, after setState');
-              console.log(this.state);
-            }
-          })
-          .catch(err => console.log(err))
-
-        }})
-      }
 
   render() {
 
-    if (this.props.screenProps.userData == null) {
+    console.log('ProfileScreen render, this.props.screenProps.userData');
+    console.log(this.props.screenProps.userData);
+
+    if (this.props.screenProps.userData === null) {
       return <View></View>
     }
 
@@ -177,39 +38,12 @@ class ProfileScreen extends Component {
         }}/>
 
         <UserBinnedHistory
-          userBinnedHistory={ this.state.userBinnedHistory }>
+          userBinnedHistory={ this.props.screenProps.userData.user_bins }>
         </UserBinnedHistory>
 
       </View>
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  // containerViewStyle: {
-  //   borderWidth: 1,
-  //   borderRadius: 2,
-  //   borderColor: "#ddd",
-  //   borderBottomWidth: 0,
-  //   shadowColor: '#000',
-  //   shadowOffset: { width: 0, height: 2 },
-  //   shadowOpacity: 0.1,
-  //   shadowRadius: 2,
-  //   elevation: 1,
-  //   marginLeft: 20,
-  //   marginRight:20,
-  //   marginTop: 20,
-  //   marginBottom: 20,
-  //   height: 550,
-  //   // flex: 1,
-  // },
-  // textStyle: {
-  //   marginTop: 5,
-  //   marginBottom: 5,
-  //   textAlign: 'center',
-  // },
-});
-
 
 export default ProfileScreen;
