@@ -11,7 +11,6 @@ const User = t.struct({
   email: t.String,
   username: t.maybe(t.String),
   password: t.String,
-  // rememberMe: t.Boolean,
 });
 
 const formStyles = {
@@ -77,10 +76,6 @@ class SignInScreen extends Component {
     console.log('Form data: ', getFormData);
 
     if (getFormData) {
-      // GET to Rails API users#index
-       // fetch(`http://localhost:3000/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`, {
-      //   method: 'GET',
-      // })
       console.log('BEFORE FETCH to get user data');
       console.log(new Date().toTimeString());
 
@@ -141,9 +136,7 @@ class SignInScreen extends Component {
     let error = null
     if (this.state.error) {
       const errorMessage = this.state.error.error;
-      // console.log('In render!');
-      // console.log(this.state.error.error);
-      // console.log(errorMessage);
+
       error = <Text
                 style={{
                   alignSelf: 'center',

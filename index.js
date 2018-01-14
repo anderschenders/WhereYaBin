@@ -10,15 +10,13 @@ class WhereYaBin extends Component {
     this.state = {
       signedIn: false,
       userData: null,
-      userBinData: null,
+      // userBinData: null,
       welcomeModalVisible: false,
       communityData: null,
     };
   }
 
   componentWillMount() {
-    // this.getCommunityData();
-
     isSignedIn() //check if user is signed in
       .then(res => {
         return AsyncStorage.getItem("USER_KEY").then(keyValue =>
@@ -52,38 +50,38 @@ class WhereYaBin extends Component {
     .catch(err => console.log(err))
   }
 
-  getUserBinData(userID) {
-    console.log('In getUserBinData()');
-    console.log(new Date().toTimeString());
-
-    const userBinURL = `https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`;
-
-    fetch(userBinURL, {
-      method: 'GET',
-    })
-    .then((response) => {
-      console.log('API response:');
-      console.log(new Date().toTimeString());
-      console.log(response);
-
-      if (response.status === 200) {
-        console.log('API status 200');
-
-        userBinDataParsedResponse = JSON.parse(response._bodyText);
-
-        console.log('userBinDataParsedResponse:');
-        console.log(userBinDataParsedResponse);
-
-        this.setState({
-          userBinData: userBinDataParsedResponse,
-        })
-
-        console.log('Got API data, new this.state');
-        console.log(this.state);
-      }
-    })
-    .catch(err => console.log(err))
-  }
+  // getUserBinData(userID) {
+  //   console.log('In getUserBinData()');
+  //   console.log(new Date().toTimeString());
+  //
+  //   const userBinURL = `https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`;
+  //
+  //   fetch(userBinURL, {
+  //     method: 'GET',
+  //   })
+  //   .then((response) => {
+  //     console.log('API response:');
+  //     console.log(new Date().toTimeString());
+  //     console.log(response);
+  //
+  //     if (response.status === 200) {
+  //       console.log('API status 200');
+  //
+  //       userBinDataParsedResponse = JSON.parse(response._bodyText);
+  //
+  //       console.log('userBinDataParsedResponse:');
+  //       console.log(userBinDataParsedResponse);
+  //
+  //       this.setState({
+  //         userBinData: userBinDataParsedResponse,
+  //       })
+  //
+  //       console.log('Got API data, new this.state');
+  //       console.log(this.state);
+  //     }
+  //   })
+  //   .catch(err => console.log(err))
+  // }
 
   // setUserData(userData) {
   //   console.log("In Index.js, setting/resetting user data:");
@@ -157,7 +155,7 @@ class WhereYaBin extends Component {
       setWelcomeModal: this.setWelcomeModal.bind(this),
       welcomeModalVisible: this.state.welcomeModalVisible,
       communityData: this.state.communityData,
-      getUserBinData: this.getUserBinData.bind(this),
+      // getUserBinData: this.getUserBinData.bind(this),
       userBinData: this.state.userBinData,
     };
 

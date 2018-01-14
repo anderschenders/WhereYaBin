@@ -60,12 +60,8 @@ export default class App extends Component {
     console.log('@@@@@@@ In App.js, setBinLocation, binLocation @@@@@@@');
     console.log(binLocation);
     console.log(new Date().toTimeString());
-    // console.log('this.state');
-    // console.log(this.state);
 
     let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
-    // console.log('current latitude:')
-    // console.log(this.state.mapRegion.latitude);
 
     this.getDirections(currentLocation, binLocation);
   }
@@ -101,7 +97,7 @@ export default class App extends Component {
 
   onRegionChangeComplete(region) {
     // this.fetchBins(region); //QUESTION: do I want to be re-fetching bins every time the user zooms/pans?
-
+    //
     // this.setState({
     //   mapRegion: region,
     //   error: null,
@@ -124,7 +120,6 @@ export default class App extends Component {
         user_lng: region.longitude,
       };
 
-      //QUESTION: is this the right place for setState?
       this.setState({
         mapRegion: region,
         error: null,
@@ -132,14 +127,7 @@ export default class App extends Component {
         userLocation: userLocation,
       });
 
-      // console.log('In App.js, fetchBins, userlocation:');
-      // console.log(this.state.userLocation);
-
       let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
-      // console.log('current latitude:')
-      // console.log(this.state.mapRegion.latitude);
-      // console.log('After setState. New state: ');
-      // console.log(this.state);
 
       return responseJson;
     })
@@ -155,11 +143,9 @@ export default class App extends Component {
   setModalVisible(message) {
     this.setState({ modalVisible: true, modalMessage: message }, () => {
       setTimeout(() => {
-        // console.log('in setTimeout modal');
         this.setState({ modalVisible: false });
-        // console.log('Bye modal');
       }
-      , 400);
+      , 300);
     })
   }
 
@@ -176,7 +162,7 @@ export default class App extends Component {
       } else {
 
         return (
-          <View style={styles.container}>
+          <View style={styles.viewContainer}>
 
             <Modal
               style={{ justifyContent: 'flex-end', margin: 0 }}
@@ -223,7 +209,7 @@ export default class App extends Component {
                     <Text style={{ fontWeight: 'bold', marginTop: 3, fontSize: 15, color: 'blue'}}>
                       BLUE pins: lone recycle bins
                     </Text>
-                    <Text style={{ fontWeight: 'bold', marginTop: 3, fontSize: 15, color: 'black'}}>
+                    <Text style={{ fontWeight: 'bold', marginTop: 3, fontSize: 15, }}>
                       BLACK pins: lone garbage bins
                     </Text>
                   </View>
@@ -287,7 +273,7 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  viewContainer: {
     flex: 1,
     height: '100%',
     width: '100%',

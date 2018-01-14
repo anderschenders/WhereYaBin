@@ -47,7 +47,7 @@ export const SignedIn = TabNavigator({
   CommunityScreen: {
     screen: CommunityScreen,
     navigationOptions: {
-      tabBarLabel: "Community", //account-circle
+      tabBarLabel: "Community",
       tabBarIcon: ({ tintColor }) => <Icon name="group-work" size={35} color={tintColor} />
     }
   },

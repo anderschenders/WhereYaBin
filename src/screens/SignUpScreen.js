@@ -76,16 +76,6 @@ class SignUpScreen extends Component {
     console.log('Form data: ', getFormData);
 
     if (getFormData) {
-      // POST to Rails API users#create
-
-      // fetch('http://localhost:3000/users', {
-      //   method: 'POST',
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(getFormData),
-      // })
       const signUpURL = 'https://whereyabin.herokuapp.com/users';
 
       fetch(signUpURL, {
@@ -148,14 +138,9 @@ class SignUpScreen extends Component {
     if (this.state.error) {
       let errorMessage = this.state.error;
 
-      // console.log('In render error handling, errorMessage: ');
-      // console.log(errorMessage);
-
       for(key in errorMessage) {
         errorMessage = `${key}: ${errorMessage[key]}`
       }
-      // console.log('New errorMessage:');
-      // console.log(errorMessage);
 
       error = <Text
                 style={{
