@@ -10,7 +10,6 @@ class WhereYaBin extends Component {
     this.state = {
       signedIn: false,
       userData: null,
-      // userBinData: null,
       welcomeModalVisible: false,
       communityData: null,
     };
@@ -49,46 +48,6 @@ class WhereYaBin extends Component {
     })
     .catch(err => console.log(err))
   }
-
-  // getUserBinData(userID) {
-  //   console.log('In getUserBinData()');
-  //   console.log(new Date().toTimeString());
-  //
-  //   const userBinURL = `https://whereyabin.herokuapp.com/user_bins?user_id=${encodeURIComponent(userID)}`;
-  //
-  //   fetch(userBinURL, {
-  //     method: 'GET',
-  //   })
-  //   .then((response) => {
-  //     console.log('API response:');
-  //     console.log(new Date().toTimeString());
-  //     console.log(response);
-  //
-  //     if (response.status === 200) {
-  //       console.log('API status 200');
-  //
-  //       userBinDataParsedResponse = JSON.parse(response._bodyText);
-  //
-  //       console.log('userBinDataParsedResponse:');
-  //       console.log(userBinDataParsedResponse);
-  //
-  //       this.setState({
-  //         userBinData: userBinDataParsedResponse,
-  //       })
-  //
-  //       console.log('Got API data, new this.state');
-  //       console.log(this.state);
-  //     }
-  //   })
-  //   .catch(err => console.log(err))
-  // }
-
-  // setUserData(userData) {
-  //   console.log("In Index.js, setting/resetting user data:");
-  //   this.getUserBinData(userID);
-  //   this.setState({ userData: userData});
-  //   this.getCommunityData();
-  // }
 
   setSignInState(signedIn) {
     console.log('In setSignInState()');
@@ -149,13 +108,11 @@ class WhereYaBin extends Component {
 
     const screenProps = {
       setSignInState: this.setSignInState.bind(this),
-      // setUserData: this.setUserData.bind(this),
       updateAsyncStorage: this.updateAsyncStorage.bind(this),
       userData: this.state.userData,
       setWelcomeModal: this.setWelcomeModal.bind(this),
       welcomeModalVisible: this.state.welcomeModalVisible,
       communityData: this.state.communityData,
-      // getUserBinData: this.getUserBinData.bind(this),
       userBinData: this.state.userBinData,
     };
 

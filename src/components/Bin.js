@@ -38,9 +38,6 @@ class Bin extends Component {
   }
 
   checkBinType() {
-    // console.log('@@@@@@@ In Bin.js, checkBinType() @@@@@@@');
-    // console.log(new Date().toTimeString());
-
     if (Object.keys(this.props.binsHash).length == 1) { //unique location
       if ('GPUBL' in this.props.binsHash) {
         this.setState({
