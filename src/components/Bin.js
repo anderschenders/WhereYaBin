@@ -21,14 +21,6 @@ class Bin extends Component {
       useBinSuccessMessage: null,
       modalVisible: false,
     };
-
-    // console.log('@@@@@@@ In Bin.js, constructor()');
-    // console.log(new Date().toTimeString());
-    // console.log(this.props);
-  }
-
-  componentDidMount() {
-    this.checkBinType();
   }
 
   // disableButton() {
@@ -41,18 +33,22 @@ class Bin extends Component {
   //   console.log(this.state);
   //  }
 
+  componentDidMount() {
+    this.checkBinType();
+  }
+
   checkBinType() {
     // console.log('@@@@@@@ In Bin.js, checkBinType() @@@@@@@');
     // console.log(new Date().toTimeString());
 
-    if (this.props.binArray.length == 1) { //unique location
-      if (this.props.binArray[0].bin_type === 'GPUBL') {
+    if (Object.keys(this.props.binsHash).length == 1) { //unique location
+      if ('GPUBL' in this.props.binsHash) {
         this.setState({
           pinColor: 'black',
           binText: 'GARBAGE',
           bothTypes: false,
         })
-      } else if (this.props.binArray[0].bin_type === 'RYPUBL') {
+      } else if ('RYPUBL' in this.props.binsHash) {
         this.setState({
           pinColor: 'blue',
           binText: 'RECYCLING',
@@ -140,13 +136,18 @@ class Bin extends Component {
     })
   }
 
-  useBin() {
+  useBin(binType) {
     console.log('@@@@@@@@ In useBin function @@@@@@@@@');
     console.log('Getting binID:');
-    console.log(this.props.binArray[0].id);
+
+    if (binType === 'UNKNOWN') {
+      binType = Object.keys(this.props.binsHash)[0]
+    }
+
+    console.log(this.props.binsHash[binType].id);
 
     let userID = null;
-    let binID = this.props.binArray[0].id;
+    let binID = this.props.binsHash[binType].id;
     let newUserData = null;
 
     console.log('Getting USER_KEY: ');
@@ -167,42 +168,21 @@ class Bin extends Component {
       .catch(err => reject(err));
   }
 
-  useRecycleBin() {
-    console.log('@@@@@@@@ In useRecycleBin function @@@@@@@@@');
-    console.log('Getting binID:');
-    console.log(this.props.binArray[1].id);
-
-    let userID = null;
-    let binID = this.props.binArray[1].id;
-    let newUserData = null;
-
-    console.log('Getting USER_KEY: ');
-    AsyncStorage.getItem("USER_KEY")
-      .then(keyValue => {
-        if ( Boolean(keyValue) ) {
-          console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).user.id);
-
-          userID = JSON.parse(keyValue).user.id;
-
-          this.postRequest(userID, binID, 'use');
-        } else {
-          console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user?
-        }
-      })
-      .catch(err => reject(err));
-  }
-
-  reportBinFull() {
+  reportFullBin(binType) {
     console.log('In reportBinFull:');
 
     console.log('Getting binID:');
-    console.log(this.props.binArray[0].id);
+
+    if (binType === 'UNKNOWN') {
+      binType = Object.keys(this.props.binsHash)[0]
+    }
+
+    console.log(this.props.binsHash[binType].id);
 
     let userID = null;
-    let binID = this.props.binArray[0].id;
+    let binID = this.props.binsHash[binType].id;
     let newUserData = null;
+
 
     console.log('Getting USER_KEY: ');
     AsyncStorage.getItem("USER_KEY")
@@ -222,43 +202,21 @@ class Bin extends Component {
       .catch(err => reject(err));
   }
 
-  reportRecyclingBinFull() {
-    console.log('In reportRecyclingBinFull:');
-    console.log(new Date().toTimeString());
-    console.log('Getting binID:');
-    console.log(this.props.binArray[1].id);
-
-    let userID = null;
-    let binID = this.props.binArray[1].id;
-    let newUserData = null;
-
-    console.log('Getting USER_KEY: ');
-    AsyncStorage.getItem("USER_KEY")
-      .then(keyValue => {
-        if ( Boolean(keyValue) ) {
-          console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).user.id);
-
-          userID = JSON.parse(keyValue).user.id;
-
-          this.postRequest(userID, binID, 'full');
-        } else {
-          console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user?
-        }
-      })
-      .catch(err => reject(err));
-  }
-
-  reportMissingBin() {
+  reportMissingBin(binType) {
     console.log('In reportMissingBin:');
     console.log(new Date().toTimeString());
     console.log('Getting binID:');
-    console.log(this.props.binArray[0].id);
+
+    if (binType === 'UNKNOWN') {
+      binType = Object.keys(this.props.binsHash)[0]
+    }
+
+    console.log(this.props.binsHash[binType].id);
 
     let userID = null;
-    let binID = this.props.binArray[0].id;
+    let binID = this.props.binsHash[binType].id;
     let newUserData = null;
+
 
     console.log('Getting USER_KEY: ');
     AsyncStorage.getItem("USER_KEY")
@@ -273,34 +231,6 @@ class Bin extends Component {
         } else {
           console.log('There is not a valid res/USER_KEY: ');
           console.log(keyValue); //TODO: display message to user?
-        }
-      })
-      .catch(err => reject(err));
-  }
-
-  reportMissingRecyclingBin() {
-    console.log('In reportMissingRecyclingBin:');
-    console.log(new Date().toTimeString());
-    console.log('Getting binID:');
-    console.log(this.props.binArray[1].id);
-
-    let userID = null;
-    let binID = this.props.binArray[1].id;
-    let newUserData = null;
-
-    console.log('Getting USER_KEY: ');
-    AsyncStorage.getItem("USER_KEY")
-      .then(keyValue => {
-        if ( Boolean(keyValue) ) {
-          console.log('There is a valid keyValue/USER_KEY: ');
-          console.log(JSON.parse(keyValue).user.id);
-
-          userID = JSON.parse(keyValue).user.id;
-
-          this.postRequest(userID, binID, 'missing');
-        } else {
-          console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user
         }
       })
       .catch(err => reject(err));
@@ -308,12 +238,26 @@ class Bin extends Component {
 
   render() {
 
+    const useGarbageBin = () => { this.useBin('GPUBL'); }
+    const useRecyclingBin = () => { this.useBin('RYPUBL'); }
+    const useUnknownBin = () => { this.useBin('UNKNOWN'); }
+
+    const reportFullGarbageBin = () => { this.reportFullBin('GPUBL'); }
+    const reportFullRecyclingBin = () => { this.reportFullBin('RYPUBL'); }
+    const reportFullUnknownBin = () => { this.reportFullBin('UNKNOWN'); }
+
+    const reportMissingGarbageBin = () => { this.reportMissingBin('GPUBL'); }
+    const reportMissingRecyclingBin = () => { this.reportMissingBin('RYPUBL'); }
+    const reportMissingUnknownBin = () => { this.reportMissingBin('UNKNOWN'); }
+
+
       { if (this.state.bothTypes == false ) {
 
         return (
           <MapView.Marker
             coordinate={{
-              latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
+              latitude: Object.values(this.props.binsHash)[0].latitude,
+              longitude: Object.values(this.props.binsHash)[0].longitude }}
             pinColor={this.state.pinColor}
           >
 
@@ -334,7 +278,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.useBin.bind(this) }
+                  onPress={ useUnknownBin }
                   disabled={ this.state.useBinButtondisabled }
                   accessibilityLabel='Use this bin'
                 >
@@ -344,7 +288,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.reportBinFull.bind(this) }
+                  onPress={ reportFullUnknownBin }
                   disabled={ this.state.reportMissingBinButtonDisabled }
                   accessibilityLabel='Report full bin'
                 >
@@ -354,7 +298,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.reportMissingBin.bind(this) }
+                  onPress={ reportMissingUnknownBin }
                   disabled={ this.state.reportFullBinButtonDisabled }
                   accessibilityLabel='Report missing bin'
                 >
@@ -374,7 +318,8 @@ class Bin extends Component {
         return (
           <MapView.Marker
             coordinate={{
-              latitude: this.props.binArray[0].latitude, longitude: this.props.binArray[0].longitude}}
+              latitude: Object.values(this.props.binsHash)[0].latitude,
+              longitude: Object.values(this.props.binsHash)[0].longitude }}
             pinColor={this.state.pinColor}
           >
 
@@ -391,7 +336,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.useBin.bind(this) }
+                  onPress={ useGarbageBin }
                   disabled={ this.state.useBinButtondisabled }
                   accessibilityLabel='Use this bin'
                 >
@@ -401,7 +346,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.reportBinFull.bind(this) }
+                  onPress={ reportFullGarbageBin }
                   disabled={ this.state.reportFullBinButtonDisabled }
                   accessibilityLabel='Report full bin'
                 >
@@ -411,7 +356,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.reportMissingBin.bind(this) }
+                  onPress={ reportMissingGarbageBin }
                   disabled={ this.state.reportMissingBinButtonDisabled }
                   accessibilityLabel='Report missing bin'
                 >
@@ -433,7 +378,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.useRecycleBin.bind(this) }
+                  onPress={ useRecyclingBin }
                   disabled={ this.state.useBinButtondisabled }
                   accessibilityLabel='Use this bin'
                 >
@@ -443,7 +388,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.reportRecyclingBinFull.bind(this) }
+                  onPress={ reportFullRecyclingBin }
                   disabled={ this.state.reportFullBinButtonDisabled }
                   accessibilityLabel='Report full bin'
                 >
@@ -453,7 +398,7 @@ class Bin extends Component {
 
               <CardSection>
                 <Button
-                  onPress={ this.reportMissingRecyclingBin.bind(this) }
+                  onPress={ reportMissingRecyclingBin }
                   disabled={ this.state.reportFullBinButtonDisabled }
                   accessibilityLabel='Report missing bin'
                 >

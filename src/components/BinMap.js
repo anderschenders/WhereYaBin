@@ -13,7 +13,7 @@ const BinMap = ({ userLocation, setBinLocation, coordinates, mapRegion, onRegion
     initialRegion={ mapRegion }
     onRegionChangeComplete={ onRegionChangeComplete }
   >
-    { bins.map(binArray => <Bin userLocation = { userLocation } setBinLocation={ setBinLocation } setModalVisible={ setModalVisible } screenProps={ screenProps } binArray={ binArray } key={ binArray[0].id } />) }
+    { bins.map(binsHash => <Bin userLocation = { userLocation } setBinLocation={ setBinLocation } setModalVisible={ setModalVisible } screenProps={ screenProps } binsHash={ binsHash } key={ binsHash[Object.keys(binsHash)[0]].id } />) }
 
   <MapView.Polyline
     coordinates={ coordinates }
