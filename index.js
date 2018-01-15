@@ -3,6 +3,7 @@ import { AppRegistry, Text, AsyncStorage } from 'react-native';
 import { MainNavigator, SignedIn } from './router';
 import { isSignedIn, onSignOut } from "./auth";
 
+
 class WhereYaBin extends Component {
   constructor(props) {
     super(props);
@@ -56,19 +57,16 @@ class WhereYaBin extends Component {
         binsData: responseJson,
         // userLocation: userLocation,
       });
-
-      // let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
-
-      // return responseJson;
     })
     .catch((error) => {
       console.log(error);
     });
-
   }
 
   updateAsyncStorage(newUserData) {
     console.log('In updateAsyncStorage()');
+    console.log('this.getCommunityData()');
+    this.getCommunityData();
 
     // remove current USER_KEY
     AsyncStorage.removeItem('USER_KEY')
@@ -81,7 +79,6 @@ class WhereYaBin extends Component {
       .then(res => {
         console.log("Successfully set new user data ");
         this.setState({ userData: newUserData});
-        this.getCommunityData();
       })
       .catch(err => console.log(err))
     })
@@ -98,7 +95,7 @@ class WhereYaBin extends Component {
   }
 
   getCommunityData() {
-    console.log('In getCommunityData(), fetching community data');
+    console.log('In getCommunityData(), BEFORE FETCH for community data');
     console.log(new Date().toTimeString());
 
     const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data';
@@ -107,12 +104,13 @@ class WhereYaBin extends Component {
       method: 'GET',
     })
     .then((response) => {
-      console.log('getCommunityData() API response');
+      console.log('AFTER FETCH getCommunityData() API response');
       console.log(new Date().toTimeString());
       console.log(response);
 
       if (response.status === 200) {
         console.log('getCommunityData() API status 200');
+        console.log(new Date().toTimeString());
 
         communityDataParsedResponse = JSON.parse(response._bodyText);
 

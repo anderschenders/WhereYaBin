@@ -98,16 +98,15 @@ class SignInScreen extends Component {
           console.log(parsedResponse);
 
           onSignIn(parsedResponse).then((res) => {
-          if (res === true) {
-            this.props.screenProps.setSignInState(true);
-            this.props.screenProps.updateAsyncStorage(parsedResponse)
-            // this.props.screenProps.setUserData(parsedResponse);
-            this.props.navigation.navigate("App");
-          } else {
-            console.log('sign in didnt work');
-          }
-        })
-
+            if (res === true) {
+              this.props.screenProps.setSignInState(true);
+              this.props.screenProps.updateAsyncStorage(parsedResponse)
+              this.props.navigation.navigate("App");
+            } else {
+              console.log('sign in didnt work');
+            }
+          })
+        
         } else {
           console.log('API status 400 response body text:');
           console.log(new Date().toTimeString());

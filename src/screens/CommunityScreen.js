@@ -45,12 +45,23 @@ class CommunityScreen extends Component {
                 </Text>
               </ProfileCard>
 
+              <View
+                style={ styles.viewSectionStyle }
+              >
+
               <Text style={ styles.titleTextStyle }>
                 Total # of users:
               </Text>
               <Text style={ styles.contentTextStyle }>
                 { user_count }
               </Text>
+
+              </View>
+
+
+              <View
+                style={ styles.viewSectionStyle }
+              >
 
               <Text style={ styles.titleTextStyle }>
                 Total garbage&recycling binned:
@@ -59,12 +70,20 @@ class CommunityScreen extends Component {
                 { action_use_count }
               </Text>
 
+              </View>
+
+              <View
+                style={ styles.viewSectionStyle }
+              >
+
               <Text style={ styles.titleTextStyle }>
                 Total distanced travelled:
               </Text>
               <Text style={ styles.contentTextStyle }>
                 { total_dist_travelled } miles
               </Text>
+
+              </View>
             </View>
 
             <View style={ styles.containerViewStyle }>
@@ -73,6 +92,10 @@ class CommunityScreen extends Component {
                   USER SPOTLIGHT
                 </Text>
               </ProfileCard>
+
+              <View
+                style={ styles.viewSectionStyle }
+              >
 
               <Text style={ styles.titleTextStyle }>
                 Most active:
@@ -84,6 +107,12 @@ class CommunityScreen extends Component {
                 (with { top_user_activity } total activities)
               </Text>
 
+              </View>
+
+              <View
+                style={ styles.viewSectionStyle }
+              >
+
               <Text style={ styles.titleTextStyle }>
                 Most travelled:
               </Text>
@@ -93,6 +122,8 @@ class CommunityScreen extends Component {
               <Text style={ styles.inBracketsTextStyle }>
                 (at { top_dist } miles)
               </Text>
+
+              </View>
 
             </View>
 
@@ -121,7 +152,17 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight:20,
     marginTop: 20,
-    height: 300,
+    height: 320,
+  },
+  viewSectionStyle: {
+    borderTopWidth: 1,
+    // borderBottomWidth: 1,
+    padding: 1,
+    backgroundColor: '#fff',
+    // justifyContent: 'flex-start', //push items to the left
+    // flexDirection: 'row', //defaults to column(block)
+    borderColor: '#ddd',
+    // position: 'relative'
   },
   headerTextStyle: {
     fontSize: 20,
@@ -143,11 +184,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#468CBA',
     marginTop: 10,
+    marginBottom: 10,
   },
   inBracketsTextStyle: {
     fontSize: 18,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 3,
+    marginBottom: 10,
   }
 });
 
