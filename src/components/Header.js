@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 const Header = (props) => {
   const { viewStyle, headerTextStyle, textStyle } = styles;
 
-  console.log('In Header, return()');
+  console.log('In Header, props');
   console.log(props);
 
   return (

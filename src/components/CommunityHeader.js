@@ -4,11 +4,10 @@ import { Text, View } from 'react-native';
 const CommunityHeader = (props) => {
   const { viewStyle, headerTextStyle, textStyle } = styles;
 
-  console.log('In CommunityHeader, return()');
+  console.log('In CommunityHeader, props: ');
   console.log(props);
 
   return (
-
     <View style={viewStyle}>
       <Text style={ headerTextStyle }>{ props.headerText }</Text>
     </View>

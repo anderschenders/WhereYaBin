@@ -9,6 +9,42 @@ recycling: {full: true}
 {full: true}
 ]
 
+//CommunityScreen
+
+<View style={ styles.containerViewStyle1 }>
+  <Text style={ styles.textStyle }>
+    TOTAL USERS: { user_count }
+  </Text>
+</View>
+
+<View style={ styles.containerViewStyle1 }>
+  <Text style={ styles.textStyle }>
+    TOTAL GARBAGE&RECYCLING BINNED: { action_use_count }
+  </Text>
+</View>
+
+<View style={ styles.containerViewStyle1 }>
+  <Text style={ styles.textStyle }>
+    TOTAL DISTANCE TRAVELLED: { total_dist_travelled } MILES
+  </Text>
+</View>
+
+<View style={ styles.containerViewStyle1 }>
+  <Text style={ styles.textStyle }>
+    USER { top_dist_username } TRAVELLED THE MOST AT { top_dist } MILES
+  </Text>
+</View>
+
+<View style={ styles.containerViewStyle1 }>
+  <Text style={ styles.textStyle }>
+    USER { top_user_activity_username } IS OUR CURRENT MOST ACTIVE USER WITH { top_user_activity } ACTIVITIES
+  </Text>
+</View>
+</View>
+
+
+
+
 // let useGarbageBin = () => { this.useBin('garbage'); }
 // let useRecyclingBin = () => { this.useBin('recycling'); }
 
