@@ -12,6 +12,8 @@ class WhereYaBin extends Component {
       userData: null,
       welcomeModalVisible: false,
       communityData: null,
+      binsData: [],
+      userLocation: null,
     };
   }
 
@@ -26,6 +28,43 @@ class WhereYaBin extends Component {
           )
         })
       .catch(err => console.log(err));
+  }
+
+  getBins(region) {
+
+    console.log('@@@@@@@@ In Index.js, getBins(region) @@@@@@@@@');
+    console.log('BEFORE FETCH');
+    console.log(new Date().toTimeString());
+
+    const binDataURL = 'https://whereyabin.herokuapp.com/bins';
+
+    fetch(binDataURL)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log('AFTER getBins() FETCH, responseJSON');
+      console.log(new Date().toTimeString());
+      console.log(responseJson);
+
+      // const userLocation = {
+      //   user_lat: region.latitude,
+      //   user_lng: region.longitude,
+      // };
+
+      this.setState({
+        // mapRegion: region,
+        // error: null,
+        binsData: responseJson,
+        // userLocation: userLocation,
+      });
+
+      // let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
+
+      // return responseJson;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   }
 
   updateAsyncStorage(newUserData) {
@@ -53,7 +92,6 @@ class WhereYaBin extends Component {
     console.log('In setSignInState()');
     console.log(new Date().toTimeString());
 
-    this.getCommunityData();
     this.setState({
       signedIn: signedIn,
     })
@@ -69,12 +107,12 @@ class WhereYaBin extends Component {
       method: 'GET',
     })
     .then((response) => {
-      console.log('API response');
+      console.log('getCommunityData() API response');
       console.log(new Date().toTimeString());
       console.log(response);
 
       if (response.status === 200) {
-        console.log('API status 200');
+        console.log('getCommunityData() API status 200');
 
         communityDataParsedResponse = JSON.parse(response._bodyText);
 
@@ -92,7 +130,6 @@ class WhereYaBin extends Component {
   setWelcomeModal(visible) {
     console.log("In Index.js, settingWelcomeModal");
 
-    this.getCommunityData();
     this.setState({
       welcomeModalVisible: visible,
     })
@@ -114,6 +151,8 @@ class WhereYaBin extends Component {
       welcomeModalVisible: this.state.welcomeModalVisible,
       communityData: this.state.communityData,
       userBinData: this.state.userBinData,
+      getBins: this.getBins.bind(this),
+      binsData: this.state.binsData,
     };
 
     if (signedIn) {

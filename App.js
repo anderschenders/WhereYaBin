@@ -47,7 +47,23 @@ export default class App extends Component {
           longitudeDelta: LONGITUDE_DELTA,
           error: null,
         }
-        this.fetchBins(region);
+
+        const userLocation = {
+          user_lat: region.latitude,
+          user_lng: region.longitude,
+        };
+
+        console.log('Setting state, mapRegion and userLocation');
+        this.setState({
+          mapRegion: region,
+          error: null,
+          // bins: responseJson,
+          userLocation: userLocation,
+        });
+
+        console.log('Getting bins from this.props.screenProps.getBins(region)');
+        this.props.screenProps.getBins(region);
+        // this.fetchBins(region);
         this.onRegionChangeComplete(region);
 
       },
@@ -104,37 +120,37 @@ export default class App extends Component {
     // });
   }
 
-  fetchBins(region) {
-    console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
-    console.log('BEFORE FETCH');
-    console.log(new Date().toTimeString());
-    fetch(RAILSAPI)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log('AFTER FETCH');
-      console.log(new Date().toTimeString());
-      console.log(responseJson);
-
-      const userLocation = {
-        user_lat: region.latitude,
-        user_lng: region.longitude,
-      };
-
-      this.setState({
-        mapRegion: region,
-        error: null,
-        bins: responseJson,
-        userLocation: userLocation,
-      });
-
-      let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
-
-      return responseJson;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+  // fetchBins(region) {
+  //   console.log('@@@@@@@@@@ In App.js, fetchBins, responseJson @@@@@@@@@@');
+  //   console.log('BEFORE FETCH');
+  //   console.log(new Date().toTimeString());
+  //   fetch(RAILSAPI)
+  //   .then((response) => response.json())
+  //   .then((responseJson) => {
+  //     console.log('AFTER FETCH');
+  //     console.log(new Date().toTimeString());
+  //     console.log(responseJson);
+  //
+  //     const userLocation = {
+  //       user_lat: region.latitude,
+  //       user_lng: region.longitude,
+  //     };
+  //
+  //     this.setState({
+  //       mapRegion: region,
+  //       error: null,
+  //       bins: responseJson,
+  //       userLocation: userLocation,
+  //     });
+  //
+  //     let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
+  //
+  //     return responseJson;
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
@@ -251,7 +267,7 @@ export default class App extends Component {
             coordinates={ this.state.coordinates }
             setModalVisible={ this.setModalVisible.bind(this) }
             screenProps={ this.props.screenProps }
-            bins={ bins }
+            binsData={ this.props.screenProps.binsData }
             mapRegion={ mapRegion }
             onRegionChangeComplete={ this.onRegionChangeComplete.bind(this) }
           />
