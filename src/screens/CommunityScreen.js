@@ -45,24 +45,24 @@ class CommunityScreen extends Component {
                 </Text>
               </ProfileCard>
 
-              <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#284F80', marginTop: 15 }}>
+              <Text style={ styles.titleTextStyle }>
                 Total # of users:
               </Text>
-              <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#468CBA', marginTop: 10 }}>
+              <Text style={ styles.contentTextStyle }>
                 { user_count }
               </Text>
 
-              <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#284F80', marginTop: 15 }}>
+              <Text style={ styles.titleTextStyle }>
                 Total garbage&recycling binned:
               </Text>
-              <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#468CBA', marginTop: 10 }}>
+              <Text style={ styles.contentTextStyle }>
                 { action_use_count }
               </Text>
 
-              <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#284F80', marginTop: 15 }}>
+              <Text style={ styles.titleTextStyle }>
                 Total distanced travelled:
               </Text>
-              <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#468CBA', marginTop: 10 }}>
+              <Text style={ styles.contentTextStyle }>
                 { total_dist_travelled } miles
               </Text>
             </View>
@@ -74,32 +74,31 @@ class CommunityScreen extends Component {
                 </Text>
               </ProfileCard>
 
-              <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#284F80', marginTop: 15 }}>
+              <Text style={ styles.titleTextStyle }>
                 Most active:
               </Text>
-              <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#468CBA', marginTop: 10 }}>
+              <Text style={ styles.contentTextStyle }>
                 { top_user_activity_username }
               </Text>
-              <Text style={{ fontSize: 18, textAlign: 'center', marginTop: 10 }}>
+              <Text style={ styles.inBracketsTextStyle }>
                 (with { top_user_activity } total activities)
               </Text>
 
-              <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#284F80', marginTop: 15 }}>
+              <Text style={ styles.titleTextStyle }>
                 Most travelled:
               </Text>
-              <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#468CBA', marginTop: 10 }}>
+              <Text style={ styles.contentTextStyle }>
                 { top_dist_username }
               </Text>
-              <Text style={{ fontSize: 18, textAlign: 'center', marginTop: 10 }}>
+              <Text style={ styles.inBracketsTextStyle }>
                 (at { top_dist } miles)
               </Text>
 
             </View>
 
           </ScrollView>
-          </View>
         </View>
-
+      </View>
 
     );
   }
@@ -107,25 +106,6 @@ class CommunityScreen extends Component {
 
 
 const styles = StyleSheet.create({
-
-  containerViewStyle1: {
-    // flex: 1,
-    backgroundColor: '#65B783',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: "#65B783",
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 20,
-    marginRight:20,
-    marginTop: 25,
-    // marginBottom: 20,
-    // height: 420,
-  },
   containerViewStyle: {
     // flex: 1,
     backgroundColor: 'white',
@@ -141,7 +121,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight:20,
     marginTop: 20,
-    // marginBottom: 20,
     height: 300,
   },
   headerTextStyle: {
@@ -151,14 +130,25 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: 'bold',
   },
-  textStyle: {
+  titleTextStyle: {
     fontSize: 20,
-    marginTop: 5,
-    marginBottom: 5,
-    marginLeft: 5,
-    marginRight: 5,
+    fontWeight: 'bold',
     textAlign: 'center',
+    color: '#284F80',
+    marginTop: 15,
   },
+  contentTextStyle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#468CBA',
+    marginTop: 10,
+  },
+  inBracketsTextStyle: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 10,
+  }
 });
 
 
