@@ -24,7 +24,7 @@ class WhereYaBin extends Component {
         return AsyncStorage.getItem("USER_KEY").then(keyValue =>
             this.setState({
               userData: JSON.parse(keyValue),
-              signedIn: res
+              signedIn: res,
             })
           )
         })
@@ -32,7 +32,6 @@ class WhereYaBin extends Component {
   }
 
   getBins(region) {
-
     console.log('@@@@@@@@ In Index.js, getBins(region) @@@@@@@@@');
     console.log('BEFORE FETCH');
     console.log(new Date().toTimeString());

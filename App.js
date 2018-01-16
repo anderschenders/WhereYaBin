@@ -1,11 +1,14 @@
 'use strict'; //improved error handling, disables some less-than-ideal JS features
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text, TouchableOpacity, Picker } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
 import Modal from 'react-native-modal';
 import Polyline from '@mapbox/polyline';
+// import { Icon } from 'react-native-elements';
+import ActionButton from 'react-native-action-button';
+
 
 let { width, height } = Dimensions.get('window');
 
@@ -30,6 +33,8 @@ export default class App extends Component {
       binLocation: null,
       userLocation: null,
       welcomeModalVisible: false,
+      addBinModalVisible: false,
+      pickerValue: "SELECT",
     }
 
     // this.watchID = null;
@@ -165,7 +170,18 @@ export default class App extends Component {
     })
   }
 
+  postAddBin() {
+    console.log('In postAddBin');
+    this.setState({
+      addBinModalVisible: false,
+      pickerValue: "SELECT",
+    });
+
+  }
+
   render() {
+
+    const postAddBin = () => { this.postAddBin(); }
 
     console.log('this.props.screenProps.communityData');
     console.log(this.props.screenProps.communityData);
@@ -271,6 +287,67 @@ export default class App extends Component {
             mapRegion={ mapRegion }
             onRegionChangeComplete={ this.onRegionChangeComplete.bind(this) }
           />
+
+          <ActionButton
+            buttonColor="rgba(231,76,60,1)"
+            onPress={() => this.setState({addBinModalVisible: true})}
+            offsetY={500}
+          >
+          </ActionButton>
+
+          <Modal
+            isVisible={this.state.addBinModalVisible}
+            style={{ justifyContent: 'center', margin: 0 }}
+            onBackdropPress={() => console.log('Close picker modal')}
+          >
+            <View style={{ flex: 1, height: 225, width: 400, backgroundColor: '#ebf0f0', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',}}>
+              <Picker
+                style={{height: 200, width: 300, marginBottom: 10,}}
+                selectedValue={this.state.pickerValue}
+                onValueChange={(itemValue, itemIndex) => this.setState({pickerValue: itemValue})}>
+                <Text> HELLO? </Text>
+                <Picker.Item label="Select bin type" value="SELECT" />
+                <Picker.Item label="Recycling" value="RYPUBL" />
+                <Picker.Item label="Garbage" value="GPUBL" />
+                <Picker.Item label="Both" value="BOTH" />
+              </Picker>
+
+              <TouchableOpacity
+                onPress={ postAddBin }>
+                <View
+                  style={{
+                    backgroundColor: 'lightblue',
+                    padding: 8,
+                    marginTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 4,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',}}>
+                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>ADD BIN</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={ () => { this.setState({
+                    addBinModalVisible: false,
+                    pickerValue: "SELECT",
+                  });
+              }}>
+                <View
+                  style={{
+                    backgroundColor: 'rgb(227, 134, 134)',
+                    padding: 8,
+                    marginTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 4,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',}}>
+                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>CANCEL</Text>
+                </View>
+              </TouchableOpacity>
+
+            </View>
+          </Modal>
+
         </View>
       );
     } else {
