@@ -172,10 +172,74 @@ export default class App extends Component {
 
   postAddBin() {
     console.log('In postAddBin');
-    this.setState({
-      addBinModalVisible: false,
-      pickerValue: "SELECT",
-    });
+    console.log('Picker value');
+    console.log(this.state.pickerValue);
+    console.log('this.props.screenProps.userData.user.id');
+    console.log(this.props.screenProps.userData.user.id);
+    console.log('user lng');
+    console.log(this.state.userLocation.user_lng);
+    console.log('BEFORE POST request to add bin');
+    console.log(new Date().toTimeString());
+
+    const userID = this.props.screenProps.userData.user.id;
+    let newUserData = null;
+
+    const addBinURL = 'https://whereyabin.herokuapp.com/bins';
+
+    fetch(addBinURL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userID,
+          bin_type: this.state.pickerValue,
+          latitude: this.state.userLocation.user_lat,
+          longitude: this.state.userLocation.user_lng,
+        })
+      }
+    )
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('AFTER POST to add bin, API status 200');
+        console.log(new Date().toTimeString());
+
+        const parsedResponse = JSON.parse(response._bodyText);
+
+        console.log('parsedResponse:');
+        console.log(parsedResponse);
+
+        newUserData = {
+          user: parsedResponse.updated_user,
+          total_dist: parsedResponse.total_dist,
+          user_bins: parsedResponse.user_bins,
+        }
+
+        // set modal message
+        let modalMessage = 'ADDED! (refresh app to see)';
+
+        this.setState({
+          addBinModalVisible: false,
+          pickerValue: "SELECT",
+        });
+
+        this.props.screenProps.updateAsyncStorage(newUserData);
+        this.setModalVisible(modalMessage);
+
+      } else {
+        console.log('@@@@@ API status 400 response body text: @@@@@');
+        console.log(response._bodyText);
+
+        const parsedResponse = JSON.parse(response._bodyText);
+        console.log('parsedResponse:');
+        console.log(parsedResponse);
+        // TODO: Do something with error, if failed to add bin
+      }
+    })
+    .catch((error) => {
+      console.log('error:', error);
+    })
 
   }
 

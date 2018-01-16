@@ -20,6 +20,7 @@ class UserHistorySection extends Component {
     const recyclingIcon = require('../images/recycling_icon.jpg');
     const reportFullBinImage = require('../images/bin_full.png');
     const reportMissingBinImage = require('../images/yellow_question_mark.png');
+    const addBinImage = require('../images/add_plus.png');
 
     if (this.props.userBin[0].action === 'use') {
       if (this.props.userBin[1].bin_type === "GARBAGE") {
@@ -73,6 +74,27 @@ class UserHistorySection extends Component {
         this.setState({
           image: reportMissingBinImage,
           text: 'REPORTED MISSING',
+          createdAt: this.props.userBin[0].created_at.substring(0,10),
+          binID: this.props.userBin[0].bin_id,
+          binTypeText: this.props.userBin[1].bin_type,
+        });
+      }
+    } else if (this.props.userBin[0].action === 'add') {
+      if (this.props.userBin[1].bin_type === "GARBAGE") {
+        this.setState({
+          image: addBinImage,
+          text: `FOUND`,
+          createdAt: this.props.userBin[0].created_at.substring(0,10),
+          binID: this.props.userBin[0].bin_id,
+          binTypeText: this.props.userBin[1].bin_type,
+        });
+        // console.log('New state');
+        // console.log(this.state);
+      } else if (this.props.userBin[1].bin_type === "RECYCLING") {
+        // console.log('In this.props.userBin[0].action is missing');
+        this.setState({
+          image: addBinImage,
+          text: 'FOUND',
           createdAt: this.props.userBin[0].created_at.substring(0,10),
           binID: this.props.userBin[0].bin_id,
           binTypeText: this.props.userBin[1].bin_type,

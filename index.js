@@ -14,7 +14,7 @@ class WhereYaBin extends Component {
       welcomeModalVisible: false,
       communityData: null,
       binsData: [],
-      userLocation: null,
+      // userLocation: null,
     };
   }
 
