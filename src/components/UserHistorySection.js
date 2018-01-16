@@ -20,7 +20,7 @@ class UserHistorySection extends Component {
     const recyclingIcon = require('../images/recycling_icon.jpg');
     const reportFullBinImage = require('../images/bin_full.png');
     const reportMissingBinImage = require('../images/yellow_question_mark.png');
-    const addBinImage = require('../images/add_plus.png');
+    const addBinImage = require('../images/add_plus3.png');
 
     if (this.props.userBin[0].action === 'use') {
       if (this.props.userBin[1].bin_type === "GARBAGE") {

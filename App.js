@@ -35,6 +35,7 @@ export default class App extends Component {
       welcomeModalVisible: false,
       addBinModalVisible: false,
       pickerValue: "SELECT",
+      pickerMessage: null,
     }
 
     // this.watchID = null;
@@ -162,6 +163,7 @@ export default class App extends Component {
   }
 
   setModalVisible(message) {
+    console.log('In setModalVisible');
     this.setState({ modalVisible: true, modalMessage: message }, () => {
       setTimeout(() => {
         this.setState({ modalVisible: false });
@@ -172,83 +174,126 @@ export default class App extends Component {
 
   postAddBin() {
     console.log('In postAddBin');
-    console.log('Picker value');
-    console.log(this.state.pickerValue);
-    console.log('this.props.screenProps.userData.user.id');
-    console.log(this.props.screenProps.userData.user.id);
-    console.log('user lng');
-    console.log(this.state.userLocation.user_lng);
     console.log('BEFORE POST request to add bin');
     console.log(new Date().toTimeString());
+    console.log('this.state.pickerValue');
+    console.log(this.state.pickerValue);
 
-    const userID = this.props.screenProps.userData.user.id;
-    let newUserData = null;
+    if (this.state.pickerValue === "SELECT" || this.state.pickerValue === null) {
+      console.log('Invalid pickerValue');
+      this.setState({
+        pickerMessage: 'Please select a bin type',
+      })
+    } else {
 
-    const addBinURL = 'https://whereyabin.herokuapp.com/bins';
+      const userID = this.props.screenProps.userData.user.id;
+      let newUserData = null;
 
-    fetch(addBinURL, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_id: userID,
-          bin_type: this.state.pickerValue,
-          latitude: this.state.userLocation.user_lat,
-          longitude: this.state.userLocation.user_lng,
-        })
-      }
-    )
-    .then((response) => {
-      if (response.status === 200) {
-        console.log('AFTER POST to add bin, API status 200');
-        console.log(new Date().toTimeString());
+      const addBinURL = 'https://whereyabin.herokuapp.com/bins';
 
-        const parsedResponse = JSON.parse(response._bodyText);
-
-        console.log('parsedResponse:');
-        console.log(parsedResponse);
-
-        newUserData = {
-          user: parsedResponse.updated_user,
-          total_dist: parsedResponse.total_dist,
-          user_bins: parsedResponse.user_bins,
+      fetch(addBinURL, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: userID,
+            bin_type: this.state.pickerValue,
+            latitude: this.state.userLocation.user_lat,
+            longitude: this.state.userLocation.user_lng,
+          })
         }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('AFTER POST to add bin, API status 200');
+          console.log(new Date().toTimeString());
 
-        // set modal message
-        let modalMessage = 'ADDED! (refresh app to see)';
+          const parsedResponse = JSON.parse(response._bodyText);
 
-        this.setState({
-          addBinModalVisible: false,
-          pickerValue: "SELECT",
-        });
+          console.log('parsedResponse:');
+          console.log(parsedResponse);
 
-        this.props.screenProps.updateAsyncStorage(newUserData);
-        this.setModalVisible(modalMessage);
+          newUserData = {
+            user: parsedResponse.updated_user,
+            total_dist: parsedResponse.total_dist,
+            user_bins: parsedResponse.user_bins,
+          }
 
-      } else {
-        console.log('@@@@@ API status 400 response body text: @@@@@');
-        console.log(response._bodyText);
+          // TODO: modal below not working
+          // set modal message
+          let modalMessage = null;
+          if (parsedResponse.user_message) {
+            modalMessage = `ADDED! ${parsedResponse.user_message} (refresh app to see!)`;
 
-        const parsedResponse = JSON.parse(response._bodyText);
-        console.log('parsedResponse:');
-        console.log(parsedResponse);
-        // TODO: Do something with error, if failed to add bin
-      }
-    })
-    .catch((error) => {
-      console.log('error:', error);
-    })
+            this.setState({ pickerMessage: modalMessage }, () => {
+              setTimeout(() => {
+                this.setState({
+                  addBinModalVisible: false,
+                  pickerValue: "SELECT",
+                  pickerMessage: null,
+                });
+              }
+              , 300);
+            })
 
+            // this.setState({
+            //   addBinModalVisible: false,
+            //   pickerValue: "SELECT",
+            //   pickerMessage: modalMessage,
+            // });
+
+          } else {
+            modalMessage = 'ADDED! (refresh app to see!)';
+
+            this.setState({ pickerMessage: modalMessage }, () => {
+              setTimeout(() => {
+                this.setState({
+                  addBinModalVisible: false,
+                  pickerValue: "SELECT",
+                  pickerMessage: null,
+                });
+              }
+              , 500);
+            })
+
+            // this.setState({
+            //   addBinModalVisible: false,
+            //   pickerValue: "SELECT",
+            //   pickerMessage: modalMessage,
+            // });
+
+          }
+
+          this.setModalVisible(modalMessage);
+
+          this.props.screenProps.updateAsyncStorage(newUserData);
+
+        } else {
+          console.log('@@@@@ API status 400 response body text: @@@@@');
+          console.log(response._bodyText);
+
+          const parsedResponse = JSON.parse(response._bodyText);
+          console.log('parsedResponse:');
+          console.log(parsedResponse);
+          // TODO: Do something with error, if failed to add bin
+          this.setState({
+            pickerMessage: parsedResponse.errors,
+          })
+        }
+      })
+      .catch((error) => {
+        console.log('error:', error);
+      })
+    }
   }
 
   render() {
 
     const postAddBin = () => { this.postAddBin(); }
 
-    console.log('this.props.screenProps.communityData');
-    console.log(this.props.screenProps.communityData);
+    console.log('In App.js, render()');
 
     const { mapRegion, bins } = this.state;
 
@@ -293,6 +338,10 @@ export default class App extends Component {
                 </Text>
                 <Text style={{ fontWeight: 'bold', marginTop: 10, marginRight: 20, marginLeft: 20, textAlign: 'center', fontSize: 16, }}>
                   Tap on pins to: 1) use a bin (directions will pop up!), 2) report a full bin, or 3) report a missing bin.
+                </Text>
+
+                <Text style={{ fontWeight: 'bold', marginTop: 10, marginRight: 20, marginLeft: 20, textAlign: 'center', fontSize: 16, color: 'rgb(226, 95, 122)' }}>
+                  Click on red '+' button to add a bin to the map.
                 </Text>
 
                 <View style={{ marginTop: 5, marginRight: 22, marginLeft: 22, marginBottom: 15, }}>
@@ -355,21 +404,25 @@ export default class App extends Component {
           <ActionButton
             buttonColor="rgba(231,76,60,1)"
             onPress={() => this.setState({addBinModalVisible: true})}
-            offsetY={500}
+            activeOpacity={0.70}
           >
           </ActionButton>
 
           <Modal
             isVisible={this.state.addBinModalVisible}
             style={{ justifyContent: 'center', margin: 0 }}
-            onBackdropPress={() => console.log('Close picker modal')}
           >
+
             <View style={{ flex: 1, height: 225, width: 400, backgroundColor: '#ebf0f0', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',}}>
+
+              <View style={{width: 300}}>
+                <Text style={{ fontSize: 16, color: 'rgb(200, 41, 51)', textAlign: 'center',  }}>{this.state.pickerMessage}</Text>
+              </View>
+
               <Picker
                 style={{height: 200, width: 300, marginBottom: 10,}}
                 selectedValue={this.state.pickerValue}
                 onValueChange={(itemValue, itemIndex) => this.setState({pickerValue: itemValue})}>
-                <Text> HELLO? </Text>
                 <Picker.Item label="Select bin type" value="SELECT" />
                 <Picker.Item label="Recycling" value="RYPUBL" />
                 <Picker.Item label="Garbage" value="GPUBL" />
@@ -394,6 +447,7 @@ export default class App extends Component {
                 onPress={ () => { this.setState({
                     addBinModalVisible: false,
                     pickerValue: "SELECT",
+                    pickerMessage: null,
                   });
               }}>
                 <View
