@@ -22,88 +22,98 @@ class UserHistorySection extends Component {
     const reportMissingBinImage = require('../images/yellow_question_mark.png');
     const addBinImage = require('../images/add_plus3.png');
 
-    if (this.props.userBin[0].action === 'use') {
-      if (this.props.userBin[1].bin_type === "GARBAGE") {
+    // console.log('In componentDidMount:');
+    // console.log(this.props.userBin);
+    if (this.props.userBin.action === 'use') {
+      if (this.props.userBin.bin_type === 'GPUBL') {
+        // console.log('$$$$$$$$ this.props.userBin');
+        // console.log(this.props.userBin.action);
+        // console.log(this.props.userBin.bin_type);
         this.setState({
           image: garbageIcon,
           text: `BINNED`,
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
-      } else if (this.props.userBin[1].bin_type === "RECYCLING") {
+      } else if (this.props.userBin.bin_type === 'RYPUBL') {
         this.setState({
           image: recyclingIcon,
           text: `BINNED`,
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
       }
-    } else if (this.props.userBin[0].action === 'full') {
-      if (this.props.userBin[1].bin_type === "GARBAGE") {
+    } else if (this.props.userBin.action === 'full') {
+      if (this.props.userBin.bin_type === 'GPUBL') {
         this.setState({
           image: reportFullBinImage,
           text: `REPORTED FULL`,
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
-      } else if (this.props.userBin[1].bin_type === "RECYCLING") {
+      } else if (this.props.userBin.bin_type === 'RYPUBL') {
         this.setState({
           image: reportFullBinImage,
           text: 'REPORTED FULL',
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
       }
-    } else if (this.props.userBin[0].action === 'missing') {
-      if (this.props.userBin[1].bin_type === "GARBAGE") {
+    } else if (this.props.userBin.action === 'missing') {
+      if (this.props.userBin.bin_type === 'GPUBL') {
         this.setState({
           image: reportMissingBinImage,
           text: `REPORTED MISSING`,
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
         // console.log('New state');
         // console.log(this.state);
-      } else if (this.props.userBin[1].bin_type === "RECYCLING") {
+      } else if (this.props.userBin.bin_type === 'RYPUBL') {
         // console.log('In this.props.userBin[0].action is missing');
         this.setState({
           image: reportMissingBinImage,
           text: 'REPORTED MISSING',
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
       }
-    } else if (this.props.userBin[0].action === 'add') {
-      if (this.props.userBin[1].bin_type === "GARBAGE") {
+    } else if (this.props.userBin.action === 'add') {
+      if (this.props.userBin.bin_type === 'GPUBL') {
         this.setState({
           image: addBinImage,
           text: `FOUND`,
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
         // console.log('New state');
         // console.log(this.state);
-      } else if (this.props.userBin[1].bin_type === "RECYCLING") {
+      } else if (this.props.userBin.bin_type === 'RYPUBL') {
         // console.log('In this.props.userBin[0].action is missing');
         this.setState({
           image: addBinImage,
           text: 'FOUND',
-          createdAt: this.props.userBin[0].created_at.substring(0,10),
-          binID: this.props.userBin[0].bin_id,
-          binTypeText: this.props.userBin[1].bin_type,
+          createdAt: this.props.userBin.created_at.substring(0,10),
+          binID: this.props.userBin.bin_id,
+          binTypeText: this.props.userBin.bin_type,
         });
       }
     }
   }
 
   render() {
+
+    // console.log('UserHistorySection, this.props.userBin)');
+    // console.log(this.props.userBin);
+    // console.log('this.props.userBin.bin_type');
+    // console.log(this.props.userBin.bin_type);
 
     return (
       <View
