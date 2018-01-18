@@ -33,6 +33,7 @@ class Bin extends Component {
   //   console.log(this.state);
   //  }
 
+  // TODO: if want to update bins need componentWillReceiveProps? or something else?
   componentDidMount() {
     this.checkBinType();
   }
@@ -167,7 +168,6 @@ class Bin extends Component {
 
   reportFullBin(binType) {
     console.log('In reportBinFull:');
-
     console.log('Getting binID:');
 
     if (binType === 'UNKNOWN') {
@@ -193,7 +193,7 @@ class Bin extends Component {
           this.postRequest(userID, binID, 'full');
         } else {
           console.log('There is not a valid res/USER_KEY: ');
-          console.log(keyValue); //TODO: display message to user
+          console.log(keyValue); //TODO: display message to user?
         }
       })
       .catch(err => reject(err));
@@ -201,7 +201,6 @@ class Bin extends Component {
 
   reportMissingBin(binType) {
     console.log('In reportMissingBin:');
-    console.log(new Date().toTimeString());
     console.log('Getting binID:');
 
     if (binType === 'UNKNOWN') {

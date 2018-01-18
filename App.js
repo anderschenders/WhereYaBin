@@ -184,7 +184,6 @@ export default class App extends Component {
         pickerMessage: 'Please select a bin type',
       })
     } else {
-
       const userID = this.props.screenProps.userData.user.id;
       let newUserData = null;
 
@@ -225,25 +224,9 @@ export default class App extends Component {
           if (parsedResponse.user_message) {
             modalMessage = `ADDED! ${parsedResponse.user_message} (refresh app to see!)`;
 
-            // this.setState({ pickerMessage: modalMessage }, () => {
-            //   setTimeout(() => {
-            //     this.setState({
-            //       addBinModalVisible: false,
-            //       pickerValue: "SELECT",
-            //       // pickerMessage: null,
-            //     });
-            //   }
-            //   , 300);
-            // })
-
             this.setState({
               userErrorMessage: null,
               userSuccessMessage: userSuccessMessage,
-              // addBinModalVisible: false,
-              // pickerValue: "SELECT",
-              // modalMessage: modalMessage,
-              // modalVisible: true,
-              // pickerMessage: modalMessage,
             });
 
           } else {
@@ -253,13 +236,7 @@ export default class App extends Component {
             this.setState({
               userErrorMessage: null,
               userSuccessMessage: userSuccessMessage,
-              // addBinModalVisible: false,
-              // pickerValue: "SELECT",
-              // modalMessage: modalMessage,
-              // modalVisible: true,
-              // pickerMessage: modalMessage,
             });
-
           }
 
           this.props.screenProps.updateAsyncStorage(newUserData);
@@ -271,7 +248,7 @@ export default class App extends Component {
           const parsedResponse = JSON.parse(response._bodyText);
           console.log('parsedResponse:');
           console.log(parsedResponse);
-          // TODO: Do something with error, if failed to add bin
+
           this.setState({
             userSuccessMessage: null,
             userErrorMessage: parsedResponse.errors,
