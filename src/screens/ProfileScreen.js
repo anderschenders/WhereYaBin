@@ -3,7 +3,8 @@ import { View } from 'react-native';
 
 import Header from '../components/Header';
 import ProfileCard from '../components/ProfileCard';
-import UserBinnedHistory from '../components/UserBinnedHistory'
+import UserBinnedHistory from '../components/UserBinnedHistory';
+import ProfileUserStatsView from '../components/ProfileUserStatsView';
 
 class ProfileScreen extends Component {
 
@@ -36,6 +37,8 @@ class ProfileScreen extends Component {
           activityCount: this.props.screenProps.userData.user.bin_count,
           distanceTravelled: this.props.screenProps.userData.total_dist,
         }}/>
+
+        <ProfileUserStatsView userData={ this.props.screenProps.userData }/>
 
         <UserBinnedHistory
           userBinnedHistory={ this.props.screenProps.userData.user_bins }>

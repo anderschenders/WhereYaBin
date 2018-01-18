@@ -6,7 +6,7 @@ import UserHistorySection from './UserHistorySection';
 
 const UserBinnedHistory = ({ userBinnedHistory }) => {
 
-    if (userBinnedHistory === null) {
+    if (userBinnedHistory.length === 0) {
 
       return (
         <View style={ styles.containerViewStyle }>
