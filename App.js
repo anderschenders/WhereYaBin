@@ -35,7 +35,8 @@ export default class App extends Component {
       welcomeModalVisible: false,
       addBinModalVisible: false,
       pickerValue: "SELECT",
-      pickerMessage: null,
+      userErrorMessage: null,
+      userSuccessMessage: null,
     }
 
     // this.watchID = null;
@@ -176,8 +177,6 @@ export default class App extends Component {
     console.log('In postAddBin');
     console.log('BEFORE POST request to add bin');
     console.log(new Date().toTimeString());
-    console.log('this.state.pickerValue');
-    console.log(this.state.pickerValue);
 
     if (this.state.pickerValue === "SELECT" || this.state.pickerValue === null) {
       console.log('Invalid pickerValue');
@@ -221,52 +220,47 @@ export default class App extends Component {
             user_bins: parsedResponse.user_bins,
           }
 
-          // TODO: modal below not working
-          // set modal message
-          let modalMessage = null;
+          // set response message
+          let userSuccessMessage = null;
           if (parsedResponse.user_message) {
             modalMessage = `ADDED! ${parsedResponse.user_message} (refresh app to see!)`;
 
-            this.setState({ pickerMessage: modalMessage }, () => {
-              setTimeout(() => {
-                this.setState({
-                  addBinModalVisible: false,
-                  pickerValue: "SELECT",
-                  pickerMessage: null,
-                });
-              }
-              , 300);
-            })
+            // this.setState({ pickerMessage: modalMessage }, () => {
+            //   setTimeout(() => {
+            //     this.setState({
+            //       addBinModalVisible: false,
+            //       pickerValue: "SELECT",
+            //       // pickerMessage: null,
+            //     });
+            //   }
+            //   , 300);
+            // })
 
-            // this.setState({
-            //   addBinModalVisible: false,
-            //   pickerValue: "SELECT",
-            //   pickerMessage: modalMessage,
-            // });
+            this.setState({
+              userErrorMessage: null,
+              userSuccessMessage: userSuccessMessage,
+              // addBinModalVisible: false,
+              // pickerValue: "SELECT",
+              // modalMessage: modalMessage,
+              // modalVisible: true,
+              // pickerMessage: modalMessage,
+            });
 
           } else {
-            modalMessage = 'ADDED! (refresh app to see!)';
+            userSuccessMessage = 'ADDED! (refresh app to see!)';
+              console.log('In modal setState');
 
-            this.setState({ pickerMessage: modalMessage }, () => {
-              setTimeout(() => {
-                this.setState({
-                  addBinModalVisible: false,
-                  pickerValue: "SELECT",
-                  pickerMessage: null,
-                });
-              }
-              , 500);
-            })
-
-            // this.setState({
-            //   addBinModalVisible: false,
-            //   pickerValue: "SELECT",
-            //   pickerMessage: modalMessage,
-            // });
+            this.setState({
+              userErrorMessage: null,
+              userSuccessMessage: userSuccessMessage,
+              // addBinModalVisible: false,
+              // pickerValue: "SELECT",
+              // modalMessage: modalMessage,
+              // modalVisible: true,
+              // pickerMessage: modalMessage,
+            });
 
           }
-
-          this.setModalVisible(modalMessage);
 
           this.props.screenProps.updateAsyncStorage(newUserData);
 
@@ -279,7 +273,8 @@ export default class App extends Component {
           console.log(parsedResponse);
           // TODO: Do something with error, if failed to add bin
           this.setState({
-            pickerMessage: parsedResponse.errors,
+            userSuccessMessage: null,
+            userErrorMessage: parsedResponse.errors,
           })
         }
       })
@@ -403,7 +398,12 @@ export default class App extends Component {
 
           <ActionButton
             buttonColor="rgba(231,76,60,1)"
-            onPress={() => this.setState({addBinModalVisible: true})}
+            onPress={() => this.setState({
+              addBinModalVisible: true,
+              pickerValue: "SELECT",
+              userSuccessMessage: null,
+              userErrorMessage: null,
+            })}
             activeOpacity={0.70}
           >
           </ActionButton>
@@ -413,10 +413,11 @@ export default class App extends Component {
             style={{ justifyContent: 'center', margin: 0 }}
           >
 
-            <View style={{ flex: 1, height: 225, width: 400, backgroundColor: '#ebf0f0', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',}}>
+            <View style={{ flex: 1, height: '100%', width: '100%', backgroundColor: '#ebf0f0', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',}}>
 
-              <View style={{width: 300}}>
-                <Text style={{ fontSize: 16, color: 'rgb(200, 41, 51)', textAlign: 'center',  }}>{this.state.pickerMessage}</Text>
+              <View style={{justifyContent: 'center', width: '50%'}}>
+              <Text style={{ fontSize: 16, color: 'rgb(55, 110, 233)', fontWeight: 'bold', textAlign: 'center',  }}>{this.state.userSuccessMessage}</Text>
+                <Text style={{ fontSize: 16, color: 'rgb(200, 41, 51)', fontWeight: 'bold', textAlign: 'center',  }}>{this.state.userErrorMessage}</Text>
               </View>
 
               <Picker
@@ -446,8 +447,6 @@ export default class App extends Component {
               <TouchableOpacity
                 onPress={ () => { this.setState({
                     addBinModalVisible: false,
-                    pickerValue: "SELECT",
-                    pickerMessage: null,
                   });
               }}>
                 <View
@@ -459,7 +458,7 @@ export default class App extends Component {
                     alignItems: 'center',
                     borderRadius: 4,
                     borderColor: 'rgba(0, 0, 0, 0.1)',}}>
-                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>CANCEL</Text>
+                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>CLOSE</Text>
                 </View>
               </TouchableOpacity>
 

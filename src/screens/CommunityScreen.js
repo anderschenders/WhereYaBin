@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight:20,
     marginTop: 20,
-    height: 320,
+    height: 350,
   },
   viewSectionStyle: {
     borderTopWidth: 1,

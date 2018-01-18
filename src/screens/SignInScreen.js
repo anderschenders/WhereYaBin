@@ -106,7 +106,7 @@ class SignInScreen extends Component {
               console.log('sign in didnt work');
             }
           })
-        
+
         } else {
           console.log('API status 400 response body text:');
           console.log(new Date().toTimeString());

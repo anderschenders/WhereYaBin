@@ -14,7 +14,6 @@ class WhereYaBin extends Component {
       welcomeModalVisible: false,
       communityData: null,
       binsData: [],
-      // userLocation: null,
     };
   }
 
@@ -45,16 +44,8 @@ class WhereYaBin extends Component {
       console.log(new Date().toTimeString());
       console.log(responseJson);
 
-      // const userLocation = {
-      //   user_lat: region.latitude,
-      //   user_lng: region.longitude,
-      // };
-
       this.setState({
-        // mapRegion: region,
-        // error: null,
         binsData: responseJson,
-        // userLocation: userLocation,
       });
     })
     .catch((error) => {
@@ -64,7 +55,7 @@ class WhereYaBin extends Component {
 
   updateAsyncStorage(newUserData) {
     console.log('In updateAsyncStorage()');
-    console.log('this.getCommunityData()');
+    console.log('Getting community data, this.getCommunityData()');
     this.getCommunityData();
 
     // remove current USER_KEY
@@ -105,7 +96,6 @@ class WhereYaBin extends Component {
     .then((response) => {
       console.log('AFTER FETCH getCommunityData() API response');
       console.log(new Date().toTimeString());
-      console.log(response);
 
       if (response.status === 200) {
         console.log('getCommunityData() API status 200');
@@ -129,12 +119,14 @@ class WhereYaBin extends Component {
 
     this.setState({
       welcomeModalVisible: visible,
-    })
+    });
   }
 
   render() {
     console.log('@@@@@@ In index.js, render @@@@@@');
+    console.log('userData:');
     console.log(this.state.userData);
+    console.log('communityData');
     console.log(this.state.communityData);
     console.log(new Date().toTimeString());
 

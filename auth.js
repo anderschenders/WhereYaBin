@@ -7,8 +7,8 @@ export const onSignIn = (userObject) => {
   return new Promise((resolve, reject) => {
     AsyncStorage.setItem("USER_KEY", JSON.stringify(userObject))
       .then(res => {
-        console.log("In onSignIn promise, res: ");
-        console.log(res); //res = null?
+        console.log("User signed in and asyncstorage successful");
+        console.log(res); //res = null
         resolve(true);
       })
       .catch(err => reject(err));
