@@ -5,41 +5,100 @@ import ProfileCard from './ProfileCard';
 
 const ProfileUserStatsCard = ({ userData }) => {
   console.log('ProfileUserStatsCard, userData');
-  console.log(userData);
+  // console.log(userData);
+
+  const garbageIcon = require('../images/garbage_icon.png');
+  const recyclingIcon = require('../images/recycling_icon.jpg');
+  const reportFullBinImage = require('../images/bin_full.png');
+  const reportMissingBinImage = require('../images/yellow_question_mark.png');
+  const addBinImage = require('../images/add_plus3.png');
+
   return (
 
     <View style={ styles.containerViewStyle }>
 
-      <View style={{ backgroundColor: 'yellow', }}>
+      <View style={{ backgroundColor: 'white', }}>
         <View style={ styles.profileCardStyles }>
           <Text style={ styles.headerTextStyle }>
             Whatya binned
           </Text>
         </View>
 
-        <Text>
-          {userData.use_total}
-          {userData.total_rec}
-          {userData.total_gar}
-          {userData.total_reports}
-          {userData.missing_reports}
-          {userData.full_reports}
-          {userData.add_reports}
-        </Text>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start', }}>
+          <Text style={{ fontSize: 18, marginTop: 13, marginLeft: 40, }}>Total: </Text>
+          <Text style={ styles.contentTotalTextStyle }>{userData.use_total}</Text>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start', marginTop: 10, }}>
+          <Image
+            style={ styles.imageStyle }
+            source={ recyclingIcon }
+          />
+          <Text style={ styles.contentTextStyle }>
+            {userData.total_rec}
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start', marginTop: 10, }}>
+          <Image
+            style={ styles.imageStyle }
+            source={ garbageIcon }
+          />
+
+          <Text style={ styles.contentTextStyle }>
+            {userData.total_gar}
+          </Text>
+        </View>
+
       </View>
 
       <View style={{ marginLeft: 20, }} />
 
-      <View style={{ backgroundColor: 'yellow' }}>
+      <View style={{ backgroundColor: 'white' }}>
         <View style={ styles.profileCardStyles }>
           <Text style={ styles.headerTextStyle }>
             Whatya found
           </Text>
         </View>
 
-        <Text>
-          STATS
-        </Text>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start', }}>
+          <Text style={{ fontSize: 18, marginTop: 13, marginLeft: 40, }}>Total: </Text>
+          <Text style={ styles.contentTotalTextStyle }>
+            { userData.total_reports }
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start', }}>
+          <Image
+            style={ styles.imageStyle }
+            source={ addBinImage }
+          />
+          <Text style={ styles.contentTextStyle }>
+            {userData.add_reports}
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start', }}>
+          <Image
+            style={ styles.imageStyle }
+            source={ reportFullBinImage }
+          />
+
+          <Text style={ styles.contentTextStyle }>
+            {userData.full_reports}
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start', }}>
+          <Image
+            style={ styles.imageStyle }
+            source={ reportMissingBinImage }
+          />
+
+          <Text style={ styles.contentTextStyle }>
+            {userData.missing_reports}
+          </Text>
+        </View>
 
       </View>
 
@@ -68,7 +127,7 @@ const styles = StyleSheet.create({
     // marginRight:20,
     // marginTop: 20,
     // marginBottom: 20,
-    height: 200,
+    height: 180,
   },
   profileCardStyles: {
     width: 160,
@@ -93,10 +152,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: 'bold',
   },
-  // scrollViewContainer: {
-  //   backgroundColor: 'white',
-  // },
-
+  imageStyle: {
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 45,
+    marginRight: 10,
+    height: 33,
+    width: 33,
+  },
+  contentTextStyle: {
+    fontSize: 24,
+    color: '#37a5b0',
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginRight: 10,
+  },
+  contentTotalTextStyle: {
+    fontSize: 24,
+    color: '#284F80',
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginRight: 10,
+  },
 
 });
 

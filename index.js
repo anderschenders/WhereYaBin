@@ -4,6 +4,8 @@ import { MainNavigator, SignedIn } from './router';
 import { isSignedIn, onSignOut } from "./auth";
 
 
+console.disableYellowBox = true;
+
 class WhereYaBin extends Component {
   constructor(props) {
     super(props);

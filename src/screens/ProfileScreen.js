@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 import Header from '../components/Header';
 import ProfileCard from '../components/ProfileCard';
@@ -31,6 +31,7 @@ class ProfileScreen extends Component {
     console.log(this.props.screenProps.userData);
 
     return (
+
       <View style={{backgroundColor: '#468CBA', height: '100%'}}>
         <Header headerText={ username } headerSummaryText={{
           memberSince: this.props.screenProps.userData.user.created_at.substring(0,10),
@@ -38,15 +39,18 @@ class ProfileScreen extends Component {
           distanceTravelled: this.props.screenProps.userData.total_dist,
         }}/>
 
-        <ProfileUserStatsView userData={ this.props.screenProps.userData }/>
+        <ScrollView>
+          <ProfileUserStatsView userData={ this.props.screenProps.userData }/>
 
-        <UserBinnedHistory
-          userBinnedHistory={ this.props.screenProps.userData.user_bins }>
-        </UserBinnedHistory>
+          <UserBinnedHistory
+            userBinnedHistory={ this.props.screenProps.userData.user_bins }>
+          </UserBinnedHistory>
 
+        </ScrollView>
       </View>
     );
   }
 }
+
 
 export default ProfileScreen;
