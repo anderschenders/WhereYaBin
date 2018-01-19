@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, StyleSheet, ScrollView} from 'react-native';
+import { View, Text, AsyncStorage, StyleSheet, ScrollView, Image, } from 'react-native';
 
 import CommunityHeader from '../components/CommunityHeader';
 import ProfileCard from '../components/ProfileCard';
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight:20,
     marginTop: 20,
-    height: 350,
+    height: 330,
   },
   viewSectionStyle: {
     borderTopWidth: 1,
