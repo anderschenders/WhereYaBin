@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableHighlight, KeyboardAvoidingView  } from 'react-native';
 // import SignUpScreen from './SignUpScreen';
-import { onSignIn } from "../../auth";
+import { onSignIn } from '../../auth';
+import { AWS_URL } from '../../config';
 
 import t from 'tcomb-form-native';
 
@@ -79,7 +80,8 @@ class SignInScreen extends Component {
       console.log('BEFORE FETCH to get user data');
       console.log(new Date().toTimeString());
 
-      const signInURL = `https://whereyabin.herokuapp.com/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`;
+      // const signInURL = `https://whereyabin.herokuapp.com/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`;
+      const signInURL = `${AWS_URL}/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`;
 
       fetch(signInURL, {
         method: 'GET',

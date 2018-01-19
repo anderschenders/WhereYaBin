@@ -8,6 +8,11 @@ import CallOutCard from './CallOutCard';
 import CardSection from './CardSection';
 import Button from './Button';
 
+import { AWS_URL } from '../../config';
+
+// const userBinURL = 'https://whereyabin.herokuapp.com/user_bins';
+const userBinURL = `${AWS_URL}/user_bins`;
+
 class Bin extends Component {
   constructor(props){
     super(props);
@@ -66,8 +71,6 @@ class Bin extends Component {
   postRequest(userID, binID, action) {
     console.log('In postRequest, to create user_bin');
     console.log(new Date().toTimeString());
-
-    const userBinURL = 'https://whereyabin.herokuapp.com/user_bins';
 
     fetch(userBinURL, {
         method: 'POST',

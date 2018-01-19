@@ -124,9 +124,7 @@ class CommunityScreen extends Component {
               </Text>
 
               </View>
-
             </View>
-
           </ScrollView>
         </View>
       </View>

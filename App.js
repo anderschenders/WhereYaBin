@@ -9,6 +9,8 @@ import Polyline from '@mapbox/polyline';
 // import { Icon } from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 
+import { AWS_URL } from './config';
+
 
 let { width, height } = Dimensions.get('window');
 
@@ -16,7 +18,11 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = .01;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 // const RAILSAPI = 'http://localhost:3000/bins';
-const RAILSAPI = 'https://whereyabin.herokuapp.com/bins';
+// const RAILSAPI = 'https://whereyabin.herokuapp.com/bins';
+const RAILSAPI = `${AWS_URL}/bins`;
+
+// const addBinURL = 'https://whereyabin.herokuapp.com/bins';
+const addBinURL = `${AWS_URL}/bins`;
 
 
 export default class App extends Component {
@@ -37,6 +43,7 @@ export default class App extends Component {
       pickerValue: "SELECT",
       userErrorMessage: null,
       userSuccessMessage: null,
+      binsLoaded: false,
     }
 
     // this.watchID = null;
@@ -47,13 +54,18 @@ export default class App extends Component {
     console.log(new Date().toTimeString());
     this.watchID = navigator.geolocation.watchPosition(
       position => {
+
+        if (this.state.binsLoaded) {
+          return;
+        }
+
         let region = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
           error: null,
-        }
+        };
 
         const userLocation = {
           user_lat: region.latitude,
@@ -70,6 +82,9 @@ export default class App extends Component {
 
         console.log('Getting bins from this.props.screenProps.getBins(region)');
         this.props.screenProps.getBins(region);
+        this.setState({
+          binsLoaded: true,
+        });
         // this.fetchBins(region);
         this.onRegionChangeComplete(region);
 
@@ -187,8 +202,6 @@ export default class App extends Component {
       const userID = this.props.screenProps.userData.user.id;
       let newUserData = null;
 
-      const addBinURL = 'https://whereyabin.herokuapp.com/bins';
-
       fetch(addBinURL, {
           method: 'POST',
           headers: {
@@ -269,7 +282,7 @@ export default class App extends Component {
 
     const { mapRegion, bins } = this.state;
 
-    if (mapRegion && this.props.screenProps.communityData) {
+    if (mapRegion &&  this.props.screenProps.communityData && this.props.screenProps.binsData) {
 
       return (
         <View style={styles.viewContainer}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { onSignIn } from "../../auth";
+import { AWS_URL } from '../../config';
 
 import t from 'tcomb-form-native';
 
@@ -76,7 +77,8 @@ class SignUpScreen extends Component {
     console.log('Form data: ', getFormData);
 
     if (getFormData) {
-      const signUpURL = 'https://whereyabin.herokuapp.com/users';
+      // const signUpURL = 'https://whereyabin.herokuapp.com/users';
+      const signUpURL = `${AWS_URL}/users`;
 
       fetch(signUpURL, {
         method: 'POST',

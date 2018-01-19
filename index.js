@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, AsyncStorage } from 'react-native';
 import { MainNavigator, SignedIn } from './router';
 import { isSignedIn, onSignOut } from "./auth";
+import { AWS_URL } from './config';
 
+// const binDataURL = 'https://whereyabin.herokuapp.com/bins';
+const binDataURL = `${AWS_URL}/bins`;
+
+// const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data';
+const communityDataURL = `${AWS_URL}/user_bins/community_data`;
 
 console.disableYellowBox = true;
 
@@ -15,7 +21,7 @@ class WhereYaBin extends Component {
       userData: null,
       welcomeModalVisible: false,
       communityData: null,
-      binsData: [],
+      binsData: null,
     };
   }
 
@@ -34,16 +40,13 @@ class WhereYaBin extends Component {
 
   getBins(region) {
     console.log('@@@@@@@@ In Index.js, getBins(region) @@@@@@@@@');
-    console.log('BEFORE FETCH');
-    console.log(new Date().toTimeString());
-
-    const binDataURL = 'https://whereyabin.herokuapp.com/bins';
+    console.log('BEFORE FETCH', new Date().toTimeString());
 
     fetch(binDataURL)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log('AFTER getBins() FETCH, responseJSON');
-      console.log(new Date().toTimeString());
+      console.log('AFTER getBins() FETCH, responseJSON', new Date().toTimeString());
+
       console.log(responseJson);
 
       this.setState({
@@ -90,14 +93,12 @@ class WhereYaBin extends Component {
     console.log('In getCommunityData(), BEFORE FETCH for community data');
     console.log(new Date().toTimeString());
 
-    const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data';
-
     fetch(communityDataURL, {
       method: 'GET',
     })
     .then((response) => {
-      console.log('AFTER FETCH getCommunityData() API response');
-      console.log(new Date().toTimeString());
+      console.log('AFTER FETCH getCommunityData() API response', new Date().toTimeString());
+      // console.log(new Date().toTimeString());
 
       if (response.status === 200) {
         console.log('getCommunityData() API status 200');
@@ -111,6 +112,8 @@ class WhereYaBin extends Component {
         this.setState({
           communityData: communityDataParsedResponse,
         })
+      } else {
+        console.log('getCommunityData() NOT status 200', new Date().toTimeString(), response.status);
       }
     })
     .catch(err => console.log(err))
