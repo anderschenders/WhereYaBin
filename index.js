@@ -5,7 +5,7 @@ import { isSignedIn, onSignOut } from "./auth";
 import { AWS_URL } from './config';
 
 // const binDataURL = 'https://whereyabin.herokuapp.com/bins';
-const binDataURL = `${AWS_URL}/bins`;
+// const binDataURL = `${AWS_URL}/bins`;
 
 // const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data';
 const communityDataURL = `${AWS_URL}/user_bins/community_data`;
@@ -40,10 +40,15 @@ class WhereYaBin extends Component {
 
   getBins(region) {
     console.log('@@@@@@@@ In Index.js, getBins(region) @@@@@@@@@');
-    console.log('BEFORE FETCH', new Date().toTimeString());
+    console.log('BEFORE FETCH', new Date().toTimeString(), region);
 
     //TODO: fetch only bins in certain vicinity, need user location
-    fetch(binDataURL)
+
+    const binDataURL = `${AWS_URL}/bins?user_lat=${encodeURIComponent(region.latitude)}&user_lng=${encodeURIComponent(region.longitude)}`;
+
+    fetch(binDataURL, {
+      method: 'GET',
+    })
     .then((response) => response.json())
     .then((responseJson) => {
       console.log('AFTER getBins() FETCH, responseJSON', new Date().toTimeString());
@@ -58,6 +63,21 @@ class WhereYaBin extends Component {
       console.log(error);
     });
   }
+  //   fetch(binDataURL)
+  //   .then((response) => response.json())
+  //   .then((responseJson) => {
+  //     console.log('AFTER getBins() FETCH, responseJSON', new Date().toTimeString());
+  //
+  //     console.log(responseJson);
+  //
+  //     this.setState({
+  //       binsData: responseJson,
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
 
   updateAsyncStorage(newUserData) {
     console.log('In updateAsyncStorage()');

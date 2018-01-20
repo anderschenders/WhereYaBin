@@ -59,11 +59,11 @@ class AddBinScreen extends Component {
           console.log('parsedResponse:');
           console.log(parsedResponse);
 
-          newUserData = {
-            user: parsedResponse.updated_user,
-            total_dist: parsedResponse.total_dist,
-            user_bins: parsedResponse.user_bins,
-          }
+          // newUserData = {
+          //   user: parsedResponse.updated_user,
+          //   total_dist: parsedResponse.total_dist,
+          //   user_bins: parsedResponse.user_bins,
+          // }
 
           // set response message
           let userSuccessMessage = null;
@@ -85,7 +85,7 @@ class AddBinScreen extends Component {
             });
           }
 
-          this.props.screenProps.updateAsyncStorage(newUserData);
+          this.props.screenProps.updateAsyncStorage(parsedResponse);
 
         } else {
           console.log('@@@@@ API status 400 response body text: @@@@@');

@@ -1,7 +1,7 @@
 'use strict'; //improved error handling, disables some less-than-ideal JS features
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text, TouchableOpacity, Picker } from 'react-native';
+import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text, TouchableOpacity, Picker, Alert } from 'react-native';
 import MapView from 'react-native-maps';
 import BinMap from './src/components/BinMap';
 import Modal from 'react-native-modal';
@@ -33,17 +33,17 @@ export default class App extends Component {
       mapRegion: null,
       error: null,
       bins: [],
-      modalVisible: false,
-      modalMessage: null,
       coordinates: [],
       binLocation: null,
       userLocation: null,
       welcomeModalVisible: false,
+      binsLoaded: false,
+      modalVisible: false,
+      modalMessage: null,
       addBinModalVisible: false,
       pickerValue: "SELECT",
       userErrorMessage: null,
       userSuccessMessage: null,
-      binsLoaded: false,
     };
 
     // this.watchID = null;
@@ -178,14 +178,26 @@ export default class App extends Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
+  // setModalVisible(message) {
+  //   console.log('In setModalVisible');
+  //   this.setState({ modalVisible: true, modalMessage: message }, () => {
+  //     setTimeout(() => {
+  //       this.setState({ modalVisible: false });
+  //     }
+  //     , 300);
+  //   })
+  // }
+
   setModalVisible(message) {
-    console.log('In setModalVisible');
-    this.setState({ modalVisible: true, modalMessage: message }, () => {
-      setTimeout(() => {
-        this.setState({ modalVisible: false });
-      }
-      , 300);
-    })
+    console.log('In setModalVisible ALERT');
+    console.log(message);
+    Alert.alert(
+      message,
+      // [
+      //   { text: 'OK', onPress: () => console.log('OK pressed') },
+      // ]
+    )
+    console.log('After ALERT');
   }
 
   goToAddBinScreen() {
@@ -196,91 +208,91 @@ export default class App extends Component {
     });
   }
 
-  postAddBin() {
-    console.log('In postAddBin');
-    console.log('BEFORE POST request to add bin');
-    console.log(new Date().toTimeString());
-
-    if (this.state.pickerValue === "SELECT" || this.state.pickerValue === null) {
-      console.log('Invalid pickerValue');
-      this.setState({
-        pickerMessage: 'Please select a bin type',
-      })
-    } else {
-      const userID = this.props.screenProps.userData.user.id;
-      let newUserData = null;
-
-      fetch(addBinURL, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_id: userID,
-            bin_type: this.state.pickerValue,
-            latitude: this.state.userLocation.user_lat,
-            longitude: this.state.userLocation.user_lng,
-          })
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          console.log('AFTER POST to add bin, API status 200');
-          console.log(new Date().toTimeString());
-
-          const parsedResponse = JSON.parse(response._bodyText);
-
-          console.log('parsedResponse:');
-          console.log(parsedResponse);
-
-          newUserData = {
-            user: parsedResponse.updated_user,
-            total_dist: parsedResponse.total_dist,
-            user_bins: parsedResponse.user_bins,
-          }
-
-          // set response message
-          let userSuccessMessage = null;
-          if (parsedResponse.user_message) {
-            modalMessage = `ADDED! ${parsedResponse.user_message} (refresh app to see!)`;
-
-            this.setState({
-              userErrorMessage: null,
-              userSuccessMessage: userSuccessMessage,
-            });
-
-          } else {
-            userSuccessMessage = 'ADDED! (refresh app to see!)';
-              console.log('In modal setState');
-
-            this.setState({
-              userErrorMessage: null,
-              userSuccessMessage: userSuccessMessage,
-            });
-          }
-
-          this.props.screenProps.updateAsyncStorage(newUserData);
-
-        } else {
-          console.log('@@@@@ API status 400 response body text: @@@@@');
-          console.log(response._bodyText);
-
-          const parsedResponse = JSON.parse(response._bodyText);
-          console.log('parsedResponse:');
-          console.log(parsedResponse);
-
-          this.setState({
-            userSuccessMessage: null,
-            userErrorMessage: parsedResponse.errors,
-          })
-        }
-      })
-      .catch((error) => {
-        console.log('error:', error);
-      })
-    }
-  }
+  // postAddBin() {
+  //   console.log('In postAddBin');
+  //   console.log('BEFORE POST request to add bin');
+  //   console.log(new Date().toTimeString());
+  //
+  //   if (this.state.pickerValue === "SELECT" || this.state.pickerValue === null) {
+  //     console.log('Invalid pickerValue');
+  //     this.setState({
+  //       pickerMessage: 'Please select a bin type',
+  //     })
+  //   } else {
+  //     const userID = this.props.screenProps.userData.user.id;
+  //     let newUserData = null;
+  //
+  //     fetch(addBinURL, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Accept': 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           user_id: userID,
+  //           bin_type: this.state.pickerValue,
+  //           latitude: this.state.userLocation.user_lat,
+  //           longitude: this.state.userLocation.user_lng,
+  //         })
+  //       }
+  //     )
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         console.log('AFTER POST to add bin, API status 200');
+  //         console.log(new Date().toTimeString());
+  //
+  //         const parsedResponse = JSON.parse(response._bodyText);
+  //
+  //         console.log('parsedResponse:');
+  //         console.log(parsedResponse);
+  //
+  //         // newUserData = {
+  //         //   user: parsedResponse.updated_user,
+  //         //   total_dist: parsedResponse.total_dist,
+  //         //   user_bins: parsedResponse.user_bins,
+  //         // }
+  //
+  //         // set response message
+  //         let userSuccessMessage = null;
+  //         if (parsedResponse.user_message) {
+  //           modalMessage = `ADDED! ${parsedResponse.user_message} (refresh app to see!)`;
+  //
+  //           this.setState({
+  //             userErrorMessage: null,
+  //             userSuccessMessage: userSuccessMessage,
+  //           });
+  //
+  //         } else {
+  //           userSuccessMessage = 'ADDED! (refresh app to see!)';
+  //             console.log('In modal setState');
+  //
+  //           this.setState({
+  //             userErrorMessage: null,
+  //             userSuccessMessage: userSuccessMessage,
+  //           });
+  //         }
+  //
+  //         this.props.screenProps.updateAsyncStorage(parsedResponse);
+  //
+  //       } else {
+  //         console.log('@@@@@ API status 400 response body text: @@@@@');
+  //         console.log(response._bodyText);
+  //
+  //         const parsedResponse = JSON.parse(response._bodyText);
+  //         console.log('parsedResponse:');
+  //         console.log(parsedResponse);
+  //
+  //         this.setState({
+  //           userSuccessMessage: null,
+  //           userErrorMessage: parsedResponse.errors,
+  //         })
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log('error:', error);
+  //     })
+  //   }
+  // }
 
   render() {
 

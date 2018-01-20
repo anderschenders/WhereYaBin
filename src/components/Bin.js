@@ -8,6 +8,8 @@ import CallOutCard from './CallOutCard';
 import CardSection from './CardSection';
 import Button from './Button';
 
+// import AwesomeAlert from 'react-native-awesome-alerts';
+
 import { AWS_URL } from '../../config';
 
 // const userBinURL = 'https://whereyabin.herokuapp.com/user_bins';
@@ -25,6 +27,7 @@ class Bin extends Component {
       bothTypes: null,
       useBinSuccessMessage: null,
       modalVisible: false,
+      // showAlert: false,
     };
   }
 
@@ -113,8 +116,6 @@ class Bin extends Component {
           modalMessage = 'REPORTED!';
         }
 
-        this.props.setModalVisible(modalMessage);
-
         console.log('binLocation: ');
         console.log(parsedResponse.bin_location);
 
@@ -123,6 +124,7 @@ class Bin extends Component {
 
         // this.props.screenProps.updateAsyncStorage(newUserData);
          this.props.screenProps.updateAsyncStorage(parsedResponse);
+         this.props.setModalVisible(modalMessage);
 
       } else {
         console.log('@@@@@ API status 400 response body text: @@@@@');
@@ -131,6 +133,10 @@ class Bin extends Component {
         const parsedResponse = JSON.parse(response._bodyText);
         console.log('parsedResponse:');
         console.log(parsedResponse);
+
+        const errorMessage = parsedResponse.errors;
+
+        this.props.setModalVisible(errorMessage);
       }
     })
     .catch((error) => {
@@ -236,6 +242,18 @@ class Bin extends Component {
       .catch(err => reject(err));
   }
 
+  // showAlert = () => {
+  //   this.setState({
+  //     showAlert: true,
+  //   });
+  // };
+  //
+  // hideAlert = () => {
+  //   this.setState({
+  //     showAlert: false,
+  //   });
+  // };
+
   render() {
 
     const useGarbageBin = () => { this.useBin('GPUBL'); }
@@ -329,6 +347,48 @@ class Bin extends Component {
               <CardSection>
                 <View style={ styles.binTypeContainerStyle }>
                   <Text style={ styles.textStyle }>
+                    { this.state.binText2 }
+                  </Text>
+                </View>
+              </CardSection>
+
+              <CardSection>
+                <Button
+                  onPress={ useRecyclingBin }
+                  disabled={ this.state.useBinButtondisabled }
+                  accessibilityLabel='Use this bin'
+                >
+                  USE THIS BIN
+                </Button>
+              </CardSection>
+
+              <CardSection>
+                <Button
+                  onPress={ reportFullRecyclingBin }
+                  disabled={ this.state.reportFullBinButtonDisabled }
+                  accessibilityLabel='Report full bin'
+                >
+                  REPORT FULL BIN
+                </Button>
+              </CardSection>
+
+              <CardSection>
+                <Button
+                  onPress={ reportMissingRecyclingBin }
+                  disabled={ this.state.reportFullBinButtonDisabled }
+                  accessibilityLabel='Report missing bin'
+                >
+                  REPORT MISSING BIN
+                </Button>
+              </CardSection>
+            </CallOutCard>
+
+            <View style={ styles.addMargin } />
+
+            <CallOutCard>
+              <CardSection>
+                <View style={ styles.binTypeContainerStyle }>
+                  <Text style={ styles.textStyle }>
                     { this.state.binText }
                   </Text>
                 </View>
@@ -365,47 +425,7 @@ class Bin extends Component {
               </CardSection>
             </CallOutCard>
 
-            <View style={ styles.addMargin } />
 
-            <CallOutCard>
-              <CardSection>
-                <View style={ styles.binTypeContainerStyle }>
-                  <Text style={ styles.textStyle }>
-                    { this.state.binText2 }
-                  </Text>
-                </View>
-              </CardSection>
-
-              <CardSection>
-                <Button
-                  onPress={ useRecyclingBin }
-                  disabled={ this.state.useBinButtondisabled }
-                  accessibilityLabel='Use this bin'
-                >
-                  USE THIS BIN
-                </Button>
-              </CardSection>
-
-              <CardSection>
-                <Button
-                  onPress={ reportFullRecyclingBin }
-                  disabled={ this.state.reportFullBinButtonDisabled }
-                  accessibilityLabel='Report full bin'
-                >
-                  REPORT FULL BIN
-                </Button>
-              </CardSection>
-
-              <CardSection>
-                <Button
-                  onPress={ reportMissingRecyclingBin }
-                  disabled={ this.state.reportFullBinButtonDisabled }
-                  accessibilityLabel='Report missing bin'
-                >
-                  REPORT MISSING BIN
-                </Button>
-              </CardSection>
-            </CallOutCard>
 
             </MapView.Callout>
 
