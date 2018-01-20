@@ -97,11 +97,11 @@ class Bin extends Component {
         console.log('parsedResponse:');
         console.log(parsedResponse);
 
-        newUserData = {
-          user: parsedResponse.updated_user,
-          total_dist: parsedResponse.total_dist,
-          user_bins: parsedResponse.user_bins,
-        }
+        // newUserData = {
+        //   user: parsedResponse.updated_user,
+        //   total_dist: parsedResponse.total_dist,
+        //   user_bins: parsedResponse.user_bins,
+        // }
 
         // set modal message
         let modalMessage = null;
@@ -121,7 +121,8 @@ class Bin extends Component {
         //TODO: disableButton not working
         // this.disableButton();
 
-        this.props.screenProps.updateAsyncStorage(newUserData);
+        // this.props.screenProps.updateAsyncStorage(newUserData);
+         this.props.screenProps.updateAsyncStorage(parsedResponse);
 
       } else {
         console.log('@@@@@ API status 400 response body text: @@@@@');

@@ -44,7 +44,7 @@ export default class App extends Component {
       userErrorMessage: null,
       userSuccessMessage: null,
       binsLoaded: false,
-    }
+    };
 
     // this.watchID = null;
   }
@@ -186,6 +186,14 @@ export default class App extends Component {
       }
       , 300);
     })
+  }
+
+  goToAddBinScreen() {
+    console.log('In goToAddBinScreen');
+    this.props.navigation.navigate('AddBinScreen', {
+      userLocation: this.state.userLocation,
+      userID: this.props.screenProps.userData.user.id,
+    });
   }
 
   postAddBin() {
@@ -388,15 +396,11 @@ export default class App extends Component {
 
           <ActionButton
             buttonColor="rgba(231,76,60,1)"
-            onPress={() => this.setState({
-              addBinModalVisible: true,
-              pickerValue: "SELECT",
-              userSuccessMessage: null,
-              userErrorMessage: null,
-            })}
+            onPress={() => this.goToAddBinScreen() }
             activeOpacity={0.70}
           >
           </ActionButton>
+
 
           <Modal
             isVisible={this.state.addBinModalVisible}

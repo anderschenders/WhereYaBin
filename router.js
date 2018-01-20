@@ -7,6 +7,7 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";
 import ProfileScreen from './src/screens/ProfileScreen';
 import CommunityScreen from './src/screens/CommunityScreen';
+import AddBinScreen from './src/screens/AddBinScreen';
 import App from './App';
 
 export const MainNavigator = StackNavigator({
@@ -26,18 +27,57 @@ export const MainNavigator = StackNavigator({
   },
 });
 
-export const SignedIn = TabNavigator({
+export const MapNavigator = StackNavigator({
 
   App: {
     screen: App,
     navigationOptions: {
+      // title: "Map",
       tabBarLabel: "Map",
+      // header: null,
+    }
+  },
+
+  AddBinScreen: {
+    screen: AddBinScreen,
+    navigationOptions: {
+      // title: "Add Bin",
+      tabBarLabel: "Add Bin",
+      // header: null,
+    }
+  },
+})
+
+export const ProfileScreenNavigator = StackNavigator({
+  ProfileScreen: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
+  }
+})
+
+export const CommuniyScreenNavigator = StackNavigator({
+  CommunityScreen: {
+    screen: CommunityScreen,
+    navigationOptions: {
+      header: null,
+    },
+  }
+})
+
+export const SignedIn = TabNavigator({
+
+  App: {
+    screen: MapNavigator,
+    navigationOptions: {
+      // tabBarLabel: "Map",
       tabBarIcon: ({ tintColor }) => <Icon name="map" size={35} color={tintColor} />
     }
   },
 
   ProfileScreen: {
-    screen: ProfileScreen,
+    screen: ProfileScreenNavigator,
     navigationOptions: {
       tabBarLabel: "Profile", //account-circle
       tabBarIcon: ({ tintColor }) => <Icon name="face" size={35} color={tintColor} />
@@ -45,7 +85,7 @@ export const SignedIn = TabNavigator({
   },
 
   CommunityScreen: {
-    screen: CommunityScreen,
+    screen: CommuniyScreenNavigator,
     navigationOptions: {
       tabBarLabel: "Community",
       tabBarIcon: ({ tintColor }) => <Icon name="group-work" size={35} color={tintColor} />

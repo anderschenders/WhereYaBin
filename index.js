@@ -42,6 +42,7 @@ class WhereYaBin extends Component {
     console.log('@@@@@@@@ In Index.js, getBins(region) @@@@@@@@@');
     console.log('BEFORE FETCH', new Date().toTimeString());
 
+    //TODO: fetch only bins in certain vicinity, need user location
     fetch(binDataURL)
     .then((response) => response.json())
     .then((responseJson) => {
