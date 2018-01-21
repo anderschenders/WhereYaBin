@@ -76,7 +76,7 @@ class AddBinScreen extends Component {
             });
 
           } else {
-            userSuccessMessage = 'ADDED! (refresh app to see!)';
+            userSuccessMessage = 'ADDED!';
               console.log('In modal setState');
 
             this.setState({

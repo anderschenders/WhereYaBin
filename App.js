@@ -99,7 +99,9 @@ export default class App extends Component {
     console.log(binLocation);
     console.log(new Date().toTimeString());
 
-    let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
+    // let currentLocation = `${this.state.mapRegion.latitude},${this.state.mapRegion.longitude}`;
+
+    let currentLocation = `${this.state.userLocation.user_lat},${this.state.userLocation.user_lng}`;
 
     this.getDirections(currentLocation, binLocation);
   }
@@ -134,12 +136,13 @@ export default class App extends Component {
   }
 
   onRegionChangeComplete(region) {
-    //QUESTION: do nothing here? when I try to take this out, errors
-    //
-    // this.setState({
-    //   mapRegion: region,
-    //   error: null,
-    // });
+
+    this.props.screenProps.getBins(region);
+
+    this.setState({
+      mapRegion: region,
+      // ersror: null,
+    });
   }
 
   // fetchBins(region) {
