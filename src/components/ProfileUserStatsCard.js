@@ -17,7 +17,7 @@ const ProfileUserStatsCard = ({ userData }) => {
 
     <View style={ styles.containerViewStyle }>
 
-      <View style={{ backgroundColor: 'white', }}>
+      <View style={{ backgroundColor: 'white', width: 130}}>
         <View style={ styles.profileCardStyles }>
           <Text style={ styles.headerTextStyle }>
             Whatya binned
@@ -25,7 +25,7 @@ const ProfileUserStatsCard = ({ userData }) => {
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'flex-start', }}>
-          <Text style={{ fontSize: 18, marginTop: 13, marginLeft: 40, }}>Total: </Text>
+          <Text style={{ fontSize: 18, marginTop: 13, marginLeft: 31, }}>Total: </Text>
           <Text style={ styles.contentTotalTextStyle }>{userData.use_total}</Text>
         </View>
 
@@ -54,7 +54,7 @@ const ProfileUserStatsCard = ({ userData }) => {
 
       <View style={{ marginLeft: 20, }} />
 
-      <View style={{ backgroundColor: 'white' }}>
+      <View style={{ backgroundColor: 'white', width: 130 }}>
         <View style={ styles.profileCardStyles }>
           <Text style={ styles.headerTextStyle }>
             Whatya found
@@ -62,7 +62,7 @@ const ProfileUserStatsCard = ({ userData }) => {
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'flex-start', }}>
-          <Text style={{ fontSize: 18, marginTop: 13, marginLeft: 40, }}>Total: </Text>
+          <Text style={{ fontSize: 18, marginTop: 13, marginLeft: 34, }}>Total: </Text>
           <Text style={ styles.contentTotalTextStyle }>
             { userData.total_reports }
           </Text>
@@ -123,14 +123,14 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.1,
     // shadowRadius: 2,
     // elevation: 1,
-    // marginLeft: 20,
-    // marginRight:20,
+    marginLeft: 20,
+    marginRight:20,
     // marginTop: 20,
     // marginBottom: 20,
     height: 180,
   },
   profileCardStyles: {
-    width: 160,
+    // width: 140,
     // borderWidth: 1,
     borderRadius: 2,
     borderColor: "#ebf0f0",
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     // marginTop: 1
   },
   headerTextStyle: {
-    fontSize: 20,
+    fontSize: 17,
     textAlign: 'center',
     marginTop: 10,
     marginBottom: 10,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   imageStyle: {
     marginTop: 5,
     marginBottom: 5,
-    marginLeft: 45,
+    marginLeft: 39,
     marginRight: 10,
     height: 33,
     width: 33,

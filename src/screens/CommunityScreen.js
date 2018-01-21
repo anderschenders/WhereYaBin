@@ -34,7 +34,7 @@ class CommunityScreen extends Component {
       <View style={{backgroundColor: '#468CBA', height: '100%'}}>
         <CommunityHeader headerText={ 'Community Stats' } />
 
-        <View style={{height: 500}}>
+        <View style={{flex: 1}}>
           <ScrollView>
 
             <View style={ styles.containerViewStyle }>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight:20,
     marginTop: 20,
-    height: 330,
+    height: 350,
   },
   viewSectionStyle: {
     borderTopWidth: 1,
