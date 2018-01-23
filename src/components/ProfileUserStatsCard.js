@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#37a5b0',
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: 7,
     marginRight: 10,
   },
   contentTotalTextStyle: {
