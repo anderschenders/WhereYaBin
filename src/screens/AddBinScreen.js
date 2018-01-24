@@ -68,7 +68,7 @@ class AddBinScreen extends Component {
           // set response message
           let userSuccessMessage = null;
           if (parsedResponse.user_message) {
-            modalMessage = `ADDED! ${parsedResponse.user_message} (refresh app to see!)`;
+            modalMessage = `ADDED! ${parsedResponse.user_message}`;
 
             this.setState({
               userErrorMessage: null,
