@@ -51,3 +51,7 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+# ignore file with Firebase key
+/services/firebase.js
+/services

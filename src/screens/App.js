@@ -3,13 +3,13 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, ActivityIndicator, Dimensions, Text, TouchableOpacity, Picker, Alert } from 'react-native';
 import MapView from 'react-native-maps';
-import BinMap from './src/components/BinMap';
+import BinMap from '../components/BinMap';
 import Modal from 'react-native-modal';
 import Polyline from '@mapbox/polyline';
 // import { Icon } from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 
-import { AWS_URL } from './config';
+import { AWS_URL } from '../../config';
 
 
 let { width, height } = Dimensions.get('window');

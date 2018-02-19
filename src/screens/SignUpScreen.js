@@ -8,8 +8,8 @@ import t from 'tcomb-form-native';
 const Form = t.form.Form;
 
 const User = t.struct({
-  email: t.String,
   username: t.String,
+  email: t.String,
   password: t.String,
 });
 
@@ -48,7 +48,7 @@ const options = {
       error: 'Please create a username',
     },
     password: {
-      placeholder: 'abc123',
+      placeholder: 'password',
       error: 'Please create a password',
       // password: true,
       secureTextEntry: true,

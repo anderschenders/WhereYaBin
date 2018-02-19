@@ -3,12 +3,13 @@ import { Button } from 'react-native';
 import { StackNavigator,  TabNavigator } from "react-navigation";
 import { Icon } from 'react-native-elements';
 
+import LoginScreen from "./src/screens/LoginScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";
 import ProfileScreen from './src/screens/ProfileScreen';
 import CommunityScreen from './src/screens/CommunityScreen';
 import AddBinScreen from './src/screens/AddBinScreen';
-import App from './App';
+import App from './src/screens/App';
 
 export const MainNavigator = StackNavigator({
 

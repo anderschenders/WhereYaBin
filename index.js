@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, AsyncStorage } from 'react-native';
+import firebase from 'firebase';
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  DATABASE_URL,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGE_ID
+} from './services/firebase';
+
 import { MainNavigator, SignedIn } from './router';
 import { isSignedIn, onSignOut } from "./auth";
 import { AWS_URL } from './config';
 
-// const binDataURL = 'https://whereyabin.herokuapp.com/bins';
-// const binDataURL = `${AWS_URL}/bins`;
-
-// const communityDataURL = 'https://whereyabin.herokuapp.com/user_bins/community_data';
 const communityDataURL = `${AWS_URL}/user_bins/community_data`;
 
-console.disableYellowBox = true;
+//console.disableYellowBox = true;
 
 class WhereYaBin extends Component {
   constructor(props) {
@@ -22,10 +28,33 @@ class WhereYaBin extends Component {
       welcomeModalVisible: false,
       communityData: null,
       binsData: null,
+      loggedIn: false,
     };
   }
 
   componentWillMount() {
+
+    firebase.initializeApp({
+      apiKey: API_KEY,
+      authDomain: AUTH_DOMAIN,
+      databaseURL: DATABASE_URL,
+      projectId: PROJECT_ID,
+      storageBucket: STORAGE_BUCKET,
+      messagingSenderId: MESSAGE_ID
+    });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          loggedIn: true,
+        });
+      } else {
+        this.setState({
+          loggedIn: false,
+        });
+      }
+    });
+
     isSignedIn() //check if user is signed in
       .then(res => {
         return AsyncStorage.getItem("USER_KEY").then(keyValue =>
@@ -156,7 +185,7 @@ class WhereYaBin extends Component {
     console.log(this.state.communityData);
     console.log(new Date().toTimeString());
 
-    const { signedIn } = this.state;
+    const { signedIn, loggedIn } = this.state;
 
     const screenProps = {
       setSignInState: this.setSignInState.bind(this),
@@ -170,7 +199,7 @@ class WhereYaBin extends Component {
       binsData: this.state.binsData,
     };
 
-    if (signedIn) {
+    if (loggedIn) {
       console.log('User is signedIn');
       console.log(signedIn);
 
