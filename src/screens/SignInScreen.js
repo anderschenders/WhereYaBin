@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Button, TouchableHighlight, KeyboardAvoidingVie
 import { Spinner } from '../components/common';
 // import SignUpScreen from './SignUpScreen';
 import { onSignIn } from '../../auth';
-import { AWS_URL } from '../../config';
+import { AWS_URL, LOCAL_HOST_URL } from '../../config';
 
 import t from 'tcomb-form-native';
 
@@ -114,9 +114,28 @@ class SignInScreen extends Component {
 
       firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
-        firebase.auth().currentUser.getIdToken(true)
-        .then((idToken) => {
-          //TODO:send idToken to backend
+        console.log(user);
+        console.log(user.pa);
+        // firebase.auth().currentUser.getIdToken(true)
+        // .then((idToken) => {
+        //   console.log(idToken);
+
+        //TODO:send idToken to backend
+
+        const signInURL = `${LOCAL_HOST_URL}/users/auth?token=${user.pa}`;
+
+        console.log('BEFORE FETCH TO AUTH');
+
+        fetch(signInURL, {
+          method: 'GET',
+        })
+        .then((response) => {
+          console.log('AFTER FETCH TO AUTH SUCCESS');
+          console.log('Response: ', response);
+
+          this.onLoginSuccess(user);
+
+        })
           //   const signInURL = `${AWS_URL}/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`;
           //
           //   fetch(signInURL, {
@@ -166,10 +185,10 @@ class SignInScreen extends Component {
           //     console.log('error:', error);
           //   })
           // }
-        })
-        this.onLoginSuccess(user);
       })
       .catch((error) => {
+        console.log("CATCH");
+        console.log("ERROR: ", error);
         this.onLoginFail(error);
       });
     } else {

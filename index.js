@@ -46,7 +46,7 @@ class WhereYaBin extends Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
-          loggedIn: true,
+          loggedIn: false,
         });
       } else {
         this.setState({
