@@ -46,9 +46,6 @@ const options = {
       placeholder: 'your@email.com',
       error: 'Please enter your email address'
     },
-    // username: {
-    //   placeholder: 'TomatoRose',
-    // },
     password: {
       placeholder: 'password',
       error: 'Please enter your password',
@@ -59,23 +56,20 @@ const options = {
 };
 
 class SignInScreen extends Component {
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      //TODO: how to store these values in form until valid entry?
-      // email: null,
-      // username: null,
-      // password: null,
       error: null,
       loading: false,
-
     }
 
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFail = this.onLoginFail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    console.log("this.props: ", this.props);
+
   }
 
   onLoginSuccess(user) {
@@ -135,66 +129,49 @@ class SignInScreen extends Component {
 
           this.onLoginSuccess(user);
 
+          if (response.status === 200) {
+            console.log('API status 200');
+
+            const parsedResponse = JSON.parse(response._bodyText);
+
+            console.log('parsedResponse:');
+            console.log(parsedResponse);
+
+            onSignIn(parsedResponse).then((res) => {
+              if (res === true) {
+                this.props.screenProps.setSignInState(true);
+                this.props.screenProps.updateAsyncStorage(parsedResponse)
+                this.props.navigation.navigate("App");
+              } else {
+                console.log('sign in didnt work');
+              }
+            })
+
+          } else {
+            console.log('API status 400 response body text:');
+            console.log(new Date().toTimeString());
+            console.log(response._bodyText);
+
+            const parsedResponse = JSON.parse(response._bodyText);
+            console.log(parsedResponse.email);
+
+           // TODO: How to keep values in form until valid entry?
+            this.setState({
+              error: parsedResponse,
+            })
+          }
         })
-          //   const signInURL = `${AWS_URL}/users?email=${encodeURIComponent(getFormData.email)}&password=${encodeURIComponent(getFormData.password)}`;
-          //
-          //   fetch(signInURL, {
-          //     method: 'GET',
-          //   })
-          //   .then((response) => {
-          //     console.log('AFTER FETCH, API response:');
-          //     console.log(response);
-          //     console.log(new Date().toTimeString());
-          //
-          //     if (response.status === 200) {
-          //       console.log('API status 200');
-          //
-          //       const parsedResponse = JSON.parse(response._bodyText);
-          //
-          //       console.log('parsedResponse:');
-          //       console.log(parsedResponse);
-          //
-          //       onSignIn(parsedResponse).then((res) => {
-          //         if (res === true) {
-          //           this.props.screenProps.setSignInState(true);
-          //           this.props.screenProps.updateAsyncStorage(parsedResponse)
-          //           this.props.navigation.navigate("App");
-          //         } else {
-          //           console.log('sign in didnt work');
-          //         }
-          //       })
-          //
-          //     } else {
-          //       console.log('API status 400 response body text:');
-          //       console.log(new Date().toTimeString());
-          //       console.log(response._bodyText);
-          //
-          //       const parsedResponse = JSON.parse(response._bodyText);
-          //       console.log(parsedResponse.email);
-          //
-          //       // TODO: How to keep values in form until valid entry?
-          //       this.setState({
-          //         // email: this._form.getComponent('email').refs.input.focus(),
-          //         // username: this._form.getComponent('username').refs.input.focus(),
-          //         // password: null,
-          //         error: parsedResponse,
-          //       })
-          //     }
-          //   })
-          //   .catch((error) => {
-          //     console.log('error:', error);
-          //   })
-          // }
+        .catch((error) => {
+          console.log('error:', error);
+        })
+
       })
       .catch((error) => {
         console.log("CATCH");
         console.log("ERROR: ", error);
         this.onLoginFail(error);
       });
-    } else {
-
     }
-
   }
 
   renderButton() {

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { onSignIn } from "../../auth";
-import { AWS_URL } from '../../config';
+import { AWS_URL, LOCAL_HOST_URL } from '../../config';
 
 import t from 'tcomb-form-native';
 
@@ -27,7 +28,7 @@ const formStyles = {
       marginBottom: 7,
       fontWeight: '600'
     },
-    // the style applied when a validation error occours
+    // style applied when a validation error occurs
     error: {
       color: 'red',
       fontSize: 18,
@@ -50,7 +51,6 @@ const options = {
     password: {
       placeholder: 'password',
       error: 'Please create a password',
-      // password: true,
       secureTextEntry: true,
     },
   },
@@ -58,76 +58,141 @@ const options = {
 };
 
 class SignUpScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      //TODO: how to store these values in form until valid entry?
-      // email: null,
-      // username: null,
-      // password: null,
       error: null,
+      //loading: false TODO: implement this spinner
     }
+
+    this.onLoginSuccess = this.onLoginSuccess.bind(this);
+    this.onLoginFail = this.onLoginFail.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    console.log("this.props: ", this.props);
   }
 
-  handleSubmit = () => {
+  onLoginSuccess(user) {
+    this.setState({
+      loading: false,
+      error: null,
+    });
+  }
+
+  onLoginFail(error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    this.setState({
+      error: errorMessage,
+      loading: false,
+    });
+  }
+
+  handleSubmit() {
     console.log('@@@@@@@@In SignUpScreen, handleSubmit @@@@@@@@@');
 
     const getFormData = this.refs.form.getValue();
     console.log('Form data: ', getFormData);
 
     if (getFormData) {
-      // const signUpURL = 'https://whereyabin.herokuapp.com/users';
-      const signUpURL = `${AWS_URL}/users`;
 
-      fetch(signUpURL, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(getFormData),
-      })
-      .then((response) => {
-        console.log('API response: ');
-        console.log(response);
+      this.setState({
+        error: null,
+        loading: true,
+      });
 
-        if (response.status === 200) {
-          console.log('API status 200:');
+      const email = getFormData.email;
+      const password = getFormData.password;
+      const username = getFormData.username;
 
-          const parsedResponse = JSON.parse(response._bodyText);
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        //console.log(user);
+        //console.log(user.uid);
+        let uid;
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            console.log(user.uid);
+            uid = user.uid;
 
-          console.log('parsedResponse:');
-          console.log(parsedResponse);
+            let input = {
+              username: username,
+              uid: uid,
+            }
 
-          onSignIn(parsedResponse).then((res) => {
-          if (res === true) {
-            this.props.screenProps.setSignInState(true);
-            this.props.screenProps.updateAsyncStorage(parsedResponse)
-            this.props.screenProps.setWelcomeModal(true);
-            this.props.navigation.navigate("App");
+            console.log(input);
+
+            const signUpURL = `${LOCAL_HOST_URL}/users`;
+
+            fetch(signUpURL, {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(input),
+            })
+            .then((response) => {
+              console.log('API response: ');
+              console.log(response);
+
+              if (response.status === 200) {
+                console.log('API status 200:');
+
+                const parsedResponse = JSON.parse(response._bodyText);
+
+                console.log('parsedResponse:');
+                console.log(parsedResponse);
+
+                onSignIn(parsedResponse).then((res) => {
+                if (res === true) {
+                  console.log("this.props: ", this.props);
+
+                  this.props.screenProps.setSignInState(true);
+                  this.props.screenProps.updateAsyncStorage(parsedResponse)
+                  this.props.screenProps.setWelcomeModal(true);
+                  this.props.navigation.navigate("App");
+                } else {
+                  console.log('sign in didnt work');
+                }
+              })
+
+              } else {
+                console.log('@@@@@ API status 400 response body text: @@@@@');
+                console.log(response._bodyText);
+
+                const parsedResponse = JSON.parse(response._bodyText);
+                console.log(parsedResponse.errors);
+                console.log('parsedResponse.errors.password');
+                console.log(parsedResponse.errors.password);
+                // TODO: How to keep values in form until valid entry?
+                this.setState({
+                  error: parsedResponse.errors,
+                })
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+            })
+
           } else {
-            console.log('sign in didnt work');
+            console.log("User not signed in");
           }
-        })
+        });
 
-        } else {
-          console.log('@@@@@ API status 400 response body text: @@@@@');
-          console.log(response._bodyText);
 
-          const parsedResponse = JSON.parse(response._bodyText);
-          console.log(parsedResponse.errors);
-          console.log('parsedResponse.errors.password');
-          console.log(parsedResponse.errors.password);
-          // TODO: How to keep values in form until valid entry?
-          this.setState({
-            error: parsedResponse.errors,
-          })
-        }
+
       })
       .catch((error) => {
-        console.error(error);
+        //problem with firebase sign up
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(errorMessage);
+        this.onLoginFail(error);
       })
+    } else {
+      console.log("getFormData is false; this should never happen though");
     }
   }
 
@@ -139,8 +204,10 @@ class SignUpScreen extends Component {
     if (this.state.error) {
       let errorMessage = this.state.error;
 
-      for(key in errorMessage) {
-        errorMessage = `${key}: ${errorMessage[key]}`
+      if (errorMessage.constructor === Object) {
+        for(key in errorMessage) {
+          errorMessage = `${key}: ${errorMessage[key]}`
+        }
       }
 
       error = <Text

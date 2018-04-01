@@ -12,9 +12,9 @@ import {
 
 import { MainNavigator, SignedIn } from './router';
 import { isSignedIn, onSignOut } from "./auth";
-import { AWS_URL } from './config';
+import { AWS_URL, LOCAL_HOST_URL } from './config';
 
-const communityDataURL = `${AWS_URL}/user_bins/community_data`;
+const communityDataURL = `${LOCAL_HOST_URL}/user_bins/community_data`;
 
 //console.disableYellowBox = true;
 
@@ -73,7 +73,7 @@ class WhereYaBin extends Component {
 
     //TODO: fetch only bins in certain vicinity, need user location
 
-    const binDataURL = `${AWS_URL}/bins?user_lat=${encodeURIComponent(region.latitude)}&user_lng=${encodeURIComponent(region.longitude)}`;
+    const binDataURL = `${LOCAL_HOST_URL}/bins?user_lat=${encodeURIComponent(region.latitude)}&user_lng=${encodeURIComponent(region.longitude)}`;
 
     fetch(binDataURL, {
       method: 'GET',
@@ -199,7 +199,7 @@ class WhereYaBin extends Component {
       binsData: this.state.binsData,
     };
 
-    if (loggedIn) {
+    if (signedIn) {
       console.log('User is signedIn');
       console.log(signedIn);
 

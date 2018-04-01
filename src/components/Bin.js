@@ -10,10 +10,10 @@ import Button from './Button';
 
 // import AwesomeAlert from 'react-native-awesome-alerts';
 
-import { AWS_URL } from '../../config';
+import { AWS_URL, LOCAL_HOST_URL } from '../../config';
 
 // const userBinURL = 'https://whereyabin.herokuapp.com/user_bins';
-const userBinURL = `${AWS_URL}/user_bins`;
+const userBinURL = `${LOCAL_HOST_URL}/user_bins`;
 
 class Bin extends Component {
   constructor(props){
