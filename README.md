@@ -9,3 +9,12 @@ This is a repository for WhereYa, Bin? - a garbage and recycling bin finder for 
 3. [Trello Board](https://trello.com/b/ChxLCXUn/whereya-bin)
 4. [Back End](https://github.com/anderschenders/WhereYaBinAPI)
 
+### Screenshots
+
+Binned Action             |  Report Action
+:-------------------------:|:-------------------------:
+<img src="https://github.com/anderschenders/WhereYaBin/blob/master/Binned.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/Binned.gif" width="400" height="700" />  |  <img src="https://github.com/anderschenders/WhereYaBin/blob/master/Report.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/Report.gif" width="400" height="700" />
+
+User Profile and Community Page             |  Save Action
+:-------------------------:|:-------------------------:
+<img src="https://github.com/anderschenders/WhereYaBin/blob/master/ProfileCommunityPages.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/ProfileCommunityPages.gif" width="400" height="700" />  |  <img src="https://github.com/anderschenders/WhereYaBin/blob/master/Save.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/Save.gif" width="400" height="700" />
