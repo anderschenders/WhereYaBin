@@ -13,8 +13,8 @@ This is a repository for WhereYa, Bin? - a garbage and recycling bin finder for 
 
 Binned Action             |  Report Action
 :-------------------------:|:-------------------------:
-<img src="https://github.com/anderschenders/WhereYaBin/blob/master/BinnedAction.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/BinnedAction.gif" width="400" height="700" />  |  <img src="https://github.com/anderschenders/WhereYaBin/blob/master/ReportAction.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/ReportAction.gif" width="400" height="700" />
+<img src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/BinnedAction.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/BinnedAction.gif" width="400" height="700" />  |  <img src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/ReportAction.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/ReportAction.gif" width="400" height="700" />
 
 User Profile and Community Page             |  Save Action
 :-------------------------:|:-------------------------:
-<img src="https://github.com/anderschenders/WhereYaBin/blob/master/ProfilePages.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/ProfilePages.gif" width="400" height="700" />  |  <img src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/Save.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/Save.gif" width="400" height="700" />
+<img src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/ProfilePages.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/ProfilePages.gif" width="400" height="700" />  |  <img src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/SaveAction.gif" data-canonical-src="https://github.com/anderschenders/WhereYaBin/blob/master/screenshots/SaveAction.gif" width="400" height="700" />
